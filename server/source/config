@@ -1,0 +1,17 @@
+root = "./"
+logic_root = root.."../great_fighter/"
+thread = 8
+logger = "user_log"
+logservice = "snlua"
+logpath = "."
+harbor = 0
+address = "192.168.1.108"
+start = "main"	-- main script
+bootstrap = "snlua bootstrap"	-- The service for bootstrap
+luaservice = root.."service/?.lua;"..root.."test/?.lua;"..logic_root.."?.lua"
+lualoader = "lualib/loader.lua"
+lua_path = root.."lualib/?.lua;./lualib/?/init.lua;"..logic_root.."?.lua"
+snax = root.."examples/?.lua;"..root.."test/?.lua"
+cpath = root.."cservice/?.so"
+
+
