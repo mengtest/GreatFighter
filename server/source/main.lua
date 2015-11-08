@@ -2,10 +2,13 @@ local skynet = require "skynet"
 local util = require "lib.util"
 
 skynet.start(function()
-	skynet.fork(function()
-			while true do
-				util.log_info("log test : hello skynet")
-				skynet.sleep(100)
-			end
-		end)
+	util.log_info("gate server test")
+
+	local gateproxy = skynet.newservice("gateproxy")
+	skynet.call(gateproxy, "lua", "start", {
+			address = "192.168.1.110",
+			port = 8888,
+			maxclient = 1024,
+			nodelay = true,
+		})
 end)
