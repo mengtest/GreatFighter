@@ -1,2 +1,4 @@
 /client/GameClient/Debug
 /client/GameClient/Release
+/client/Library
+/client/obj
