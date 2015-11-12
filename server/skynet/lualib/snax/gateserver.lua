@@ -129,6 +129,7 @@ function gateserver.start(handler)
 		dispatch = function (_, _, q, type, ...)
 			queue = q
 			if type then
+				skynet.error(string.format("MSG type %s", type))
 				MSG[type](...)
 			end
 		end

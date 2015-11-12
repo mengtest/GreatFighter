@@ -1,6 +1,7 @@
 local skynet = require "skynet"
 local util = require "lib.util"
 local socket = require "socket"
+local netpack = require "netpack"
 
 local CMD = {}
 local gateproxy
