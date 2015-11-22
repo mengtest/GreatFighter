@@ -1,0 +1,165 @@
+fileFormatVersion: 2
+guid: 7ad7c7b199bb0a943bb9a2bfbb888bcd
+timeCreated: 1447596172
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Kyo Kusanagi_0740
+    21300002: Kyo Kusanagi_0741
+    21300004: Kyo Kusanagi_0750
+    21300006: Kyo Kusanagi_0751
+    21300008: Kyo Kusanagi_0752
+    21300010: Kyo Kusanagi_0753
+    21300012: Kyo Kusanagi_0754
+    21300014: Kyo Kusanagi_0755
+    21300016: Kyo Kusanagi_0756
+    21300018: Kyo Kusanagi_0757
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 4096
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Kyo Kusanagi_0740
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 3
+        width: 409
+        height: 363
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Kyo Kusanagi_0741
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 3
+        width: 409
+        height: 363
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Kyo Kusanagi_0750
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 368
+        width: 409
+        height: 363
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Kyo Kusanagi_0751
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 368
+        width: 409
+        height: 363
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Kyo Kusanagi_0752
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 733
+        width: 409
+        height: 363
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Kyo Kusanagi_0753
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 733
+        width: 409
+        height: 363
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Kyo Kusanagi_0754
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 1098
+        width: 409
+        height: 363
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Kyo Kusanagi_0755
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1098
+        width: 409
+        height: 363
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Kyo Kusanagi_0756
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 1463
+        width: 409
+        height: 363
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Kyo Kusanagi_0757
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1463
+        width: 409
+        height: 363
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,20 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: Move.png (824 x 1828)
+# $TexturePacker:SmartUpdate:5721f98878025ed9cfa2d08d8c3d2626:92be727443bb31d533b9e72a581bab60:9ea2b05b93f05d5557afdbc33fe023af$
+#
+
+Kyo Kusanagi_0740;413;3;409;363;0.5;0.5
+Kyo Kusanagi_0741;2;3;409;363;0.5;0.5
+Kyo Kusanagi_0750;413;368;409;363;0.5;0.5
+Kyo Kusanagi_0751;2;368;409;363;0.5;0.5
+Kyo Kusanagi_0752;413;733;409;363;0.5;0.5
+Kyo Kusanagi_0753;2;733;409;363;0.5;0.5
+Kyo Kusanagi_0754;413;1098;409;363;0.5;0.5
+Kyo Kusanagi_0755;2;1098;409;363;0.5;0.5
+Kyo Kusanagi_0756;413;1463;409;363;0.5;0.5
+Kyo Kusanagi_0757;2;1463;409;363;0.5;0.5
