@@ -2,3 +2,5 @@
 /client/GameClient/Release
 /client/Library
 /client/obj
+/client/Root/obj
+/client/Root/Library
