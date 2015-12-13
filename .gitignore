@@ -4,3 +4,5 @@
 /client/obj
 /client/Root/obj
 /client/Root/Library
+/client/Framework/Network/Network/obj
+/client/Framework/Network/Network/bin
