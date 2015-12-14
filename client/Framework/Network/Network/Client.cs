@@ -19,7 +19,6 @@ namespace Network
         private const int MAX_BUFFER_SIZE = 65535;
 
         private byte[] mReceiveBuffer = new byte[MAX_BUFFER_SIZE];
-        private byte[] mSendBuffer = new byte[MAX_BUFFER_SIZE];
 
         private Queue<SpRpcResult> mReceiveQueue = new Queue<SpRpcResult>();
 
@@ -74,7 +73,7 @@ namespace Network
             spStream.Buffer[0] = (byte)((len >> 8) & 0xff);
             spStream.Buffer[1] = (byte)(len & 0xff);
 
-            mSocket.BeginSend(mSendBuffer, 0, mSendBuffer.Length, SocketFlags.None, new AsyncCallback(SendRequestCallback), this);
+            mSocket.BeginSend(spStream.Buffer, 0, spStream.Length, SocketFlags.None, new AsyncCallback(SendRequestCallback), this);
         }
 
         public Queue<SpRpcResult> GetAndClearReceiveQueue()

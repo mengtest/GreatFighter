@@ -52,7 +52,7 @@ namespace Network
             mClient.Start("192.168.1.110", 8888, "package", s2c, c2s);
 
             SpObject spObject = new SpObject();
-            spObject.Insert("what", "Hello World");
+            spObject.Insert("what", "Manistein");
 
             mClient.SendRequest("get", spObject);
         }
