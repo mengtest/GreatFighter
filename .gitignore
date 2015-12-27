@@ -6,3 +6,6 @@
 /client/Root/Library
 /client/Framework/Network/Network/obj
 /client/Framework/Network/Network/bin
+/client/Framework/NetworkCpp/NetworkCpp/Debug
+/client/Framework/NetworkCpp/NetworkCpp.sdf
+/client/Framework/NetworkCpp/Debug
