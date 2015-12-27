@@ -62,6 +62,17 @@ namespace Network
             return result;
         }
 
+        public void SendData(string data)
+        {
+            string totalSendData = "00" + data;
+            byte[] totalSendBytes = Encoding.ASCII.GetBytes(totalSendData);
+
+            totalSendBytes[0] = (byte)((data.Length >> 8) & 0xff);
+            totalSendBytes[1] = (byte)(data.Length & 0xff);
+
+            mSocket.BeginSend(totalSendBytes, 0, totalSendBytes.Length, SocketFlags.None, new AsyncCallback(SendRequestCallback), this);
+        }
+
         public void SendRequest(string protocolName, SpObject spObject)
         {
             mSession++;
