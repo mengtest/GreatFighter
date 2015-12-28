@@ -128,10 +128,12 @@ void NetworkClient::sendThreadLoop()
         sendData[1] = (char)(sendLen & 0xff);
         unlockSend();
 
+        const char* buff = sendData.c_str();
+        int totalLen = (int)sendData.length();
         int sendSize = 0;
-        while (sendSize < (int)sendData.length())
+        while (sendSize < totalLen)
         {
-            int size = send(m_socket, (const char*)sendData.data(), sendData.length(), 0);
+            int size = send(m_socket, buff + sendSize, totalLen - sendSize, 0);
 
             sendSize += size;
 
