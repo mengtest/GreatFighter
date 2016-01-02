@@ -19,7 +19,6 @@ end
 
 function util.log_info(formatstring, ...)
 	local message = string.format(formatstring, ...)
-
 	skynet.error(message)
 end
 

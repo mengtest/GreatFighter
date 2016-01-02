@@ -33,6 +33,7 @@ function SOCKET.open(fd, addr)
 end
 
 function SOCKET.data(fd, data)
+	util.log_info("socket data")
 end
 
 function SOCKET.error(fd, msg)
