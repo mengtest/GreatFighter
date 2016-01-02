@@ -22,9 +22,13 @@ public:
 
     static NetworkClient* getInstance();
 
-    void start(const string& serverIP, int port, const std::function<void(NetworkError)>& errorFunction);
+    void start(
+        const string& serverIP, 
+        int port, 
+        const std::function<void(const string&)>& recvFunction,
+        const std::function<void(NetworkError)>& errorFunction
+        );
     void sendRequest(const string& request);
-    queue<string> popRecvQueue();
 
 private:
     bool init();
@@ -49,6 +53,7 @@ private:
     std::thread m_recvThread;
 
     std::function<void(NetworkError)> m_errorFunction;
+    std::function<void(const string&)> m_recvFunction;
 
     NetworkClient();
     NetworkClient(const NetworkClient&);

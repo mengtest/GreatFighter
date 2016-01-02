@@ -30,9 +30,14 @@ bool NetworkClient::init()
     return true;
 }
 
-void NetworkClient::start(const string& serverIP, int port, const std::function<void(NetworkError)>& errorFunction)
+void NetworkClient::start(
+    const string& serverIP, 
+    int port, 
+    const std::function<void(const string&)>& recvFunction, 
+    const std::function<void(NetworkError)>& errorFunction)
 {
     m_errorFunction = errorFunction;
+    m_recvFunction = recvFunction;
 
     // only for windows
     WSADATA dllData;
@@ -91,20 +96,6 @@ void NetworkClient::sendRequest(const string& request)
     lockSend();
     m_sendQueue.push(request);
     unlockSend();
-}
-
-queue<string> NetworkClient::popRecvQueue()
-{
-    waitRecvLockRelease();
-
-    lockRecv();
-
-    queue<string> result;
-    result = m_recvQueue;
-
-    unlockRecv();
-
-    return result;
 }
 
 void NetworkClient::sendThreadLoop()
@@ -199,6 +190,15 @@ void NetworkClient::recvThreadLoop()
             read += size;
         }
         
+        int queueLen = (int)m_recvQueue.size();
+        for (int i = 0; i < queueLen; i++)
+        {
+            auto value = m_recvQueue.front();
+            m_recvQueue.pop();
+
+            m_recvFunction(value);
+        }
+
         unlockRecv();
     }
 }
