@@ -6,9 +6,12 @@ void networkError(NetworkError error)
     cout << "error" << endl;
 }
 
-void onRecv(const string& value)
+void onRecv(const list<string>& recvQueue)
 {
-    cout << value << endl;
+    for (auto& data : recvQueue)
+    {
+        cout << "recv data " << data << endl;
+    }
 }
 
 void main()
@@ -18,8 +21,10 @@ void main()
 
     while (true)
     {
-        network->sendRequest("Hello World");
+        string request;
 
-        Sleep(1000);
+        cin >> request;
+
+        network->sendRequest(request);
     }
 }

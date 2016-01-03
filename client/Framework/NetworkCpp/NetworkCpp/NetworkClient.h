@@ -4,6 +4,7 @@
 #include <queue>
 #include <string>
 #include <functional>
+#include <list>
 using namespace std;
 
 #include <winsock.h>
@@ -12,7 +13,7 @@ using namespace std;
 #include "NetworkError.h"
 #include <stdlib.h>
 
-const int MAX_BUFFER_SIZE = 4096;
+const int MAX_BUFFER_SIZE = 65535;
 const int RECV_LEN = 255;
 
 class NetworkClient
@@ -25,7 +26,7 @@ public:
     void start(
         const string& serverIP, 
         int port, 
-        const std::function<void(const string&)>& recvFunction,
+        const std::function<void(const list<string>&)>& recvFunction,
         const std::function<void(NetworkError)>& errorFunction
         );
     void sendRequest(const string& request);
@@ -46,14 +47,14 @@ private:
     queue<string> m_sendQueue;
     bool m_sendLock = false;
 
-    queue<string> m_recvQueue;
+    list<string> m_recvQueue;
     bool m_recvLock = false;
 
     std::thread m_sendThread;
     std::thread m_recvThread;
 
     std::function<void(NetworkError)> m_errorFunction;
-    std::function<void(const string&)> m_recvFunction;
+    std::function<void(const list<string>&)> m_recvFunction;
 
     NetworkClient();
     NetworkClient(const NetworkClient&);

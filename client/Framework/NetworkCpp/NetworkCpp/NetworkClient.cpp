@@ -33,7 +33,7 @@ bool NetworkClient::init()
 void NetworkClient::start(
     const string& serverIP, 
     int port, 
-    const std::function<void(const string&)>& recvFunction, 
+    const std::function<void(const list<string>&)>& recvFunction,
     const std::function<void(NetworkError)>& errorFunction)
 {
     m_errorFunction = errorFunction;
@@ -146,8 +146,8 @@ void NetworkClient::recvThreadLoop()
 {
     while (true)
     {
-        char recvBuffer[MAX_BUFFER_SIZE] = {};
-        int result = recv(m_socket, recvBuffer, RECV_LEN, 0);
+        char buffer[MAX_BUFFER_SIZE] = {};
+        int result = recv(m_socket, buffer, RECV_LEN, 0);
         if (result == 0)
         {
             m_errorFunction(NetworkError::LostConnection);
@@ -168,36 +168,29 @@ void NetworkClient::recvThreadLoop()
 
         lockRecv();
 
-        string buffer(recvBuffer);
-        int receiveLength = (int)buffer.length();
+        int receiveLength = result;
         int read = 0;
 
         while (receiveLength > read)
         {
-            if (read >= (int)buffer.length() - 1)
+            if (read >= result - 1)
             {
                 break;
             }
 
-            int size = (buffer[read] | buffer[read + 1] << 8);
+            int size = (buffer[read] << 8 | buffer[read + 1]);
             read += 2;
 
             if (receiveLength >= read + size)
             {
-                m_recvQueue.push(buffer);
+                m_recvQueue.push_back(buffer + 2);
             }
 
             read += size;
         }
-        
-        int queueLen = (int)m_recvQueue.size();
-        for (int i = 0; i < queueLen; i++)
-        {
-            auto value = m_recvQueue.front();
-            m_recvQueue.pop();
 
-            m_recvFunction(value);
-        }
+        m_recvFunction(m_recvQueue);
+        m_recvQueue.clear();
 
         unlockRecv();
     }
