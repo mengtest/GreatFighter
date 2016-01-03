@@ -24,8 +24,12 @@ function CMD.kill()
 end
 
 local function on_recv(msg)
-	util.log_info("recv from client msg = %s", msg)
-	-- socket.write(client_id, msg)
+	util.log_info("client_id = %d, recv from client msg = %s", client_id, msg)
+
+	local package = string.pack(">s2", msg)
+
+	util.log_info("client_id = %d, recv from client msg = %s", client_id, package)
+	socket.write(client_id, package)
 end
 
 skynet.register_protocol {
