@@ -9,9 +9,14 @@ NetworkClient::NetworkClient()
 
 NetworkClient::~NetworkClient()
 {
-    closesocket(m_socket);
 
+#ifdef WINDOWS_DEV
+    closesocket(m_socket);
     WSACleanup();
+#else
+    close(m_socket);
+#endif
+
 }
 
 NetworkClient* NetworkClient::getInstance()
@@ -39,6 +44,7 @@ void NetworkClient::start(
     m_errorFunction = errorFunction;
     m_recvFunction = recvFunction;
 
+#ifdef WINDOWS_DEV
     // only for windows
     WSADATA dllData;
     int error = WSAStartup(MAKEWORD(2, 0), &dllData);
@@ -48,6 +54,7 @@ void NetworkClient::start(
 
         return;
     }
+#endif
 
     m_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (m_socket == -1)

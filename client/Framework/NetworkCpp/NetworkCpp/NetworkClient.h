@@ -7,7 +7,12 @@
 #include <list>
 using namespace std;
 
+#ifdef WINDOWS_DEV
 #include <winsock.h>
+#else
+#include <sys/socket.h>
+#endif
+
 #include <errno.h>
 
 #include "NetworkError.h"
