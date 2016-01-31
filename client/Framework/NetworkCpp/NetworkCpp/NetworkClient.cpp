@@ -111,12 +111,13 @@ void NetworkClient::sendThreadLoop()
     {
         waitSendLockRelease();
 
+        lockSend();
         if (m_sendQueue.empty())
         {
+            unlockSend();
             continue;
         }
 
-        lockSend();
         string sendString = m_sendQueue.front();
         m_sendQueue.pop();
 
