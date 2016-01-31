@@ -56,7 +56,7 @@ private:
     void lockRecv();
     void unlockRecv();
 
-    SOCKET m_socket;
+    int m_socket = 0;
 
     queue<string> m_sendQueue;
     bool m_sendLock = false;
