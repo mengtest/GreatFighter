@@ -26,6 +26,7 @@ using namespace std;
 
 #include "NetworkError.h"
 #include <stdlib.h>
+#include <mutex>
 
 const int MAX_BUFFER_SIZE = 65535;
 const int RECV_LEN = 255;
@@ -49,8 +50,6 @@ private:
     bool init();
     void sendThreadLoop();
     void recvThreadLoop();
-    void waitSendLockRelease();
-    void waitRecvLockRelease();
     void lockSend();
     void unlockSend();
     void lockRecv();
@@ -59,10 +58,10 @@ private:
     int m_socket = 0;
 
     queue<string> m_sendQueue;
-    bool m_sendLock = false;
+    std::mutex m_sendLock;
 
     list<string> m_recvQueue;
-    bool m_recvLock = false;
+    std::mutex m_recvLock;
 
     std::thread m_sendThread;
     std::thread m_recvThread;

@@ -98,8 +98,6 @@ void NetworkClient::start(
 
 void NetworkClient::sendRequest(const string& request)
 {
-    waitSendLockRelease();
-
     lockSend();
     m_sendQueue.push(request);
     unlockSend();
@@ -109,8 +107,6 @@ void NetworkClient::sendThreadLoop()
 {
     while (true)
     {
-        waitSendLockRelease();
-
         lockSend();
         if (m_sendQueue.empty())
         {
@@ -172,8 +168,6 @@ void NetworkClient::recvThreadLoop()
             break;
         }
 
-        waitRecvLockRelease();
-
         lockRecv();
 
         int receiveLength = result;
@@ -204,38 +198,22 @@ void NetworkClient::recvThreadLoop()
     }
 }
 
-void NetworkClient::waitSendLockRelease()
-{
-    while (m_sendLock)
-    {
-        // just block
-    }
-}
-
-void NetworkClient::waitRecvLockRelease()
-{
-    while (m_recvLock)
-    {
-        // just block
-    }
-}
-
 void NetworkClient::lockSend()
 {
-    m_sendLock = true;
+    m_sendLock.lock();
 }
 
 void NetworkClient::unlockSend()
 {
-    m_sendLock = false;
+    m_sendLock.unlock();
 }
 
 void NetworkClient::lockRecv()
 {
-    m_recvLock = true;
+    m_recvLock.lock();
 }
 
 void NetworkClient::unlockRecv()
 {
-    m_recvLock = false;
+    m_recvLock.unlock();
 }
