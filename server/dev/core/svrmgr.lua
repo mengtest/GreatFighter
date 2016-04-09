@@ -13,6 +13,9 @@ function svrmgr:ctor()
 	self.commands = {}
 end
 
+function svrmgr:init()
+end
+
 function svrmgr:register(command, func)
 	self.commands[command] = function(...)
 		func(self, ...)
