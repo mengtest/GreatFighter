@@ -4,34 +4,75 @@
 	since:2016-4-9
 ]]
 
-local skynetx = require "dev.core.skynetx"
-local gate = require "dev.core.svrmgr"
+local skynet = require "skynet"
+local log = require "dev.core.log"
 
-function gate:ctor()
+local socket = {}
+local commands = {}
+local gate
+
+local agents = {}
+
+local function closeSocket(fd)
+	if not agents[fd] then
+		log.info("fd = %d is not exist", fd)
+		return
+	end
+
+	log.info("close cliend fd = %d", fd)
+
+	skynet.call(gate, "lua", "kick", fd)
+	skynet.send(agents[fd], "lua", "kill")
+
+	agents[fd] = nil
 end
 
-function gate:init()
-	self:register("connect", self.connect)
-	self:register("message", self.message)
-	self:register("error", self.error)
-	self:register("disconnect", self.disconnect)
+function socket.open(fd, addr)
+	log.info("fd = %d addr = %s new agent", fd, addr)
+
+	if agents[fd] then
+		log.info("fd = %d addr = %s is already exist", fd, addr)
+	else
+		agents[fd] = skynet.newservice("agent")
+		skynet.call(agents[fd], "lua", "start", { gate = gate, client = fd, gateproxy = skynet.self() })
+	end
 end
 
-function gate:connect()
+function socket.data(fd, data)
+	log.info("socket data")
 end
 
-function gate:message()
+function socket.error(fd, msg)
+	closeSocket(fd)
 end
 
-function gate:error()
+function socket.warning(fd, size)
 end
 
-function gate:disconnect()
+function socket.close(fd)
+	closeSocket(fd)
 end
 
-function gate:push()
+function commands.start(conf)
+	log.info("gateproxy start")
+
+	skynet.call(gate, "lua", "open", conf)
 end
 
-skynetx.start(function()
-	skynetx.create(gate.new())
+function commands.close(fd)
+	closeSocket(fd)
+end
+
+skynet.start(function()
+	skynet.dispatch("lua", function(session, source, cmd, subcmd, ...)
+		if cmd == "socket" then
+			local functor = assert(socket[subcmd], subcmd)
+			functor(...)
+		else
+			local functor = assert(commands[cmd], cmd)
+			skynet.ret(skynet.pack(functor(subcmd, ...)))
+		end
+	end)
+
+	gate = skynet.newservice("gate")
 end)
