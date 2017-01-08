@@ -7,16 +7,17 @@
  local igskynet = require "common.core.igskynet"
  local log = require "common.core.log"
  local cluster = require "cluster"
+ local const = require "common.const"
 
  igskynet.start(function()
     log.info("server|gamecenter|start...")
 
     igskynet.newservice("debug_console", 8001)
-    local flowAddr = igskynet.uniqueservice("gamecenter/masterflow")
+    local flowAddr = igskynet.uniqueservice("gamecenter/service/masterflow")
 
     igskynet.call(flowAddr, "lua", "dostart")
 
-    cluster.open(igskynet.getenv("node_name"))
+    cluster.open(const.NODE_GAME_CENTER)
 
     log.info("server|gamecenter|booted")
  end)

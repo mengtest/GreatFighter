@@ -7,6 +7,7 @@
 local igskynet = require "common.core.igskynet"
 local class = require "common.core.class"
 local flow = require "common.flow.base"
+local const = require "common.const"
 
 local masterflow = class(flow)
 
@@ -14,7 +15,7 @@ function masterflow:ctor()
 end
 
 function masterflow:onEnter()
-	igskynet.name(igskynet.self(), ".masterflow")
+	igskynet.name(igskynet.self(), const.MASTER_FLOW)
 end
 
 function masterflow:onStopFinish(serviceAddr)

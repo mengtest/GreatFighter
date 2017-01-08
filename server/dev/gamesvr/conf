@@ -12,4 +12,7 @@ luaservice = root.."../skynet/service/?.lua;"..lroot.."/?/service/?.lua;"
 lua_cpath = root.."../skynet/luaclib/?.so;"
 lua_path = root.."../skynet/lualib/?.lua;../skynet/lualib/?/init.lua;"
 
-cluster = lroot.."/common/config/clustername.lua"
+cluster = lroot.."/res/config/clustername.lua"
+
+node_idx = 1
+debug_console_port = 8002
