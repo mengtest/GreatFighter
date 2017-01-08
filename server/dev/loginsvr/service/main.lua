@@ -20,4 +20,5 @@
     cluster.open(const.NODE_LOGIN_SVR)
 
     log.info("server|loginsvr|booted")
+    igskynet.exit()
  end)

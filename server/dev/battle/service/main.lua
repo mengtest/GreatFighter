@@ -20,4 +20,5 @@
     cluster.open(const.NODE_BATTLE .. igskynet.getenv("node_idx"))
 
     log.info("server|battle" .. igskynet.getenv("node_idx") .. "|booted")
+    igskynet.exit()
  end)

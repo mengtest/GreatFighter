@@ -20,4 +20,5 @@
     cluster.open(const.NODE_VERIFY .. igskynet.getenv("node_idx"))
 
     log.info("server|verify" .. igskynet.getenv("node_idx") .. "|booted")
+    igskynet.exit()
  end)

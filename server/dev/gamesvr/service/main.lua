@@ -20,4 +20,5 @@
     cluster.open(const.NODE_GAME_SVR .. igskynet.getenv("node_idx"))
 
     log.info("server|gamesvr" .. igskynet.getenv("node_idx") .. "|booted")
+    igskynet.exit()
  end)

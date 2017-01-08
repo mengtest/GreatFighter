@@ -20,4 +20,6 @@
     cluster.open(const.NODE_GAME_CENTER)
 
     log.info("server|gamecenter|booted")
+
+    igskynet.exit()
  end)

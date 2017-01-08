@@ -22,7 +22,8 @@ end
 
 function slaveflow:onStopFinish(serviceAddr)
 	if self.exitNotifyCount >= #self.addrs then
-		igskynet.send("masterflow", "onExitNotify", igskynet.self())
+        local proxy = cluster.proxy(const.NODE_GAME_CENTER, const.MASTER_FLOW)
+		igskynet.send(proxy, "onExitNotify", igskynet.self())
 	end
 end
 
