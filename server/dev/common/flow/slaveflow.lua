@@ -4,9 +4,9 @@
 	since:2016-11-27
 ]]
 
-local igskynet = require "dev.common.core.igskynet"
-local class = require "dev.common.core.class"
-local flow = require "dev.common.flow.base"
+local igskynet = require "common.core.igskynet"
+local class = require "common.core.class"
+local flow = require "common.flow.base"
 
 local slaveflow = class(flow)
 

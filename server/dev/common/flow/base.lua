@@ -4,9 +4,9 @@
 	since:2016-11-27
 ]]
 
-local igskynet = require "dev.common.core.igskynet"
-local class = require "dev.common.core.class"
-local svrbase = require "dev.common.core.svrbase"
+local igskynet = require "common.core.igskynet"
+local class = require "common.core.class"
+local svrbase = require "common.core.svrbase"
 local flow = class(svrbase)
 
 function flow:ctor()

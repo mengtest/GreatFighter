@@ -4,7 +4,7 @@
 	since:2016-11-27
 ]]
 
-local class = require "dev.common.core.class"
+local class = require "common.core.class"
 
 local svrbase = class()
 
