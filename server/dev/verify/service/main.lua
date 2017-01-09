@@ -13,7 +13,7 @@
     log.info("server|verify" .. igskynet.getenv("node_idx") .. "|start...")
 
     igskynet.newservice("debug_console", igskynet.getenv("debut_console_port"))
-    local flowAddr = igskynet.uniqueservice("verify/service/slaveflow")
+    local flowAddr = igskynet.uniqueservice("slaveflow")
 
     igskynet.call(flowAddr, "lua", "dostart")
 

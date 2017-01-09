@@ -5,6 +5,7 @@
 ]]
 
 local skynet = require "skynet"
+require "skynet.manager"	-- import skynet.name
 
 local PROTO_NAME = "lua"
 local PROTO_TYPE = {}

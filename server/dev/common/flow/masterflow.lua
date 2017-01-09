@@ -15,7 +15,7 @@ function masterflow:ctor()
 end
 
 function masterflow:onEnter()
-	igskynet.name(igskynet.self(), const.MASTER_FLOW)
+	igskynet.name(const.MASTER_FLOW, igskynet.self())
 end
 
 function masterflow:onStopFinish(serviceAddr)

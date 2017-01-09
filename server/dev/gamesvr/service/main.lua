@@ -13,7 +13,7 @@
     log.info("server|gamesvr" .. igskynet.getenv("node_idx") .. "|start...")
 
     igskynet.newservice("debug_console", igskynet.getenv("debug_console_port"))
-    local flowAddr = igskynet.uniqueservice("gamesvr/service/slaveflow")
+    local flowAddr = igskynet.uniqueservice("slaveflow")
 
     igskynet.call(flowAddr, "lua", "dostart")
 
