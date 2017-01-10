@@ -33,7 +33,7 @@ loggerx_release(struct logger * inst) {
 
 static void 
 format_date(char *buf, int len) {
-	double now = (skynet_gettime_fixsec() + skynet_gettime()) * 0.01;
+	double now = skynet_gettime_fixsec() + skynet_gettime() * 0.01;
 
     time_t sec = (time_t)now;
 
@@ -42,7 +42,7 @@ format_date(char *buf, int len) {
 
 static void 
 format_time(char *buf, int len) {
-	double now = (skynet_gettime_fixsec() + skynet_gettime()) * 0.01;
+	double now = skynet_gettime_fixsec() + skynet_gettime() * 0.01;
 
     time_t sec = (time_t)now;
     int ms = (now - sec) * 100;
