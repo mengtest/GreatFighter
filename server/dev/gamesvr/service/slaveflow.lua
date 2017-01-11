@@ -6,6 +6,7 @@
 
 local slaveflow = require "common.flow.slaveflow"
 local igskynet = require "common.core.igskynet"
+local log = require "common.core.log"
 
 igskynet.start(function()
 	local slaveflowObj = slaveflow.new()

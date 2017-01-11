@@ -9,6 +9,7 @@ local class = require "common.core.class"
 local flow = require "common.flow.base"
 local cluster = require "cluster"
 local const = require "common.const"
+local log = require "common.core.log"
 
 local slaveflow = class(flow)
 

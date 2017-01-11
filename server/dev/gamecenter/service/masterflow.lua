@@ -6,6 +6,7 @@
 
 local masterflow = require "common.flow.masterflow"
 local igskynet = require "common.core.igskynet"
+local log = require "common.core.log"
 
 igskynet.start(function()
 	local masterflowObj = masterflow.new()

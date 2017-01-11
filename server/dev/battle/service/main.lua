@@ -15,7 +15,7 @@
     igskynet.newservice("debug_console", igskynet.getenv("debut_console_port"))
     local flowAddr = igskynet.uniqueservice("slaveflow")
 
-    igskynet.call(flowAddr, "lua", "dostart")
+    igskynet.call(flowAddr, "dostart")
 
     cluster.open(const.NODE_BATTLE .. igskynet.getenv("node_idx"))
 

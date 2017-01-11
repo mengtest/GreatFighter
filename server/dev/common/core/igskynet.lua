@@ -41,7 +41,7 @@ function igskynet.send(name, command, ...)
 end
 
 function igskynet.call(name, command, ...)
-	return skynet.call(name, command, PROTO_TYPE.CALL, ...)
+	return skynet.call(name, PROTO_NAME, command, PROTO_TYPE.CALL, ...)
 end
 
 return igskynet

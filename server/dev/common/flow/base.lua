@@ -7,6 +7,7 @@
 local igskynet = require "common.core.igskynet"
 local class = require "common.core.class"
 local svrbase = require "common.core.svrbase"
+local log = require "common.core.log"
 local flow = class(svrbase)
 
 function flow:ctor()
