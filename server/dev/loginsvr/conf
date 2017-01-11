@@ -8,7 +8,7 @@ bootstrap = "snlua bootstrap"
 lualoader = root.."../skynet/lualib/loader.lua"
 
 cpath = root.."../skynet/cservice/?.so;"..lroot.."/../clib/loggerx/?.so;"
-luaservice = root.."../skynet/service/?.lua;"..lroot.."/gamecenter/service/?.lua;"..lroot.."/gamesvr/service/?.lua;"..lroot.."/loginsvr/service/?.lua;"..lroot.."/battle/service/?.lua;"..lroot.."/gm/service/?.lua;"..lroot.."/verify/service/?.lua;"
+luaservice = root.."../skynet/service/?.lua;"..lroot.."/loginsvr/service/?.lua;"
 lua_cpath = root.."../skynet/luaclib/?.so;"
 lua_path = root.."../skynet/lualib/?.lua;../skynet/lualib/?/init.lua;"..lroot.."/?.lua;"
 
