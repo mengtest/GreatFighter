@@ -12,7 +12,7 @@
  igskynet.start(function()
     log.info("server|gamecenter|start...")
 
-    igskynet.newservice("debug_console", 8001)
+    igskynet.newservice("debug_console", igskynet.getenv("debug_console_port"))
     local flowAddr = igskynet.uniqueservice("masterflow")
 
     igskynet.call(flowAddr, "lua", "dostart")

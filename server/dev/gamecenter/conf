@@ -16,3 +16,5 @@ logger = root.."../log/gamecenter"
 logservice = "loggerx"
 
 cluster = lroot.."/res/config/clustername.lua"
+
+debug_console_port = 20001

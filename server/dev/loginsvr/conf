@@ -7,11 +7,14 @@ start = "main"
 bootstrap = "snlua bootstrap"
 lualoader = root.."../skynet/lualib/loader.lua"
 
-cpath = root.."../skynet/cservice/?.so;"..lroot.."../clib/?/?.so;"
+cpath = root.."../skynet/cservice/?.so;"..lroot.."/../clib/loggerx/?.so;"
 luaservice = root.."../skynet/service/?.lua;"..lroot.."/gamecenter/service/?.lua;"..lroot.."/gamesvr/service/?.lua;"..lroot.."/loginsvr/service/?.lua;"..lroot.."/battle/service/?.lua;"..lroot.."/gm/service/?.lua;"..lroot.."/verify/service/?.lua;"
 lua_cpath = root.."../skynet/luaclib/?.so;"
 lua_path = root.."../skynet/lualib/?.lua;../skynet/lualib/?/init.lua;"..lroot.."/?.lua;"
 
+logger = root.."../log/loginsvr"
+logservice = "loggerx"
+
 cluster = lroot.."/res/config/clustername.lua"
 
-debug_console_port = 8200
+debug_console_port = 22000
