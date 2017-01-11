@@ -5,7 +5,7 @@
 # * @author wuyinjie
 # * @since 2017-01-11
 # */
-·
+
 # 启动脚本
 parentPath=$(dirname $(pwd))
 
