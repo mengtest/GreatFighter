@@ -12,13 +12,13 @@ local flow = class(svrbase)
 
 function flow:ctor()
 	self.addrs = {} -- 被管理的服务地址
-	self.exitNotifyCount = 0
+	self.exitServiceCount = 0
 end
 
 function flow:onEnter()
 end
 
-function flow:register(addr)
+function flow:registerLocal(addr)
 	local hasFind = false
 	for idx, serviceAddr in ipairs(self.addrs) do 
 		if serviceAddr == addr then
@@ -47,7 +47,7 @@ function flow:dostop()
 	end
 end
 
-function flow:onExitNotify(serviceAddr)
+function flow:onLocalExitNotify(serviceAddr)
 	local hasFind = false 
 	for idx, addr in ipairs(self.addrs) do 
 		if addr == serviceAddr then
@@ -57,12 +57,12 @@ function flow:onExitNotify(serviceAddr)
 	end
 
 	if hasFind then
-		self.exitNotifyCount = self.exitNotifyCount + 1
-		self:onStopFinish(serviceAddr)
+		self.exitServiceCount = self.exitServiceCount + 1
+		self:onStopFinish()
 	end
 end
 
-function flow:onStopFinish(serviceAddr)
+function flow:onStopFinish()
 end
 
 return flow

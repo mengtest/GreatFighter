@@ -13,7 +13,7 @@
     log.info("server|battle" .. igskynet.getenv("node_idx") .. "|start...")
 
     igskynet.newservice("debug_console", igskynet.getenv("debut_console_port"))
-    local flowAddr = igskynet.uniqueservice("slaveflow")
+    local flowAddr = igskynet.uniqueservice("slaveflow", const.NODE_BATTLE .. igskynet.getenv("node_idx"))
 
     igskynet.call(flowAddr, "dostart")
 

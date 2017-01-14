@@ -8,8 +8,10 @@ local slaveflow = require "common.flow.slaveflow"
 local igskynet = require "common.core.igskynet"
 local log = require "common.core.log"
 
+local nodeName = ...
+
 igskynet.start(function()
-	local slaveflowObj = slaveflow.new()
+	local slaveflowObj = slaveflow.new(nodeName)
 	igskynet.create(slaveflowObj)
 	slaveflowObj:onEnter()
 end)

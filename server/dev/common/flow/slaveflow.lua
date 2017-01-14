@@ -13,18 +13,21 @@ local log = require "common.core.log"
 
 local slaveflow = class(flow)
 
-function slaveflow:ctor()
+function slaveflow:ctor(nodeName)
+    self.nodeName = nodeName
 end
 
 function slaveflow:onEnter()
+    igskynet.name(const.SLAVE_FLOW, igskynet.self())
+
     local proxy = cluster.proxy(const.NODE_GAME_CENTER, const.MASTER_FLOW)
-	igskynet.send(proxy, "register", igskynet.self())
+	igskynet.send(proxy, "registerSlave", self.nodeName, const.SLAVE_FLOW)
 end
 
-function slaveflow:onStopFinish(serviceAddr)
-	if self.exitNotifyCount >= #self.addrs then
+function slaveflow:onStopFinish()
+	if self.exitServiceCount >= #self.addrs then
         local proxy = cluster.proxy(const.NODE_GAME_CENTER, const.MASTER_FLOW)
-		igskynet.send(proxy, "onExitNotify", igskynet.self())
+		igskynet.send(proxy, "onSlaveExitNotify", self.nodeName)
 	end
 end
 
