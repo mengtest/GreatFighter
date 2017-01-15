@@ -12,7 +12,7 @@ luaservice = root.."../skynet/service/?.lua;"..lroot.."/gamesvr/service/?.lua;"
 lua_cpath = root.."../skynet/luaclib/?.so;"
 lua_path = root.."../skynet/lualib/?.lua;../skynet/lualib/?/init.lua;"..lroot.."/?.lua;"
 
-logger = root.."../log/gamesvr"
+logger = root.."../log/gamesvr/gamesvr"
 logservice = "loggerx"
 
 cluster = lroot.."/res/config/clustername.lua"

@@ -10,6 +10,7 @@
  local const = require "common.const"
 
  igskynet.start(function()
+    log.info("================================")
     log.info("server|battle" .. igskynet.getenv("node_idx") .. "|start...")
 
     igskynet.newservice("debug_console", igskynet.getenv("debut_console_port"))

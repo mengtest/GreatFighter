@@ -10,6 +10,7 @@
  local const = require "common.const"
 
  igskynet.start(function()
+    log.info("================================")
     log.info("server|loginsvr|start...")
 
     igskynet.newservice("debug_console", igskynet.getenv("debug_console_port"))
