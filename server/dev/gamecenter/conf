@@ -17,5 +17,5 @@ logservice = "loggerx"
 
 cluster = lroot.."/res/config/clustername.lua"
 
-gm_addr = "127.0.0.1:8765"
+gm_addr = "0.0.0.0:8765"
 debug_console_port = 20001

@@ -19,3 +19,9 @@ echo "====================="
 echo "start build service log..."
 cd $parentPath/3rd/service-log
 make
+
+# 编译telnet服务
+echo "====================="
+echo "start build service telnet..."
+cd $parentPath/3rd/service-telnetd
+make

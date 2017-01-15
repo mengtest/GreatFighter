@@ -19,3 +19,8 @@ echo "====================="
 echo "start clean service log..."
 cd $parentPath/3rd/service-log
 make clean
+
+echo "====================="
+echo "start clean service telnet..."
+cd $parentPath/3rd/service-telnetd
+make clean
