@@ -23,11 +23,15 @@ function masterflow:onEnter()
 end
 
 function masterflow:dostop()
-    base.base(self)
+    base.dostop(self)
 
     for k, v in ipairs(self.slaveflowInfo) do 
         local proxy = cluster.proxy(v.nodeName, v.slaveflowName)
         igskynet.send(proxy, "dostop")
+    end
+
+    if #self.addrs <= 0 and #self.slaveflowInfo <= 0 then
+        self:onStopFinish()
     end
 end
 
@@ -42,6 +46,8 @@ function masterflow:registerSlave(nodeName, slaveflowName)
 end
 
 function masterflow:onSlaveExitNotify(nodeName)
+    log.info("masterflow|slave(%s) exit notify", nodeName)
+
     local hasFind = false
     for idx, info in ipairs(self.slaveflowInfo) do 
         if info.nodeName == nodeName then

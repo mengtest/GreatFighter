@@ -6,12 +6,12 @@
 
 local igskynet = require "common.core.igskynet"
 local class = require "common.core.class"
-local flow = require "common.flow.base"
+local base = require "common.flow.base"
 local cluster = require "cluster"
 local const = require "common.const"
 local log = require "common.core.log"
 
-local slaveflow = class(flow)
+local slaveflow = class(base)
 
 function slaveflow:ctor(nodeName)
     self.nodeName = nodeName
@@ -22,6 +22,14 @@ function slaveflow:onEnter()
 
     local proxy = cluster.proxy(const.NODE_GAME_CENTER, const.MASTER_FLOW)
 	igskynet.send(proxy, "registerSlave", self.nodeName, const.SLAVE_FLOW)
+end
+
+function slaveflow:dostop()
+    base.dostop(self)
+
+    if #self.addrs <= 0 then
+        self:onStopFinish()
+    end
 end
 
 function slaveflow:onStopFinish()
