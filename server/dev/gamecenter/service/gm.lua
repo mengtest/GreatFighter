@@ -14,6 +14,7 @@
 
  function gm:ctor()
     self.commands = {}
+    igskynet.name(const.GM_SERVICE, igskynet.self())
  end
 
  function gm:init()
@@ -51,5 +52,5 @@
  igskynet.start(function() 
     local gmobj = gm.new()
     gmobj:init()
-    igskynet.create(gmo)
+    igskynet.create(gmobj)
  end)

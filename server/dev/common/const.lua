@@ -16,5 +16,6 @@ const.NODE_VERIFY = "verify"
 
 const.MASTER_FLOW = ".masterflow" -- 启服、关服控制中心名称
 const.SLAVE_FLOW = ".slaveflow"
+const.GM_SERVICE = ".gm"
 
 return const

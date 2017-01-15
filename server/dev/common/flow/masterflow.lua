@@ -14,6 +14,8 @@ local log = require "common.core.log"
 local masterflow = class(base)
 
 function masterflow:ctor()
+    base.ctor(self)
+
     self.slaveflowInfo = {}
     self.exitSlaveCount = 0
 end
@@ -64,7 +66,7 @@ end
 
 function masterflow:onStopFinish()
 	if self.exitServiceCount >= #self.addrs and self.exitSlaveCount >= #self.slaveflowInfo then
-		log.info("notify web process to kill all logic process")
+		log.info("masterflow|notify web process to kill all logic process")
 	end
 end
 

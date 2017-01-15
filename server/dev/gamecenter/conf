@@ -7,10 +7,10 @@ start ="main"
 bootstrap = "snlua bootstrap"
 lualoader = root.."../skynet/lualib/loader.lua"
 
-cpath = root.."../skynet/cservice/?.so;"..lroot.."/../clib/loggerx/?.so;"
+cpath = root.."../skynet/cservice/?.so;"..lroot.."/../clib/loggerx/?.so;"..lroot.."/../clib/telnetd/?.so;"
 luaservice = root.."../skynet/service/?.lua;"..lroot.."/gamecenter/service/?.lua;"
 lua_cpath = root.."../skynet/luaclib/?.so;"
-lua_path = root.."../skynet/lualib/?.lua;../skynet/lualib/?/init.lua;"..lroot.."/?.lua;"..lroot.."/gamecenter/service/?.lua"
+lua_path = root.."../skynet/lualib/?.lua;../skynet/lualib/?/init.lua;"..lroot.."/?.lua;"..lroot.."/gamecenter/service/?.lua;"..lroot.."/?.lua"
 
 logger = root.."../log/gamecenter"
 logservice = "loggerx"

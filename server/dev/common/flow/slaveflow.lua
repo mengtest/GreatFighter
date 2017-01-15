@@ -14,6 +14,7 @@ local log = require "common.core.log"
 local slaveflow = class(base)
 
 function slaveflow:ctor(nodeName)
+    base.ctor(self)
     self.nodeName = nodeName
 end
 

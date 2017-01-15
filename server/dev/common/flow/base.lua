@@ -6,11 +6,13 @@
 
 local igskynet = require "common.core.igskynet"
 local class = require "common.core.class"
-local svrbase = require "common.core.svrbase"
+local base = require "common.core.svrbase"
 local log = require "common.core.log"
-local flow = class(svrbase)
+local flow = class(base)
 
 function flow:ctor()
+	base.ctor(self)
+
 	self.addrs = {} -- 被管理的服务地址
 	self.exitServiceCount = 0
 end

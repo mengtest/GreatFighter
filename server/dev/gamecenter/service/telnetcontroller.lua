@@ -36,8 +36,8 @@
         return
     end
 
-    log.info("exec cmd:", cmdline)
-    igskynet.call("gm", "lua", "executeCommand", cmdline)
+    log.info("exec cmd:%s", cmdline)
+    igskynet.send(const.GM_SERVICE, "executeCommand", cmdline)
  end
 
  function controller:mainLoop()
@@ -49,7 +49,7 @@
             break
         end
 
-        log.info("read cmd==============+:", cmd)
+        log.info("read cmd==============+:%s", cmd)
         igskynet.fork(dispatchCmd, cmd)
     end
     log.info("stop message loop for socket:%d", sock)
