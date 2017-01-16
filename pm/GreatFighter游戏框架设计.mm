@@ -49,8 +49,9 @@
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 </node>
 <node CREATED="1478534497189" ID="ID_479798218" MODIFIED="1478534502533" TEXT="&#x6570;&#x636e;&#x5e93;&#x90e8;&#x7f72;"/>
-<node CREATED="1478535261664" ID="ID_247030274" MODIFIED="1478710363227" TEXT="&#x8d77;&#x670d;&#x3001;&#x5173;&#x670d;&#x6d41;&#x7a0b;">
+<node CREATED="1478535261664" ID="ID_247030274" MODIFIED="1484478904132" TEXT="&#x8d77;&#x670d;&#x3001;&#x5173;&#x670d;&#x6d41;&#x7a0b;">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<icon BUILTIN="button_ok"/>
 </node>
 </node>
 </node>
