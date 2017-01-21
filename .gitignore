@@ -9,3 +9,6 @@
 /client/Framework/NetworkCpp/NetworkCpp/Debug
 /client/Framework/NetworkCpp/NetworkCpp.sdf
 /client/Framework/NetworkCpp/Debug
+/client/Trunk/Cocos2D
+/client/Trunk/Src/*.opensdf
+/client/Trunk/Src/*.sdf
