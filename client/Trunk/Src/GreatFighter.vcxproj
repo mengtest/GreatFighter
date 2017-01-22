@@ -50,12 +50,13 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\..\DevEnv\cocos2d-x-3.4\cocos\3d;$(ProjectDir)..\..\..\..\..\..\DevEnv\cocos2d-x-3.4\cocos\2d;$(ProjectDir)..\..\..\..\..\..\DevEnv\cocos2d-x-3.4\cocos;$(ProjectDir)..\..\..\..\..\..\DevEnv\cocos2d-x-3.4\cocos\audio\include;$(ProjectDir)..\..\..\..\..\..\DevEnv\cocos2d-x-3.4\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\DevEnv\cocos2d-x-3.4\cocos\ui\;$(ProjectDir)..\..\..\..\DevEnv\cocos2d-x-3.4\cocos\renderer\;$(ProjectDir)..\..\..\..\DevEnv\cocos2d-x-3.4\cocos\base\;$(ProjectDir)..\..\..\..\DevEnv\cocos2d-x-3.4\cocos\math\;$(ProjectDir)..\..\..\..\DevEnv\cocos2d-x-3.4\cocos\platform\desktop\;$(ProjectDir)..\..\..\..\DevEnv\cocos2d-x-3.4\cocos\platform\;$(ProjectDir)..\..\..\..\DevEnv\cocos2d-x-3.4\external\;$(ProjectDir)..\..\..\..\DevEnv\cocos2d-x-3.4\extensions\;$(ProjectDir)..\..\..\..\DevEnv\cocos2d-x-3.4\cocos\3d\;$(ProjectDir)..\..\..\..\DevEnv\cocos2d-x-3.4\cocos\2d\;$(ProjectDir)..\..\..\..\DevEnv\cocos2d-x-3.4\cocos\;$(ProjectDir)..\..\..\..\DevEnv\cocos2d-x-3.4\cocos\audio\include;$(ProjectDir)..\..\..\..\DevEnv\cocos2d-x-3.4\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\..\DevEnv\cocos2d-x-3.4\Bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -77,7 +78,13 @@
     <None Include="3rd\Readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Core\AppDelegate.cpp" />
+    <ClCompile Include="Core\HelloWorldScene.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\AppDelegate.h" />
+    <ClInclude Include="Core\HelloWorldScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
