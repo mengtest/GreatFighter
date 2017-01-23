@@ -24,7 +24,7 @@
     <ClCompile Include="Core\AppDelegate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\HelloWorldScene.cpp">
+    <ClCompile Include="Scene\HelloWorldScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,7 +32,7 @@
     <ClInclude Include="Core\AppDelegate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\HelloWorldScene.h">
+    <ClInclude Include="Scene\HelloWorldScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
