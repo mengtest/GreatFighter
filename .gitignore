@@ -13,3 +13,15 @@
 /client/Trunk/Src/*.opensdf
 /client/Trunk/Src/*.sdf
 /client/Trunk/Src/*.suo
+/client/Trunk/Product/PC/Debug
+/client/Trunk/cocos2d
+/client/Trunk/cocosstudio
+/client/Trunk/proj.android
+/client/Trunk/proj.ios_mac
+/client/Trunk/proj.win32
+/client/Trunk/.cocos-project.json
+/client/Trunk/CMakeLists.txt
+/client/Trunk/config.json
+/client/Trunk/Trunk.ccs
+/client/Trunk/Trunk.cfg
+/client/Trunk/Trunk.udf
