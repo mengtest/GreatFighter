@@ -10,9 +10,9 @@ LOCAL_MODULE := cocos2dcpp_shared
 
 LOCAL_MODULE_FILENAME := libcocos2dcpp
 
-LOCAL_SRC_FILES := ../../../Src/main.cpp \
-                   ../../../Src/AppDelegate.cpp \
-                   ../../../Src/HelloWorldScene.cpp
+LOCAL_SRC_FILES := hellocpp/main.cpp \
+                   ../../../Src/Core/AppDelegate.cpp \
+                   ../../../Src/Scene/HelloWorldScene.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Src
 
