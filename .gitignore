@@ -25,3 +25,8 @@
 /client/Trunk/Trunk.ccs
 /client/Trunk/Trunk.cfg
 /client/Trunk/Trunk.udf
+/client/Trunk/BuildScript/proj.android/assets
+/client/Trunk/BuildScript/proj.android/bin
+/client/Trunk/BuildScript/proj.android/gen
+/client/Trunk/BuildScript/proj.android/libs
+/client/Trunk/BuildScript/proj.android/obj
