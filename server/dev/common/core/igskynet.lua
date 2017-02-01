@@ -44,4 +44,12 @@ function igskynet.call(name, command, ...)
 	return skynet.call(name, PROTO_NAME, command, PROTO_TYPE.CALL, ...)
 end
 
+function igskynet.originSend(name, protoType, command, ...)
+	skynet.send(name, protoType, command, ...)
+end
+
+function igskynet.originCall(name, protoType, command, ...)
+	return skynet.call(name, protoType, command, ...)
+end
+
 return igskynet

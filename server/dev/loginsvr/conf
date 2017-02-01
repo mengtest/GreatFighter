@@ -18,3 +18,6 @@ logservice = "loggerx"
 cluster = lroot.."/res/config/clustername.lua"
 
 debug_console_port = 22000
+gateway_ip = "192.168.1.103"
+gateway_port = 8888
+max_client = 1024
