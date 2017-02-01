@@ -1,4 +1,5 @@
 #include "NetworkClient.h"
+#include <iostream>
 
 static NetworkClient* s_networkClient = nullptr;
 
@@ -83,7 +84,9 @@ void NetworkClient::start(
         case ENETUNREACH:
             m_errorFunction(NetworkError::CannotFindRoute);
             break;
-        default:    break;
+        default:    
+			m_errorFunction(NetworkError::Unknow);
+			break;
         }
 
         return;

@@ -17,7 +17,7 @@ void onRecv(const list<string>& recvQueue)
 void main()
 {
     auto network = NetworkClient::getInstance();
-    network->start("192.168.1.110", 8888, std::bind(onRecv, std::placeholders::_1), std::bind(networkError, std::placeholders::_1));
+    network->start("192.168.1.103", 8888, std::bind(onRecv, std::placeholders::_1), std::bind(networkError, std::placeholders::_1));
 
     while (true)
     {
@@ -26,5 +26,6 @@ void main()
         cin >> request;
 
         network->sendRequest(request);
+		cout << "send request " << request << endl;
     }
 }
