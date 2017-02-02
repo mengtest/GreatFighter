@@ -31,3 +31,4 @@
 /client/Trunk/BuildScript/proj.android/libs
 /client/Trunk/BuildScript/proj.android/obj
 /client/Trunk/BuildScript/bin
+/server/sftp-config.json
