@@ -29,7 +29,7 @@ using namespace std;
 #include <mutex>
 
 const int MAX_BUFFER_SIZE = 65535;
-const int RECV_LEN = 255;
+const int RECV_LEN = 65535;
 
 class NetworkClient
 {

@@ -122,8 +122,8 @@ void NetworkClient::sendThreadLoop()
 
         string sendData = "00" + sendString;
         int sendLen = (int)sendString.length();
-        sendData[0] = (char)((sendLen >> 8) & 0xff);
-        sendData[1] = (char)(sendLen & 0xff);
+        sendData[0] = (unsigned char)((sendLen >> 8) & 0xff);
+		sendData[1] = (unsigned char)(sendLen & 0xff);
         unlockSend();
 
         const char* buff = sendData.c_str();
@@ -183,7 +183,7 @@ void NetworkClient::recvThreadLoop()
                 break;
             }
 
-            int size = (buffer[read] << 8 | buffer[read + 1]);
+            unsigned int size = ((unsigned char)buffer[read] << 8 | (unsigned char)buffer[read + 1]);
             read += 2;
 
             if (receiveLength >= read + size)
