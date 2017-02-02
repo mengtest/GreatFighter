@@ -8,10 +8,14 @@ void networkError(NetworkError error)
 
 void onRecv(const list<string>& recvQueue)
 {
+	string result = "";
     for (auto& data : recvQueue)
     {
-        cout << "recv data " << data << endl;
+		result += data;
     }
+	
+	cout << "recv data len " << result.length() << endl;
+	// cout << "recv data " << result << endl;
 }
 
 void main()
@@ -27,10 +31,12 @@ void main()
         string request;
 		for (int idx = 0; idx < byteNum; idx++)
 		{
-			request += "x";
+			char buffer[255] = {};
+			sprintf(buffer, "%d", idx % 10);
+			request += string(buffer);
 		}
 
         network->sendRequest(request);
-		cout << "send request " << request << endl;
+		// cout << "send request " << request << endl;
     }
 }

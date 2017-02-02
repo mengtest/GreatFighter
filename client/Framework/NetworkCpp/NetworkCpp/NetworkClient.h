@@ -28,8 +28,8 @@ using namespace std;
 #include <stdlib.h>
 #include <mutex>
 
-const int MAX_BUFFER_SIZE = 65535;
-const int RECV_LEN = 65535;
+const unsigned int MAX_BUFFER_SIZE = 65535;
+const unsigned int RECV_LEN = 65535;
 
 class NetworkClient
 {

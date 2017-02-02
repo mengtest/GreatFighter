@@ -188,7 +188,7 @@ void NetworkClient::recvThreadLoop()
 
             if (receiveLength >= read + size)
             {
-                m_recvQueue.push_back(buffer + 2);
+                m_recvQueue.push_back(buffer + read);
             }
 
             read += size;
