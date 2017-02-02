@@ -18,4 +18,6 @@ const.MASTER_FLOW = ".masterflow" -- 启服、关服控制中心名称
 const.SLAVE_FLOW = ".slaveflow"
 const.GM_SERVICE = ".gm"
 
+const.MAX_NETWORK_BYTES = 65535
+
 return const

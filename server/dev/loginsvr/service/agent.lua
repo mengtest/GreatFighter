@@ -10,6 +10,7 @@ local class = require "common.core.class"
 local base = require "common.core.svrbase"
 local log = require "common.core.log"
 local socketdriver = require "socketdriver"
+local const = require "common.const"
 
 local agent = class(base)
 local agentObj = nil
@@ -41,7 +42,7 @@ function agent:update()
 end
 
 function agent:onRecv(msg)
-    log.info("agent|onRecv|msg = %s", msg)
+    log.info("agent|onRecv|msg len = %s", string.len(msg))
     self:push(msg)
     log.info("agent|onRecv|msgList len = %d", #self.msgList)
 end
@@ -59,9 +60,24 @@ end
 
 function agent:push(msg)
     -- TODO:protobuf encode
+    
+    if string.len(msg) > const.MAX_NETWORK_BYTES then
+        local package = ""
+        while string.len(msg) > const.MAX_NETWORK_BYTES do 
+            local part = string.sub(msg, 1, const.MAX_NETWORK_BYTES)
+            msg = string.sub(msg, const.MAX_NETWORK_BYTES + 1, string.len(msg))
+            package = package .. string.pack(">s2", part)
+        end
 
-    local package = string.pack(">s2", msg)
-    table.insert(self.msgList, package)
+        if string.len(msg) > 0 then
+            package = package .. string.pack(">s2", msg) 
+        end
+
+        table.insert(self.msgList, package)
+    else
+        local package = string.pack(">s2", msg)
+        table.insert(self.msgList, package)
+    end
 end
 
 igskynet.register_protocol {
