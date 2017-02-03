@@ -11,10 +11,8 @@ void onRecv(const list<string>& recvQueue)
 	string result = "";
     for (auto& data : recvQueue)
     {
-		result += data;
+		cout << "recv data len " << data.length() << endl;
     }
-	
-	cout << "recv data len " << result.length() << endl;
 	// cout << "recv data " << result << endl;
 }
 
