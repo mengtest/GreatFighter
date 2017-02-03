@@ -201,7 +201,10 @@ void NetworkClient::recvThreadLoop()
 				}
 				else
 				{
-					tempBuffer += string(buffer + read);
+					char temp[MAX_BUFFER_SIZE] = {};
+					memcpy(temp, buffer + read, receiveLength - read);
+
+					tempBuffer += string(temp);
 					unreceiveSize = size - (receiveLength - read);
 					read += receiveLength - read;
 				}
