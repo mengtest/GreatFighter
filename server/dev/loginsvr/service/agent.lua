@@ -9,7 +9,7 @@ local igtimer = require "common.core.igtimer"
 local class = require "common.core.class"
 local base = require "common.core.svrbase"
 local log = require "common.core.log"
-local socketdriver = require "socketdriver"
+local socket = require "socket"
 local const = require "common.const"
 
 local agent = class(base)
@@ -53,7 +53,8 @@ function agent:onPush()
     end
 
     for idx, msg in ipairs(self.msgList) do 
-        socketdriver.send(self.fd, msg)
+        log.info("----------------msg len = %d", string.len(msg))
+        socket.write(self.fd, msg)
     end
     self.msgList = {}
 end
