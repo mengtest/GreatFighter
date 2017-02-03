@@ -61,24 +61,9 @@ end
 
 function agent:push(msg)
     -- TODO:protobuf encode
-    
-    if string.len(msg) > const.MAX_NETWORK_BYTES then
-        local package = ""
-        while string.len(msg) > const.MAX_NETWORK_BYTES do 
-            local part = string.sub(msg, 1, const.MAX_NETWORK_BYTES)
-            msg = string.sub(msg, const.MAX_NETWORK_BYTES + 1, string.len(msg))
-            package = package .. string.pack(">s2", part)
-        end
 
-        if string.len(msg) > 0 then
-            package = package .. string.pack(">s2", msg) 
-        end
-
-        table.insert(self.msgList, package)
-    else
-        local package = string.pack(">s2", msg)
-        table.insert(self.msgList, package)
-    end
+    local package = string.pack(">s4", msg)
+    table.insert(self.msgList, package)
 end
 
 igskynet.register_protocol {
