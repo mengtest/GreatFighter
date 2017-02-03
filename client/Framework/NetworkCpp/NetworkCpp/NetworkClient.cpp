@@ -151,6 +151,9 @@ void NetworkClient::sendThreadLoop()
 
 void NetworkClient::recvThreadLoop()
 {
+	string tempBuffer;
+	int unreceiveSize = 0;
+
     while (true)
     {
         char buffer[MAX_BUFFER_SIZE] = {};
@@ -183,15 +186,50 @@ void NetworkClient::recvThreadLoop()
                 break;
             }
 
-            unsigned int size = ((unsigned char)buffer[read] << 8 | (unsigned char)buffer[read + 1]);
-            read += 2;
+			if (unreceiveSize <= 0)
+			{
+				unsigned int size = ((unsigned char)buffer[read] << 8 | (unsigned char)buffer[read + 1]);
+				read += 2;
 
-            if (receiveLength >= read + size)
-            {
-                m_recvQueue.push_back(buffer + read);
-            }
+				if (receiveLength >= read + size)
+				{
+					char temp[MAX_BUFFER_SIZE] = {};
+					memcpy(temp, buffer + read, size);
 
-            read += size;
+					m_recvQueue.push_back(temp);
+					read += size;
+				}
+				else
+				{
+					tempBuffer += string(buffer + read);
+					unreceiveSize = size - (receiveLength - read);
+					read += receiveLength - read;
+				}
+			}
+			else
+			{
+				if (unreceiveSize <= receiveLength)
+				{
+					char temp[MAX_BUFFER_SIZE] = {};
+					memcpy(temp, buffer, unreceiveSize);
+					tempBuffer += string(temp);
+
+					m_recvQueue.push_back(tempBuffer);
+
+					tempBuffer.clear();
+					read += unreceiveSize;
+					unreceiveSize = 0;
+				}
+				else
+				{
+					char temp[MAX_BUFFER_SIZE] = {};
+					memcpy(temp, buffer, receiveLength);
+					tempBuffer += string(temp);
+
+					unreceiveSize -= receiveLength;
+					read += receiveLength;
+				}
+			}
         }
 
         m_recvFunction(m_recvQueue);
