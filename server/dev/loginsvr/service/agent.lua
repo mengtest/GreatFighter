@@ -11,6 +11,7 @@ local base = require "common.core.svrbase"
 local log = require "common.core.log"
 local socket = require "socket"
 local const = require "common.const"
+local json = require "cjson"
 
 local agent = class(base)
 local agentObj = nil
@@ -41,9 +42,10 @@ function agent:update()
     self:onPush()
 end
 
-function agent:onRecv(msg)
-    log.info("agent|onRecv|msg = %s", msg)
-    self:push(msg)
+function agent:onRecv(params)
+    log.print_tbl(params)
+
+    self:push(params)
     log.info("agent|onRecv|msgList len = %d", #self.msgList)
 end
 
@@ -59,9 +61,10 @@ function agent:onPush()
     self.msgList = {}
 end
 
-function agent:push(msg)
+function agent:push(params)
     -- TODO:protobuf encode
 
+    local msg = json.encode(params)
     local package = string.pack(">s4", msg)
     table.insert(self.msgList, package)
 end
@@ -75,7 +78,7 @@ igskynet.register_protocol {
     dispatch = function (_, _, msg)
         -- TODO:protobuf decode
 
-        agentObj:onRecv(msg)
+        agentObj:onRecv(json.decode(msg))
     end
 }
 
