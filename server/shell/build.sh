@@ -25,3 +25,9 @@ echo "====================="
 echo "start build service telnet..."
 cd $parentPath/3rd/service-telnetd
 make
+
+# 编译cjson库
+echo "====================="
+echo "start build lua-cjson..."
+cd $parentPath/3rd/lua-cjson
+make

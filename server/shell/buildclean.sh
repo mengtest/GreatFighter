@@ -24,3 +24,8 @@ echo "====================="
 echo "start clean service telnet..."
 cd $parentPath/3rd/service-telnetd
 make clean
+
+echo "====================="
+echo "start clean cjson..."
+cd $parentPath/3rd/lua-cjson
+make clean
