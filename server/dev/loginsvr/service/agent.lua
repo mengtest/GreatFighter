@@ -42,7 +42,7 @@ function agent:update()
 end
 
 function agent:onRecv(msg)
-    log.info("agent|onRecv|msg len = %s", string.len(msg))
+    log.info("agent|onRecv|msg = %s", msg)
     self:push(msg)
     log.info("agent|onRecv|msgList len = %d", #self.msgList)
 end

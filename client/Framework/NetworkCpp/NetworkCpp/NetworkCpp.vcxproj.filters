@@ -21,12 +21,18 @@
     <ClCompile Include="NetworkClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\cJSON-master\cJSON.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NetworkError.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NetworkClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\cJSON-master\cJSON.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

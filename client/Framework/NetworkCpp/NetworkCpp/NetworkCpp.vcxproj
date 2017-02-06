@@ -52,6 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;WINDOWS_DEV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\Projects\GreatFighter\client\Framework\cJSON-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -77,10 +78,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\cJSON-master\cJSON.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NetworkClient.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\cJSON-master\cJSON.h" />
     <ClInclude Include="NetworkClient.h" />
     <ClInclude Include="NetworkError.h" />
   </ItemGroup>

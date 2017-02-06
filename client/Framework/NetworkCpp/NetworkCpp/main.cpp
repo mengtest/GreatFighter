@@ -1,5 +1,6 @@
 #include <iostream>
 #include "NetworkClient.h"
+#include "cJSON.h"
 
 void networkError(NetworkError error)
 {
@@ -19,22 +20,28 @@ void onRecv(const list<string>& recvQueue)
 void main()
 {
     auto network = NetworkClient::getInstance();
-    network->start("10.80.4.24", 8888, std::bind(onRecv, std::placeholders::_1), std::bind(networkError, std::placeholders::_1));
+    network->start("192.168.1.103", 8888, std::bind(onRecv, std::placeholders::_1), std::bind(networkError, std::placeholders::_1));
 
+	cJSON* root = cJSON_CreateObject();
+	cJSON_AddItemToObject(root, "typeName", cJSON_CreateString("helloWorld"));
+	cJSON_AddItemToObject(root, "sessionId", cJSON_CreateNumber(1));
+
+	char* bytes = cJSON_Print(root);
+	string networkBytes(bytes);
+	free(bytes);
+	cJSON_Delete(root);
+
+	network->sendRequest(networkBytes);
     while (true)
     {
-		int byteNum = 0;
-		cin >> byteNum;
+		cout << "intput 1 to close the console." << endl;
+		int cmd = 0;
+		cin >> cmd;
 
-        string request;
-		for (int idx = 0; idx < byteNum; idx++)
+		if (cmd == 1)
 		{
-			char buffer[255] = {};
-			sprintf(buffer, "%d", idx % 10);
-			request += string(buffer);
+			cout << "finish!" << endl;
+			break;
 		}
-
-        network->sendRequest(request);
-		// cout << "send request " << request << endl;
     }
 }
