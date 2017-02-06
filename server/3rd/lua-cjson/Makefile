@@ -1,5 +1,5 @@
 LUALIB_SRC = ..
-LUA_CLIB_DIR = ../../lib/luaclib
+LUA_CLIB_DIR = ../../clib/cjson
 
 uname_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
 ifeq ($(uname_S), Darwin)
