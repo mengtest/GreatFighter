@@ -12,7 +12,19 @@ void onRecv(const list<string>& recvQueue)
 	string result = "";
     for (auto& data : recvQueue)
     {
-		cout << "recv data len " << data.length() << endl;
+		cJSON* parseObj = cJSON_Parse(data.c_str());
+		if (parseObj != nullptr)
+		{
+			char* out = cJSON_Print(parseObj);
+			cout << "recv msg:" << out << endl;
+
+			cJSON_Delete(parseObj);
+			free(out);
+		}
+		else
+		{
+			cout << "parse json string error" << endl;
+		}
     }
 	// cout << "recv data " << result << endl;
 }
