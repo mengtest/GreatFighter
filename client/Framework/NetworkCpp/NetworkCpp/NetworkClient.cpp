@@ -135,12 +135,12 @@ void NetworkClient::sendThreadLoop()
 
             sendSize += size;
 
-            if (sendSize == 0)
+            if (size == 0)
             {
                 m_errorFunction(NetworkError::LostConnection);
                 break;
             }
-            else if (sendSize < 0)
+            else if (size < 0)
             {
                 m_errorFunction(NetworkError::Unknow);
                 break;
