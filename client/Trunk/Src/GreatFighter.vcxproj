@@ -45,7 +45,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CONSOLE;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_VARIADIC_MAX=10;_USING_V110_SDK71_;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CONSOLE;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_VARIADIC_MAX=10;WINDOWS_DEV;_USING_V110_SDK71_;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -76,15 +76,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="3rd\Readme.md" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClCompile Include="3rd\cJSON\cJSON.c" />
     <ClCompile Include="Core\AppDelegate.cpp" />
+    <ClCompile Include="Protocol\IGProtoManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Network\NetworkClient.cpp" />
     <ClCompile Include="Scene\HelloWorldScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3rd\cJSON\cJSON.h" />
+    <ClInclude Include="Common\IGHeader.h" />
     <ClInclude Include="Core\AppDelegate.h" />
+    <ClInclude Include="Protocol\IGProtoManager.h" />
+    <ClInclude Include="Protocol\IIGProtoParser.h" />
+    <ClInclude Include="Network\NetworkClient.h" />
+    <ClInclude Include="Network\NetworkError.h" />
     <ClInclude Include="Scene\HelloWorldScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
