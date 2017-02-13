@@ -7,8 +7,8 @@
 class IGProtoManager
 {
 public:
-	IGProtoManager();
 	~IGProtoManager();
+	IGProtoManager* getInstance();
 
 	bool init();
 	bool sendData(const string& protoName, const void* data);
@@ -30,5 +30,10 @@ private:
 	std::map<string, IIGProtoHelper*> m_clientProtos;
 	std::map<string, IIGProtoHelper*> m_serverNotify;
 	std::list<string> m_messageList;
+
+	IGProtoManager();
+	IGProtoManager(const IGProtoManager&);
+	IGProtoManager& operator() (const IGProtoManager&);
+	IGProtoManager& operator= (const IGProtoManager&);
 };
 

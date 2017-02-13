@@ -3,6 +3,7 @@
 #include "Protocol/IIGProtoHelper.h"
 #include "Protocol/IGProtoManager.h"
 
+IGProtoManager* s_protoManager = nullptr;
 
 IGProtoManager::IGProtoManager()
 {
@@ -11,6 +12,16 @@ IGProtoManager::IGProtoManager()
 
 IGProtoManager::~IGProtoManager()
 {
+}
+
+IGProtoManager* IGProtoManager::getInstance()
+{
+	if (s_protoManager == nullptr)
+	{
+		s_protoManager = new IGProtoManager();
+	}
+	
+	return s_protoManager;
 }
 
 bool IGProtoManager::init()
