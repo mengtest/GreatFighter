@@ -50,13 +50,16 @@
     <ClInclude Include="3rd\cJSON\cJSON.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Protocol\IIGProtoParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Common\IGHeader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Protocol\IGProtoManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\IGConst.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol\IIGProtoHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

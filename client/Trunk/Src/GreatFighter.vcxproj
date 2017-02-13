@@ -85,10 +85,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3rd\cJSON\cJSON.h" />
+    <ClInclude Include="Common\IGConst.h" />
     <ClInclude Include="Common\IGHeader.h" />
     <ClInclude Include="Core\AppDelegate.h" />
     <ClInclude Include="Protocol\IGProtoManager.h" />
-    <ClInclude Include="Protocol\IIGProtoParser.h" />
+    <ClInclude Include="Protocol\IIGProtoHelper.h" />
     <ClInclude Include="Network\NetworkClient.h" />
     <ClInclude Include="Network\NetworkError.h" />
     <ClInclude Include="Scene\HelloWorldScene.h" />

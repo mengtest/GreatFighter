@@ -44,6 +44,7 @@ public:
         const std::function<void(const list<string>&)>& recvFunction,
         const std::function<void(NetworkError)>& errorFunction
         );
+	void stop();
     void sendRequest(const string& request);
 
 private:
@@ -56,6 +57,9 @@ private:
     void unlockRecv();
 
     int m_socket = 0;
+
+	bool m_isRecvThreadRunning = false;
+	bool m_isSendThreadRunning = false;
 
     queue<string> m_sendQueue;
     std::mutex m_sendLock;

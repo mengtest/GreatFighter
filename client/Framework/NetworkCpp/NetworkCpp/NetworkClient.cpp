@@ -10,14 +10,7 @@ NetworkClient::NetworkClient()
 
 NetworkClient::~NetworkClient()
 {
-
-#ifdef WINDOWS_DEV
-    closesocket(m_socket);
-    WSACleanup();
-#else
-    close(m_socket);
-#endif
-
+	stop();
 }
 
 NetworkClient* NetworkClient::getInstance()
@@ -92,11 +85,31 @@ void NetworkClient::start(
         return;
     }
 
+	m_isSendThreadRunning = true;
+	m_isRecvThreadRunning = true;
+
     m_sendThread = std::thread(&NetworkClient::sendThreadLoop, this);
     m_recvThread = std::thread(&NetworkClient::recvThreadLoop, this);
 
     m_sendThread.detach();
     m_recvThread.detach();
+}
+
+void NetworkClient::stop()
+{
+	m_socket = 0;
+	m_isSendThreadRunning = false;
+	m_isRecvThreadRunning = false;
+
+	m_sendQueue = {};
+	m_recvQueue.clear();
+
+#ifdef WINDOWS_DEV
+	closesocket(m_socket);
+	WSACleanup();
+#else
+	close(m_socket);
+#endif
 }
 
 void NetworkClient::sendRequest(const string& request)
@@ -108,7 +121,7 @@ void NetworkClient::sendRequest(const string& request)
 
 void NetworkClient::sendThreadLoop()
 {
-    while (true)
+    while (m_isSendThreadRunning)
     {
         lockSend();
         if (m_sendQueue.empty())
@@ -154,7 +167,7 @@ void NetworkClient::recvThreadLoop()
 	string tempBuffer;
 	int unreceiveSize = 0;
 
-    while (true)
+    while (m_isRecvThreadRunning)
     {
         char buffer[MAX_BUFFER_SIZE] = {};
         int result = recv(m_socket, buffer, RECV_LEN, 0);
