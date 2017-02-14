@@ -31,3 +31,12 @@ echo "====================="
 echo "start build lua-cjson..."
 cd $parentPath/3rd/lua-cjson
 make
+
+# 编译redis
+echo "====================="
+echo "start unpack redis..."
+cd $parentPath/3rd
+tar -zxvf redis-3.2.8.tar.gz
+echo "start build redis..."
+cd $parentPath/3rd/redis-3.2.8
+make
