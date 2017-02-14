@@ -43,10 +43,18 @@ function agent:update()
 end
 
 function agent:onRecv(params)
-    log.print_tbl(params)
+    local protoName = assert(params.protoName)
+    local request = self[protoName]
+    if request then
+        local ret = request(self, params)
+        if params.response then
+            params.response = assert(ret)
+        end
 
-    self:push(params)
-    log.info("agent|onRecv|msgList len = %d", #self.msgList)
+        return params
+    else
+        return nil
+    end
 end
 
 function agent:onPush()
@@ -55,15 +63,12 @@ function agent:onPush()
     end
 
     for idx, msg in ipairs(self.msgList) do 
-        log.info("----------------msg len = %d", string.len(msg))
         socket.write(self.fd, msg)
     end
     self.msgList = {}
 end
 
 function agent:push(params)
-    -- TODO:protobuf encode
-
     local msg = json.encode(params)
     local package = string.pack(">s4", msg)
     table.insert(self.msgList, package)
@@ -76,9 +81,12 @@ igskynet.register_protocol {
         return igskynet.tostring(msg, sz)
     end,
     dispatch = function (_, _, msg)
-        -- TODO:protobuf decode
-
-        agentObj:onRecv(json.decode(msg))
+        local ret = agentObj:onRecv(json.decode(msg))
+        if ret then
+            local msg = json.encode(ret)
+            local package = string.pack(">s4", msg)
+            socket.write(self.fd, package)
+        end
     end
 }
 
