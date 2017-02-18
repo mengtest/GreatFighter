@@ -11,7 +11,7 @@
  local cmd = {}
 
  function cmd.stopServer()
-    igskynet.send(const.MASTER_FLOW, "dostop")
+    igskynet.send("masterflow", "dostop")
  end
 
  return cmd

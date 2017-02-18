@@ -14,10 +14,7 @@ const.NODE_BATTLE = "battle"
 const.NODE_GM = "gm"
 const.NODE_VERIFY = "verify"
 
-const.MASTER_FLOW = ".masterflow" -- 启服、关服控制中心名称
-const.SLAVE_FLOW = ".slaveflow"
-const.GM_SERVICE = ".gm"
-
-const.MAX_NETWORK_BYTES = 65533
+-- 数据库名称
+const.LOGIN_DB_PLAYER = "loginPlayer"
 
 return const

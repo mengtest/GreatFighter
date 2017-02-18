@@ -16,6 +16,9 @@
     igskynet.newservice("debug_console", igskynet.getenv("debug_console_port"))
     local flowAddr = igskynet.uniqueservice("slaveflow", const.NODE_LOGIN_SVR)
 
+    local redisMgrAddr = igskynet.uniqueservice("redismgr")
+    igskynet.send(flowAddr, "registerLocal", redisMgrAddr)
+
     local gateway = igskynet.uniqueservice("gateway")
     igskynet.send(flowAddr, "registerLocal", gateway)
 

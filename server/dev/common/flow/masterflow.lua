@@ -21,7 +21,7 @@ function masterflow:ctor()
 end
 
 function masterflow:onEnter()
-	igskynet.name(const.MASTER_FLOW, igskynet.self())
+	igskynet.name("masterflow", igskynet.self())
 end
 
 function masterflow:dostop()

@@ -37,7 +37,7 @@
     end
 
     log.info("exec cmd:%s", cmdline)
-    igskynet.send(const.GM_SERVICE, "executeCommand", cmdline)
+    igskynet.send("gm", "executeCommand", cmdline)
  end
 
  function controller:mainLoop()

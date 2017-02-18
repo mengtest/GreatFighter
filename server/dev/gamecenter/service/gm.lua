@@ -14,7 +14,7 @@
 
  function gm:ctor()
     self.commands = {}
-    igskynet.name(const.GM_SERVICE, igskynet.self())
+    igskynet.name("gm", igskynet.self())
  end
 
  function gm:init()

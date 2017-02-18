@@ -19,10 +19,10 @@ function slaveflow:ctor(nodeName)
 end
 
 function slaveflow:onEnter()
-    igskynet.name(const.SLAVE_FLOW, igskynet.self())
+    igskynet.name(".slaveflow", igskynet.self())
 
-    local proxy = cluster.proxy(const.NODE_GAME_CENTER, const.MASTER_FLOW)
-	igskynet.send(proxy, "registerSlave", self.nodeName, const.SLAVE_FLOW)
+    local proxy = cluster.proxy(const.NODE_GAME_CENTER, "masterflow")
+	igskynet.send(proxy, "registerSlave", self.nodeName, "slaveflow")
 end
 
 function slaveflow:dostop()
@@ -35,7 +35,7 @@ end
 
 function slaveflow:onStopFinish()
 	if self.exitServiceCount >= #self.addrs then
-        local proxy = cluster.proxy(const.NODE_GAME_CENTER, const.MASTER_FLOW)
+        local proxy = cluster.proxy(const.NODE_GAME_CENTER, "masterflow")
 		igskynet.send(proxy, "onSlaveExitNotify", self.nodeName)
 	end
 end
