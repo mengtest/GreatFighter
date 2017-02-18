@@ -46,9 +46,9 @@ function stop_all() {
 }
 
 if [[ "$1" == "start" ]]; then
-	launch_all()
+	launch_all
 elif [[ "$1" == "stop" ]]; then
-	stop_all()
+	stop_all
 else
 	echo "不存在$1指令"
 fi
