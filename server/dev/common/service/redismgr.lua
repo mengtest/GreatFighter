@@ -25,8 +25,6 @@ function redismgr:dostart()
     for k, v in pairs(dbconfig) do 
         self.dbObjs[k] = reidslib.connect(v)
     end
-
-    self:add(const.LOGIN_DB_PLAYER, tostring(10000), { name = "test" })
 end
 
 function redismgr:dostop()
