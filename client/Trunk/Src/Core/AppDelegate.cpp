@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "Scene/HelloWorldScene.h"
+#include "Logic/Scene/HelloWorldScene.h"
 
 USING_NS_CC;
 

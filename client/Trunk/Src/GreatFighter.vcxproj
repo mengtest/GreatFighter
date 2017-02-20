@@ -78,21 +78,21 @@
   <ItemGroup>
     <ClCompile Include="3rd\cJSON\cJSON.c" />
     <ClCompile Include="Core\AppDelegate.cpp" />
+    <ClCompile Include="Logic\Scene\HelloWorldScene.cpp" />
     <ClCompile Include="Protocol\IGProtoManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Network\NetworkClient.cpp" />
-    <ClCompile Include="Scene\HelloWorldScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3rd\cJSON\cJSON.h" />
     <ClInclude Include="Common\IGConst.h" />
     <ClInclude Include="Common\IGHeader.h" />
     <ClInclude Include="Core\AppDelegate.h" />
+    <ClInclude Include="Logic\Scene\HelloWorldScene.h" />
     <ClInclude Include="Protocol\IGProtoManager.h" />
     <ClInclude Include="Protocol\IIGProtoHelper.h" />
     <ClInclude Include="Network\NetworkClient.h" />
     <ClInclude Include="Network\NetworkError.h" />
-    <ClInclude Include="Scene\HelloWorldScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -21,7 +21,7 @@
     <ClCompile Include="Core\AppDelegate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\HelloWorldScene.cpp">
+    <ClCompile Include="Logic\Scene\HelloWorldScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Network\NetworkClient.cpp">
@@ -31,6 +31,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Protocol\IGProtoManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Scene\HelloWorldScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Protocol\IIGProtoHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Scene\HelloWorldScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
