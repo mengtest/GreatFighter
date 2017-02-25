@@ -74,6 +74,21 @@ function agent:push(params)
     table.insert(self.msgList, package)
 end
 
+function agent:requestVerificationCode()
+end
+
+function agent:register()
+end
+
+function agent:tryLogin()
+end
+
+function agent:onRegisterNotify()
+end
+
+function agent:onLoginNotify()
+end
+
 igskynet.register_protocol {
     name = "client",
     id = igskynet.PTYPE_CLIENT,
