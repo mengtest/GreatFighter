@@ -34,9 +34,8 @@ const unsigned int RECV_LEN = 65535;
 class NetworkClient
 {
 public:
+	NetworkClient();
     ~NetworkClient();
-
-    static NetworkClient* getInstance();
 
     void start(
         const string& serverIP, 
@@ -72,9 +71,4 @@ private:
 
     std::function<void(NetworkError)> m_errorFunction;
     std::function<void(const list<string>&)> m_recvFunction;
-
-    NetworkClient();
-    NetworkClient(const NetworkClient&);
-    NetworkClient& operator() (const NetworkClient&);
 };
-

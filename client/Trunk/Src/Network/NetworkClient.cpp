@@ -1,27 +1,15 @@
 #include "NetworkClient.h"
 #include <iostream>
 
-static NetworkClient* s_networkClient = nullptr;
-
 NetworkClient::NetworkClient()
 {
+	init();
 }
 
 
 NetworkClient::~NetworkClient()
 {
 	stop();
-}
-
-NetworkClient* NetworkClient::getInstance()
-{
-    if (s_networkClient == nullptr)
-    {
-        s_networkClient = new NetworkClient();
-        s_networkClient->init();
-    }
-
-    return s_networkClient;
 }
 
 bool NetworkClient::init()

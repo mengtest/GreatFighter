@@ -9,8 +9,10 @@ class IGProtoManager
 public:
 	~IGProtoManager();
 	IGProtoManager* getInstance();
+	void destroyInstance();
 
 	bool init();
+	void uninit();
 	bool sendData(const string& protoName, const void* data);
 	void registerClientProto(IGClientProtoType ptype, const std::function<const void*>& callback);
 	void registerServerNotify(IGServerNotifyType stype, const std::function<const void*>& callback);

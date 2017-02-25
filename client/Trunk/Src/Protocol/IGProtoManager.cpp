@@ -7,11 +7,13 @@ IGProtoManager* s_protoManager = nullptr;
 
 IGProtoManager::IGProtoManager()
 {
+	init();
 }
 
 
 IGProtoManager::~IGProtoManager()
 {
+	uninit();
 }
 
 IGProtoManager* IGProtoManager::getInstance()
@@ -24,10 +26,25 @@ IGProtoManager* IGProtoManager::getInstance()
 	return s_protoManager;
 }
 
+void IGProtoManager::destroyInstance()
+{
+	if (s_protoManager != nullptr)
+	{
+		delete s_protoManager;
+		s_protoManager = nullptr;
+	}
+}
+
 bool IGProtoManager::init()
 {
-	m_network = NetworkClient::getInstance();
+	m_network = new NetworkClient();
 	return true;
+}
+
+void IGProtoManager::uninit()
+{
+	delete m_network;
+	m_network = nullptr;
 }
 
 bool IGProtoManager::sendData(const string& protoName, const void* data)
