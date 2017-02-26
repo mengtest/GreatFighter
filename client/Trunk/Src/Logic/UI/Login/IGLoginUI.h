@@ -6,6 +6,13 @@
 
 #pragma once
 
+enum class LSPanelType
+{
+	SelectAccountPanel = 0,
+	RegisterAccountPanel,
+	LoginPanel,
+};
+
 class IGLoginUI : public cocos2d::Layer
 {
 public:
@@ -17,6 +24,8 @@ public:
 	CREATE_FUNC(IGLoginUI);
 
 	void registerEventListener(const IGLoginSceneEventListener& eventListener);
+	void switchTo(LSPanelType panelType);
+	void refreshCaptcha(const string& imageStream);
 private:
 	// SAP->Select Account Panel
 	void registerSAPEvents();
@@ -33,6 +42,7 @@ private:
 	ui::TextField* m_rpPwdTextField = nullptr;
 	ui::TextField* m_rpConfirmPwdTextField = nullptr;
 	ui::TextField* m_rpcaptchaTextField = nullptr;
+	ImageView* m_rpCaptcha = nullptr;
 
 	// LP->Login Panel
 	void registerLPEvents();
@@ -43,6 +53,7 @@ private:
 	ui::TextField* m_lpUserNameTextFiled = nullptr;
 	ui::TextField* m_lpPwdTextField = nullptr;
 	ui::TextField* m_lpcaptchaTextField = nullptr;
+	ImageView* m_lpCaptcha = nullptr;
 
 	ui::Layout* m_selectAccountPanel = nullptr;
 	ui::Layout* m_registerPanel = nullptr;

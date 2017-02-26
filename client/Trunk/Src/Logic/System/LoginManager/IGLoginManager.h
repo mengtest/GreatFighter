@@ -18,7 +18,7 @@ public:
 	void onEnter(const IGLoginSceneEventListener& eventListener);
 	void onExit();
 	void update(int interval);
-	void RequestCaptcha();
+	void requestCaptcha();
 	void registerAccount(const string& userName, const string& pwd, const string& captcha);
 	void login();
 private:
@@ -28,5 +28,8 @@ private:
 
 	IGProtoManager* m_protoManager = nullptr;
 	IGLoginSceneEventListener m_eventListener;
+
+	string m_userName;
+	string m_pwd;
 };
 

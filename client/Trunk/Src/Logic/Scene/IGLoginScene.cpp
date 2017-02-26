@@ -44,6 +44,9 @@ void IGLoginScene::onEnter()
 	Scene::onEnter();
 
 	m_eventListener.requestRegisterAccount = std::bind(&IGLoginScene::onRequestRegisterAccount, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+	m_eventListener.onRegisterAccountNotify = std::bind(&IGLoginScene::onRegisterAccountNotify, this, std::placeholders::_1);
+	m_eventListener.requestCaptcha = std::bind(&IGLoginScene::onRequestCaptcha, this);
+	m_eventListener.onRequestCaptchaNotify = std::bind(&IGLoginScene::onRequestCaptchaNotify, this, std::placeholders::_1, std::placeholders::_2);
 
 	m_loginUI->registerEventListener(m_eventListener);
 	m_loginManager->onEnter(m_eventListener);
@@ -59,4 +62,33 @@ void IGLoginScene::onExit()
 void IGLoginScene::onRequestRegisterAccount(const string& userName, const string& pwd, const string& captcha)
 {
 	m_loginManager->registerAccount(userName, pwd, captcha);
+}
+
+void IGLoginScene::onRegisterAccountNotify(int msgCode)
+{
+	if (msgCode == 0)
+	{
+		m_loginUI->switchTo(LSPanelType::LoginPanel);
+	}
+	else
+	{
+
+	}
+}
+
+void IGLoginScene::onRequestCaptcha()
+{
+	m_loginManager->requestCaptcha();
+}
+
+void IGLoginScene::onRequestCaptchaNotify(int msgCode, const string& imageString)
+{
+	if (msgCode == 0)
+	{
+		m_loginUI->refreshCaptcha(imageString);
+	}
+	else
+	{
+
+	}
 }

@@ -6,6 +6,7 @@
 #include "Protocol/IIGProtoHelper.h"
 #include "Protocol/Client/IGProtoRequestCaptcha.h"
 #include "Protocol/Client/IGProtoRegisterAccount.h"
+#include "Protocol/Server/IGProtoRegisterAccountNotify.h"
 
 
 IGLoginManager::IGLoginManager()
@@ -54,7 +55,7 @@ void IGLoginManager::update(int interval)
 
 }
 
-void IGLoginManager::RequestCaptcha()
+void IGLoginManager::requestCaptcha()
 {
 
 }
@@ -63,6 +64,7 @@ void IGLoginManager::onRecvCaptcha(const void* data)
 {
 	IGCaptcha* realData = (IGCaptcha*)data;
 
+	m_eventListener.onRequestCaptchaNotify(realData->response.msgCode, realData->response.imageStream);
 }
 
 void IGLoginManager::registerAccount(const string& userName, const string& pwd, const string& captcha)
@@ -72,12 +74,23 @@ void IGLoginManager::registerAccount(const string& userName, const string& pwd, 
 	info.pwd = pwd;
 	info.captcha = captcha;
 
+	m_userName = userName;
+	m_pwd = pwd;
+
 	m_protoManager->sendData(IGClientProtoType::RegisterAccount, (void*)&info);
 }
 
 void IGLoginManager::onRegisterAccount(const void* data)
 {
+	IGRegisterAccountNotify* info = (IGRegisterAccountNotify*)data;
+	
+	if (info->msgCode != 0)
+	{
+		m_userName = "";
+		m_pwd = "";
+	}
 
+	m_eventListener.onRegisterAccountNotify(info->msgCode);
 }
 
 void IGLoginManager::login()

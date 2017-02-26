@@ -28,12 +28,14 @@ bool IGLoginUI::init()
 	m_rpUserNameTextFiled = static_cast<ui::TextField*>(m_registerPanel->getChildByName("UserNameTextField"));
 	m_rpPwdTextField = static_cast<ui::TextField*>(m_registerPanel->getChildByName("PwdTextField"));
 	m_rpConfirmPwdTextField = static_cast<ui::TextField*>(m_registerPanel->getChildByName("ConfirmPwdTextField"));
-	m_rpcaptchaTextField = static_cast<ui::TextField*>(m_registerPanel->getChildByName("captchaTextField"));
+	m_rpcaptchaTextField = static_cast<ui::TextField*>(m_registerPanel->getChildByName("CaptchaTextField"));
+	m_rpCaptcha = static_cast<ui::ImageView*>(m_registerPanel->getChildByName("CaptchaImage"));
 
 	m_loginPanel = static_cast<ui::Layout*>(rootNode->getChildByName("LoginPanel"));
 	m_lpUserNameTextFiled = static_cast<ui::TextField*>(m_loginPanel->getChildByName("UserNameTextField"));
 	m_lpPwdTextField = static_cast<ui::TextField*>(m_loginPanel->getChildByName("PwdTextField"));
-	m_lpcaptchaTextField = static_cast<ui::TextField*>(m_loginPanel->getChildByName("captchaTextField"));
+	m_lpcaptchaTextField = static_cast<ui::TextField*>(m_loginPanel->getChildByName("CaptchaTextField"));
+	m_lpCaptcha = static_cast<ui::ImageView*>(m_loginPanel->getChildByName("CaptchaImage"));
 
 	return true;
 }
@@ -56,6 +58,50 @@ void IGLoginUI::registerEventListener(const IGLoginSceneEventListener& eventList
 	m_eventListener = eventListener;
 }
 
+void IGLoginUI::switchTo(LSPanelType panelType)
+{
+	switch (panelType)
+	{
+	case LSPanelType::SelectAccountPanel:
+	{
+		m_selectAccountPanel->setVisible(true);
+		m_registerPanel->setVisible(false);
+		m_loginPanel->setVisible(false);
+	}
+		break;
+	case LSPanelType::RegisterAccountPanel:
+	{
+		m_selectAccountPanel->setVisible(false);
+		m_registerPanel->setVisible(true);
+		m_loginPanel->setVisible(false);
+	}
+		break;
+	case LSPanelType::LoginPanel:
+	{
+		m_selectAccountPanel->setVisible(false);
+		m_registerPanel->setVisible(false);
+		m_loginPanel->setVisible(true);
+	}
+		break;
+	default:
+		break;
+	}
+}
+
+void IGLoginUI::refreshCaptcha(const string& imageStream)
+{
+	string captchaName("captch.jpg");
+
+	auto imageObj = new Image();
+	imageObj->initWithImageData((const unsigned char*)(imageStream.c_str()), imageStream.length());
+	imageObj->saveToFile(captchaName);
+	delete imageObj;
+	imageObj = nullptr;
+
+	m_lpCaptcha->loadTexture(captchaName);
+	m_rpCaptcha->loadTexture(captchaName);
+}
+
 void IGLoginUI::registerSAPEvents()
 {
 	auto registerButton = static_cast<ui::Button*>(m_selectAccountPanel->getChildByName("RegisterButton"));
@@ -73,6 +119,7 @@ void IGLoginUI::onSAPRegisterButtonTouched(Ref* sender, ui::Widget::TouchEventTy
 		m_loginPanel->setVisible(false);
 
 		m_registerPanel->setVisible(true);
+		m_eventListener.requestCaptcha();
 	}
 }
 
@@ -84,6 +131,7 @@ void IGLoginUI::onSAPLoginButtonTouched(Ref* sender, ui::Widget::TouchEventType 
 		m_registerPanel->setVisible(false);
 
 		m_loginPanel->setVisible(true);
+		m_eventListener.requestCaptcha();
 	}
 }
 
