@@ -5,10 +5,14 @@
 
 enum class IGClientProtoType
 {
-	DEFAULT = 0,
+	Default = 0,
+	RequestCaptcha = 1,
+	RegisterAccount = 2,
+	Login = 3,
 };
 
 enum class IGServerNotifyType
 {
-	DEFAULT = 0,
+	Default = 0,
+	RegisterAccount = 1,
 };

@@ -7,10 +7,6 @@
 #ifndef __LOGINSCENE_SCENE_H__
 #define __LOGINSCENE_SCENE_H__
 
-#include "cocos2d.h"
-#include "Logic/UI/Login/IGLoginUI.h"
-#include "Logic/System/LoginManager/IGLoginManager.h"
-
 class IGLoginScene : public cocos2d::Scene
 {
 public:
@@ -23,8 +19,11 @@ public:
     CREATE_FUNC(IGLoginScene);
 
 private:
+	void onRequestRegisterAccount(const string& userName, const string& pwd, const string& captcha);
+
 	IGLoginUI* m_loginUI = nullptr;
 	IGLoginManager* m_loginManager = nullptr;
+	IGLoginSceneEventListener m_eventListener;
 };
 
 #endif // __LOGINSCENE_SCENE_H__

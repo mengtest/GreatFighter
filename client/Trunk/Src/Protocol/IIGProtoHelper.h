@@ -6,16 +6,23 @@
 
 #pragma once
 #include "Common/IGHeader.h"
+#include "Common/IGConst.h"
+
+struct IGProtoMessage
+{
+	int protoType = 0;
+	int sessionID = 0;
+};
 
 class IIGProtoHelper
 {
 public:
-	IIGProtoHelper();
-	~IIGProtoHelper();
+	IIGProtoHelper(){};
+	~IIGProtoHelper(){};
 
 	virtual void init() = 0;
-	virtual string pack(const string& protoName, int sessionID, const void* data) = 0;
+	virtual string pack(IGClientProtoType ptype, int sessionID, const void* data){ return ""; };
 	virtual void parse(const string& data) = 0;
-	virtual void registerCallback(const std::function<void(string, const void* data)>& callback) = 0;
+	virtual void registerCallback(const std::function<void(const void*)>& callback) = 0;
 };
 

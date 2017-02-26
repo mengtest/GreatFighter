@@ -15,17 +15,18 @@ public:
 	bool init();
 	void uninit();
 
-	void onEnter();
+	void onEnter(const IGLoginSceneEventListener& eventListener);
 	void onExit();
 	void update(int interval);
-	void requestVerifyCode();
-	void registerAccount();
+	void RequestCaptcha();
+	void registerAccount(const string& userName, const string& pwd, const string& captcha);
 	void login();
 private:
-	void onRecvVerifyCode();
-	void onRegisterAccount();
-	void onLogin();
+	void onRecvCaptcha(const void* data);
+	void onRegisterAccount(const void* data);
+	void onLogin(const void* data);
 
 	IGProtoManager* m_protoManager = nullptr;
+	IGLoginSceneEventListener m_eventListener;
 };
 

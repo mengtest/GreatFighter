@@ -1,4 +1,8 @@
+#include "Common/IGHeader.h"
 #include "AppDelegate.h"
+#include "Logic/EventListener/IGLoginSceneEventListener.h"
+#include "Logic/UI/Login/IGLoginUI.h"
+#include "Logic/System/LoginManager/IGLoginManager.h"
 #include "Logic/Scene/IGLoginScene.h"
 
 USING_NS_CC;

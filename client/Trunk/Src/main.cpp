@@ -1,3 +1,4 @@
+#include "Common/IGHeader.h"
 #include <iostream>
 #include "Core\AppDelegate.h"
 using namespace std;

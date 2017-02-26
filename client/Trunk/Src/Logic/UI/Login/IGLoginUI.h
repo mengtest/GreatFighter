@@ -6,8 +6,6 @@
 
 #pragma once
 
-#include "Common/IGHeader.h"
-
 class IGLoginUI : public cocos2d::Layer
 {
 public:
@@ -18,6 +16,7 @@ public:
 	virtual void onEnter();
 	CREATE_FUNC(IGLoginUI);
 
+	void registerEventListener(const IGLoginSceneEventListener& eventListener);
 private:
 	// SAP->Select Account Panel
 	void registerSAPEvents();
@@ -33,7 +32,7 @@ private:
 	ui::TextField* m_rpUserNameTextFiled = nullptr;
 	ui::TextField* m_rpPwdTextField = nullptr;
 	ui::TextField* m_rpConfirmPwdTextField = nullptr;
-	ui::TextField* m_rpVerifyCodeTextField = nullptr;
+	ui::TextField* m_rpcaptchaTextField = nullptr;
 
 	// LP->Login Panel
 	void registerLPEvents();
@@ -43,10 +42,12 @@ private:
 	void clearLPInfo();
 	ui::TextField* m_lpUserNameTextFiled = nullptr;
 	ui::TextField* m_lpPwdTextField = nullptr;
-	ui::TextField* m_lpVerifyCodeTextField = nullptr;
+	ui::TextField* m_lpcaptchaTextField = nullptr;
 
 	ui::Layout* m_selectAccountPanel = nullptr;
 	ui::Layout* m_registerPanel = nullptr;
 	ui::Layout* m_loginPanel = nullptr;
+
+	IGLoginSceneEventListener m_eventListener;
 };
 

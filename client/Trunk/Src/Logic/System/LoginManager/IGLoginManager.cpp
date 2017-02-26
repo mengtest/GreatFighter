@@ -1,6 +1,11 @@
 #include "Common/IGHeader.h"
+#include "Common/IGConst.h"
 #include "Protocol/IGProtoManager.h"
+#include "Logic/EventListener/IGLoginSceneEventListener.h"
 #include "IGLoginManager.h"
+#include "Protocol/IIGProtoHelper.h"
+#include "Protocol/Client/IGProtoRequestCaptcha.h"
+#include "Protocol/Client/IGProtoRegisterAccount.h"
 
 
 IGLoginManager::IGLoginManager()
@@ -25,10 +30,18 @@ void IGLoginManager::uninit()
 	m_protoManager = nullptr;
 }
 
-void IGLoginManager::onEnter()
+void IGLoginManager::onEnter(const IGLoginSceneEventListener& eventListener)
 {
+	m_eventListener = eventListener;
+
+	m_protoManager->registerClientProto(IGClientProtoType::RequestCaptcha, std::bind(&IGLoginManager::onRecvCaptcha, this, std::placeholders::_1));
+	m_protoManager->registerClientProto(IGClientProtoType::RegisterAccount);
+	m_protoManager->registerClientProto(IGClientProtoType::Login, std::bind(&IGLoginManager::onLogin, this, std::placeholders::_1));
+
+	m_protoManager->registerServerNotify(IGServerNotifyType::RegisterAccount, std::bind(&IGLoginManager::onRegisterAccount, this, std::placeholders::_1));
+
 	// 暂时写死,以后要放在配置表中配置
-	m_protoManager->startNetwork("", 8001);
+	m_protoManager->startNetwork("192.168.1.103", 8888);
 }
 
 void IGLoginManager::onExit()
@@ -41,22 +54,28 @@ void IGLoginManager::update(int interval)
 
 }
 
-void IGLoginManager::requestVerifyCode()
+void IGLoginManager::RequestCaptcha()
 {
 
 }
 
-void IGLoginManager::onRecvVerifyCode()
+void IGLoginManager::onRecvCaptcha(const void* data)
 {
+	IGCaptcha* realData = (IGCaptcha*)data;
 
 }
 
-void IGLoginManager::registerAccount()
+void IGLoginManager::registerAccount(const string& userName, const string& pwd, const string& captcha)
 {
+	IGRegisterInfo info;
+	info.userName = userName;
+	info.pwd = pwd;
+	info.captcha = captcha;
 
+	m_protoManager->sendData(IGClientProtoType::RegisterAccount, (void*)&info);
 }
 
-void IGLoginManager::onRegisterAccount()
+void IGLoginManager::onRegisterAccount(const void* data)
 {
 
 }
@@ -66,7 +85,7 @@ void IGLoginManager::login()
 
 }
 
-void IGLoginManager::onLogin()
+void IGLoginManager::onLogin(const void* data)
 {
 
 }

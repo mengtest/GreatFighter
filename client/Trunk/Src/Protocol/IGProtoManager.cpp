@@ -2,6 +2,9 @@
 #include "Network/NetworkClient.h"
 #include "Protocol/IIGProtoHelper.h"
 #include "Protocol/IGProtoManager.h"
+#include "Protocol/Client/IGProtoRequestCaptcha.h"
+#include "Protocol/Client/IGProtoRegisterAccount.h"
+#include "Protocol/Server/IGProtoRegisterAccountNotify.h"
 
 IGProtoManager* s_protoManager = nullptr;
 
@@ -47,13 +50,13 @@ void IGProtoManager::uninit()
 	m_network = nullptr;
 }
 
-bool IGProtoManager::sendData(const string& protoName, const void* data)
+bool IGProtoManager::sendData(IGClientProtoType protoType, const void* data)
 {
 	m_sessionID ++;
 
-	auto iter = m_clientProtos.find(protoName);
+	auto iter = m_clientProtos.find(protoType);
 	IIGProtoHelper* helper = iter->second;
-	string msg = helper->pack(protoName, m_sessionID, data);
+	string msg = helper->pack(protoType, m_sessionID, data);
 
 	m_sessionList.push_back(m_sessionID);
 	m_network->sendRequest(msg);
@@ -61,14 +64,61 @@ bool IGProtoManager::sendData(const string& protoName, const void* data)
 	return true;
 }
 
-void IGProtoManager::registerClientProto(IGClientProtoType ptype, const std::function<const void*>& callback)
+void IGProtoManager::registerClientProto(IGClientProtoType ptype)
 {
-
+	registerClientProto(ptype, std::bind(&IGProtoManager::onEmptyCallback, this, std::placeholders::_1));
 }
 
-void IGProtoManager::registerServerNotify(IGServerNotifyType stype, const std::function<const void*>& callback)
+void IGProtoManager::registerClientProto(IGClientProtoType ptype, const std::function<void(const void*)>& callback)
 {
+	auto iter = m_clientProtos.find(ptype);
+	if (iter != m_clientProtos.end())
+	{
+		return;
+	}
 
+	switch (ptype)
+	{
+	case IGClientProtoType::RequestCaptcha:
+	{
+		auto helper = new IGProtoRequestCaptcha();
+		helper->registerCallback(callback);
+		m_clientProtos[IGClientProtoType::RequestCaptcha] = helper;
+	}
+		break;
+	case IGClientProtoType::RegisterAccount:
+	{
+		auto helper = new IGProtoRegisterAccount();
+		helper->registerCallback(callback);
+		m_clientProtos[IGClientProtoType::RegisterAccount] = helper;
+	}
+		break;
+	case IGClientProtoType::Login:
+		break;
+	default:break;
+	}
+}
+
+void IGProtoManager::registerServerNotify(IGServerNotifyType stype, const std::function<void(const void*)>& callback)
+{
+	auto iter = m_serverNotify.find(stype);
+	if (iter != m_serverNotify.end())
+	{
+		return;
+	}
+
+	switch (stype)
+	{
+	case IGServerNotifyType::RegisterAccount:
+	{
+		auto helper = new IGProtoRegisterAccountNotify();
+		helper->registerCallback(callback);
+		m_serverNotify[IGServerNotifyType::RegisterAccount] = helper;
+	}
+		break;
+	default:
+		break;
+	}
 }
 
 void IGProtoManager::update()
@@ -83,9 +133,9 @@ void IGProtoManager::update()
 			continue;
 		}
 
-		string typeKey = string("protoName");
-		cJSON* protoNameObj = cJSON_GetObjectItem(root, typeKey.c_str());
-		string protoName = string(protoNameObj->valuestring);
+		string typeKey = string("protoType");
+		cJSON* protoTypeObj = cJSON_GetObjectItem(root, typeKey.c_str());
+		int protoType = protoTypeObj->valueint;
 
 		string sessionKey = string("sessionID");
 		cJSON* sessionObj = cJSON_GetObjectItem(root, sessionKey.c_str());
@@ -93,7 +143,7 @@ void IGProtoManager::update()
 
 		if (canFindSessionID(sessionID))
 		{
-			auto iter = m_clientProtos.find(protoName);
+			auto iter = m_clientProtos.find((IGClientProtoType)protoType);
 			IIGProtoHelper* helper = iter->second;
 			helper->parse(msg);
 
@@ -101,7 +151,7 @@ void IGProtoManager::update()
 		}
 		else
 		{
-			auto iter = m_serverNotify.find(protoName);
+			auto iter = m_serverNotify.find((IGServerNotifyType)protoType);
 			IIGProtoHelper* helper = iter->second;
 			helper->parse(msg);
 		}
@@ -153,4 +203,9 @@ bool IGProtoManager::canFindSessionID(int sessionID)
 	}
 
 	return result;
+}
+
+void IGProtoManager::onEmptyCallback(const void* data)
+{
+
 }

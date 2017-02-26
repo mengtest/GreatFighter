@@ -1,8 +1,8 @@
+#include "Common/IGHeader.h"
+#include "Logic/EventListener/IGLoginSceneEventListener.h"
+#include "Logic/UI/Login/IGLoginUI.h"
+#include "Logic/System/LoginManager/IGLoginManager.h"
 #include "IGLoginScene.h"
-#include "cocostudio/CocoStudio.h"
-#include "ui/CocosGUI.h"
-
-USING_NS_CC;
 
 using namespace cocostudio::timeline;
 
@@ -43,7 +43,10 @@ void IGLoginScene::onEnter()
 {
 	Scene::onEnter();
 
-	m_loginManager->onEnter();
+	m_eventListener.requestRegisterAccount = std::bind(&IGLoginScene::onRequestRegisterAccount, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+
+	m_loginUI->registerEventListener(m_eventListener);
+	m_loginManager->onEnter(m_eventListener);
 }
 
 void IGLoginScene::onExit()
@@ -51,4 +54,9 @@ void IGLoginScene::onExit()
 	Scene::onExit();
 
 	m_loginManager->onExit();
+}
+
+void IGLoginScene::onRequestRegisterAccount(const string& userName, const string& pwd, const string& captcha)
+{
+	m_loginManager->registerAccount(userName, pwd, captcha);
 }

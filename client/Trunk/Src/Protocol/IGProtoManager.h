@@ -19,9 +19,10 @@ public:
 
 	bool init();
 	void uninit();
-	bool sendData(const string& protoName, const void* data);
-	void registerClientProto(IGClientProtoType ptype, const std::function<const void*>& callback);
-	void registerServerNotify(IGServerNotifyType stype, const std::function<const void*>& callback);
+	bool sendData(IGClientProtoType protoType, const void* data);
+	void registerClientProto(IGClientProtoType ptype);
+	void registerClientProto(IGClientProtoType ptype, const std::function<void(const void*)>& callback);
+	void registerServerNotify(IGServerNotifyType stype, const std::function<void(const void*)>& callback);
 	void update();
 
 	void startNetwork(const string& ip, int port);
@@ -30,13 +31,14 @@ private:
 	void onRecvMessage(const list<string>& msgs);
 	void onNetworkError(NetworkError error);
 	bool canFindSessionID(int sessionID);
+	void onEmptyCallback(const void* data);
 
 	int m_sessionID = 0;
 	std::list<int> m_sessionList;
 
 	NetworkClient* m_network = nullptr;
-	std::map<string, IIGProtoHelper*> m_clientProtos;
-	std::map<string, IIGProtoHelper*> m_serverNotify;
+	std::map<IGClientProtoType, IIGProtoHelper*> m_clientProtos;
+	std::map<IGServerNotifyType, IIGProtoHelper*> m_serverNotify;
 	std::list<string> m_messageList;
 
 	IGProtoManager();

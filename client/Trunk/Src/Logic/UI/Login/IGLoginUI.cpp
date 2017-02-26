@@ -1,3 +1,5 @@
+#include "Common/IGHeader.h"
+#include "Logic/EventListener/IGLoginSceneEventListener.h"
 #include "IGLoginUI.h"
 
 
@@ -26,12 +28,12 @@ bool IGLoginUI::init()
 	m_rpUserNameTextFiled = static_cast<ui::TextField*>(m_registerPanel->getChildByName("UserNameTextField"));
 	m_rpPwdTextField = static_cast<ui::TextField*>(m_registerPanel->getChildByName("PwdTextField"));
 	m_rpConfirmPwdTextField = static_cast<ui::TextField*>(m_registerPanel->getChildByName("ConfirmPwdTextField"));
-	m_rpVerifyCodeTextField = static_cast<ui::TextField*>(m_registerPanel->getChildByName("VerifyCodeTextField"));
+	m_rpcaptchaTextField = static_cast<ui::TextField*>(m_registerPanel->getChildByName("captchaTextField"));
 
 	m_loginPanel = static_cast<ui::Layout*>(rootNode->getChildByName("LoginPanel"));
 	m_lpUserNameTextFiled = static_cast<ui::TextField*>(m_loginPanel->getChildByName("UserNameTextField"));
 	m_lpPwdTextField = static_cast<ui::TextField*>(m_loginPanel->getChildByName("PwdTextField"));
-	m_lpVerifyCodeTextField = static_cast<ui::TextField*>(m_loginPanel->getChildByName("VerifyCodeTextField"));
+	m_lpcaptchaTextField = static_cast<ui::TextField*>(m_loginPanel->getChildByName("captchaTextField"));
 
 	return true;
 }
@@ -47,6 +49,11 @@ void IGLoginUI::onEnter()
 	registerSAPEvents();
 	registerRPEvents();
 	registerLPEvents();
+}
+
+void IGLoginUI::registerEventListener(const IGLoginSceneEventListener& eventListener)
+{
+	m_eventListener = eventListener;
 }
 
 void IGLoginUI::registerSAPEvents()
@@ -109,6 +116,20 @@ void IGLoginUI::onRPConfirmButtonTouched(Ref* sender, ui::Widget::TouchEventType
 {
 	if (touchType == ui::Widget::TouchEventType::ENDED)
 	{
+		if (m_rpUserNameTextFiled->getString().empty() ||
+			m_rpPwdTextField->getString().empty() ||
+			m_rpConfirmPwdTextField->getString().empty() ||
+			m_rpcaptchaTextField->getString().empty())
+		{
+			CCLOG("%s", "----------------信息不完整");
+			return;
+		}
+		else if (m_rpPwdTextField->getString() != m_rpConfirmPwdTextField->getString())
+		{
+			CCLOG("%s", "----------------密码和验证密码不正确");
+			return;
+		}
+
 
 	}
 }
@@ -126,7 +147,7 @@ void IGLoginUI::clearRPInfo()
 	m_rpUserNameTextFiled->setText("");
 	m_rpPwdTextField->setText("");
 	m_rpConfirmPwdTextField->setText("");
-	m_rpVerifyCodeTextField->setText("");
+	m_rpcaptchaTextField->setText("");
 }
 
 
@@ -175,5 +196,5 @@ void IGLoginUI::clearLPInfo()
 {
 	m_lpUserNameTextFiled->setText("");
 	m_lpPwdTextField->setText("");
-	m_lpVerifyCodeTextField->setText("");
+	m_lpcaptchaTextField->setText("");
 }
