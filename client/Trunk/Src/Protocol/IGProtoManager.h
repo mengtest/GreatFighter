@@ -6,11 +6,15 @@
 
 #pragma once
 
+class NetworkClient;
+enum class NetworkError;
+class IIGProtoHelper;
+
 class IGProtoManager
 {
 public:
 	~IGProtoManager();
-	IGProtoManager* getInstance();
+	static IGProtoManager* getInstance();
 	void destroyInstance();
 
 	bool init();

@@ -30,13 +30,7 @@
     <ClCompile Include="Protocol\IGProtoManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Logic\Scene\HelloWorldScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Logic\Scene\IGLoginScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IGLoginUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Logic\UI\Login\IGLoginUI.cpp">
@@ -69,9 +63,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Scene\IGLoginScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IGLoginUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Logic\UI\Login\IGLoginUI.h">
