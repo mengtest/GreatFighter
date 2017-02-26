@@ -12,6 +12,8 @@ local log = require "common.core.log"
 local socket = require "socket"
 local const = require "common.const"
 local json = require "cjson"
+local client2server = require "res.client2server"
+local captcha = require "captcha"
 
 local agent = class(base)
 local agentObj = nil
@@ -43,8 +45,8 @@ function agent:update()
 end
 
 function agent:onRecv(params)
-    local protoName = assert(params.protoName)
-    local request = self[protoName]
+    local protoType = assert(params.protoType)
+    local request = self[client2server[protoType]]
     if request then
         local ret = request(self, params)
         if params.response then
@@ -74,19 +76,33 @@ function agent:push(params)
     table.insert(self.msgList, package)
 end
 
-function agent:requestVerificationCode()
-end
-
-function agent:register()
-end
-
-function agent:tryLogin()
-end
-
 function agent:onRegisterNotify()
 end
 
 function agent:onLoginNotify()
+end
+
+------------client request-----------------
+function agent:requestCaptcha()
+    local filename = string.format("captcha_%d.jpg", os.time())
+    local cap = captcha.new()
+
+    cap:font("res/font/Vera.ttf")
+    cap:string("123456")
+    cap:bgcolor(61, 174, 233)
+    cap:fgcolor(49, 54, 59)
+    cap:line(true)
+
+    cap:generate()
+    cap:write(filename, 70);
+
+    return { msgCode = 0, imageStream = cap:jpegStr(70) }
+end
+
+function agent:registerAccount()
+end
+
+function agent:tryLogin()
 end
 
 igskynet.register_protocol {
