@@ -1,6 +1,11 @@
+/////////////////////////////////////////////
+// desc:协议序列化、反序列化辅助类
+// author:wuyinjie
+// since:2017-02-26
+/////////////////////////////////////////////
+
 #pragma once
 #include "Common/IGHeader.h"
-
 
 class IIGProtoHelper
 {

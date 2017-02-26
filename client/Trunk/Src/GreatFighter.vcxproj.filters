@@ -21,9 +21,6 @@
     <ClCompile Include="Core\AppDelegate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Logic\Scene\HelloWorldScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Network\NetworkClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,12 +33,18 @@
     <ClCompile Include="Logic\Scene\HelloWorldScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Logic\Scene\IGLoginScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IGLoginUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\UI\Login\IGLoginUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AppDelegate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\HelloWorldScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Network\NetworkClient.h">
@@ -65,7 +68,13 @@
     <ClInclude Include="Protocol\IIGProtoHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Logic\Scene\HelloWorldScene.h">
+    <ClInclude Include="Logic\Scene\IGLoginScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IGLoginUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\UI\Login\IGLoginUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "Logic/Scene/HelloWorldScene.h"
+#include "Logic/Scene/IGLoginScene.h"
 
 USING_NS_CC;
 
@@ -31,7 +31,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 
-    director->getOpenGLView()->setDesignResolutionSize(960, 640, ResolutionPolicy::SHOW_ALL);
+    director->getOpenGLView()->setDesignResolutionSize(1280, 720, ResolutionPolicy::SHOW_ALL);
 
     // turn on display FPS
     director->setDisplayStats(true);
@@ -41,11 +41,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     FileUtils::getInstance()->addSearchPath("Art/Effect");
 	FileUtils::getInstance()->addSearchPath("Art/Fonts");
-	FileUtils::getInstance()->addSearchPath("Art/Scene");
 	FileUtils::getInstance()->addSearchPath("Art/UI");
 
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
+    auto scene = IGLoginScene::createScene();
 
     // run
     director->runWithScene(scene);

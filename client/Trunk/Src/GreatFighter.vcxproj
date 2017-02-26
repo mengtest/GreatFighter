@@ -78,7 +78,8 @@
   <ItemGroup>
     <ClCompile Include="3rd\cJSON\cJSON.c" />
     <ClCompile Include="Core\AppDelegate.cpp" />
-    <ClCompile Include="Logic\Scene\HelloWorldScene.cpp" />
+    <ClCompile Include="Logic\Scene\IGLoginScene.cpp" />
+    <ClCompile Include="Logic\UI\Login\IGLoginUI.cpp" />
     <ClCompile Include="Protocol\IGProtoManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Network\NetworkClient.cpp" />
@@ -88,7 +89,8 @@
     <ClInclude Include="Common\IGConst.h" />
     <ClInclude Include="Common\IGHeader.h" />
     <ClInclude Include="Core\AppDelegate.h" />
-    <ClInclude Include="Logic\Scene\HelloWorldScene.h" />
+    <ClInclude Include="Logic\Scene\IGLoginScene.h" />
+    <ClInclude Include="Logic\UI\Login\IGLoginUI.h" />
     <ClInclude Include="Protocol\IGProtoManager.h" />
     <ClInclude Include="Protocol\IIGProtoHelper.h" />
     <ClInclude Include="Network\NetworkClient.h" />
