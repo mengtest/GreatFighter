@@ -16,19 +16,41 @@ local json = require "cjson"
 local loginmgr = class(base)
 
 function loginmgr:ctor()
+    igskynet.name("loginmgr", igskynet.self())
+
+    self.onlinePlayers = {}
+    self.authInfo = {}
 end
 
-function loginmgr:registerAuthInfo()
+function loginmgr:registerAuthInfo(playerUuid, authInfo)
+    self.authInfo[playerUuid] = authInfo
 end
 
-function loginmgr:getAuthInfo()
+function loginmgr:getAuthInfo(playerUuid)
+    return self.authInfo[playerUuid]
 end
 
 function loginmgr:getOnlinePlayerCount()
+    local count = 0
+    for k, v in pairs(self.onlinePlayers) do 
+        count = count + 1
+    end
+    return count
 end
 
 -- 根据负载均衡的算法，选出最佳登陆节点
-function loginmgr:getLoginNodeInfo()
+function loginmgr:getBestLoginNode()
+end
+
+function loginmgr:dostart()
+end
+
+function loginmgr:dostop()
+    for k, v in pairs(self.onlinePlayers) do 
+        igskynet.call(k, "kick")
+    end
+
+    igskynet.send("masterflow", "onLocalExitNotify", igskynet.self())
 end
 
 function loginmgr:dologin()

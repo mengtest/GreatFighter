@@ -12,8 +12,14 @@ local log = require "common.core.log"
 local socket = require "socket"
 local const = require "common.const"
 local json = require "cjson"
-local client2server = require "res.client2server"
 local captcha = require "captcha"
+local date = require "common.util.date"
+local protohelper = require "common.util.protohelper"
+local msgcode = require "common.msgcode"
+local crypt = require "crypt"
+
+local CAPTCHA_CREATE_INTERVAL = 30
+local CAPTCHA_NUM_LEN = 6
 
 local agent = class(base)
 local agentObj = nil
@@ -23,6 +29,11 @@ function agent:ctor()
     self.fd = 0
     self.gate = nil
     self.watchdog = nil
+
+    self.captchaNumber = 0
+    self.captchaValidTime = 0
+
+    math.randomseed(date.now())
 end
 
 function agent:dostart(config)
@@ -46,7 +57,7 @@ end
 
 function agent:onRecv(params)
     local protoType = assert(params.protoType)
-    local request = self[client2server[protoType]]
+    local request = self[protohelper.parse(protoType)]
     if request then
         local ret = request(self, params)
         if params.response then
@@ -76,7 +87,17 @@ function agent:push(params)
     table.insert(self.msgList, package)
 end
 
-function agent:onRegisterNotify()
+function agent:onRegisterNotify(type, info)
+    if type == const.REGISTER_NOTIFY_SUCCESS then
+        info.msgcode = msgcode.SUCCESS
+        local notifyInfo = protohelper.pack("registerAccountNotify", info)
+        self:push(notifyInfo)
+
+    elseif type == const.REGISTER_NOTIFY_USER_EXIST then
+        info.msgcode = msgcode.USER_NAME_EXISTED
+        local notifyInfo = protohelper.pack("registerAccountNotify", info)
+        self:push(notifyInfo)
+    end
 end
 
 function agent:onLoginNotify()
@@ -84,11 +105,21 @@ end
 
 ------------client request-----------------
 function agent:requestCaptcha()
-    local filename = string.format("captcha_%d.jpg", os.time())
+    if date.now() < self.captchaValidTime then
+        return { msgcode = msgcode.IN_CAPTCHA_CD }
+    end
+
+    local captchaStr = ""
+    for i = 1, CAPTCHA_NUM_LEN do 
+        captchaStr = captchaStr .. math.random(0, 9)
+    end
+    self.captchaNumber = tonumber(captchaStr)
+
+    local filename = string.format("captcha_%d.jpg", igskynet.self())
     local cap = captcha.new()
 
-    cap:font("res/font/Vera.ttf")
-    cap:string("123456")
+    cap:font("../dev/res/font/Vera.ttf")
+    cap:string(captchaStr)
     cap:bgcolor(61, 174, 233)
     cap:fgcolor(49, 54, 59)
     cap:line(true)
@@ -96,13 +127,74 @@ function agent:requestCaptcha()
     cap:generate()
     cap:write(filename, 70);
 
-    return { msgCode = 0, imageStream = cap:jpegStr(70) }
+    self.captchaValidTime = date.now() + CAPTCHA_CREATE_INTERVAL
+
+    return { msgcode = msgcode.SUCCESS, imageStream = cap:jpegStr(70) }
 end
 
-function agent:registerAccount()
+local function isUserNameLegal(userName)
+    -- TODO
+    return true
 end
 
-function agent:tryLogin()
+function agent:registerAccount(params)
+    if not isUserNameLegal(params.userName) then
+        return { msgcode = msgcode.USER_NAME_ILLEGAL }
+    end
+
+    if date.now() > self.captchaValidTime then
+        return { msgcode = msgcode.CAPTCHA_EXPIRED }
+    end
+
+    if self.captchaNumber ~= tonumber(params.captcha) then
+        return { msgcode = msgcode.CAPTCHA_INCORRECT }
+    end
+
+    igskynet.send("register", "insertRegisterQueue", params.userName, params.pwd, igskynet.self())
+
+    return { msgcode = msgcode.WAITTING_FOR_REGISTER }
+end
+
+function agent:tryLogin(params)
+    local userName = params.userName
+    local pwd = params.pwd
+
+    if not userName then
+        return { msgcode = msgcode.ACCOUNT_NOT_EXIST }
+    end
+
+    if not pwd then
+        return { msgcode = msgcode.PWD_INCORRECT }
+    end
+
+    if date.now() > self.captchaValidTime then
+        return { msgcode = msgcode.CAPTCHA_EXPIRED }
+    end
+
+    if self.captchaNumber ~= tonumber(params.captcha) then
+        return { msgcode = msgcode.CAPTCHA_INCORRECT }
+    end
+
+    local dbInfo = igskynet.call("redismgr", "query", const.LOGIN_DB_ACCOUNT, userName)
+    if not dbInfo then
+        return { msgcode = msgcode.ACCOUNT_NOT_EXIST }
+    end
+
+    if pwd ~= dbInfo.pwd then
+        return { msgcode = msgcode.PWD_INCORRECT }
+    end
+
+    local user = userName .. "@" .. date.now()
+    local secret = crypt.base64encode(pwd .. "@" .. date.now()) -- TODO 以后要用真正的secret生成算法，暂时写死
+    local loginNode = igskynet.call("loginmgr", "getBestLoginNode")
+
+    local authInfo = {}
+    authInfo.user = user
+    authInfo.secret = secret
+    authInfo.dbInfo = dbInfo
+    igskynet.send("loginmgr", "registerAuthInfo", dbInfo.playerUuid, authInfo)
+
+    return { msgcode = msgcode.SUCCESS, user = user, secret = secret, loginNode = loginNode }
 end
 
 igskynet.register_protocol {

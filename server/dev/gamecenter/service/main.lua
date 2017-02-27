@@ -19,6 +19,9 @@
     igskynet.uniqueservice("gm")
     igskynet.uniqueservice("telnetlistener", "telnetcontroller", igskynet.getenv("gm_addr"))
 
+    local loginMgrAddr = igskynet.uniqueservice("loginmgr")
+    igskynet.send(flowAddr, "registerLocal", loginMgrAddr)
+
     igskynet.call(flowAddr, "dostart")
     cluster.open(const.NODE_GAME_CENTER)
     log.info("server|gamecenter|booted")

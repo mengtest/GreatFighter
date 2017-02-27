@@ -64,12 +64,6 @@
 
  function CMD.dostop()
     log.info("gateway dostop")
-
-    for fd, agentAddr in pairs(agents) do 
-        closeClient(fd)
-    end
-
-    igskynet.send("slaveflow", "onLocalExitNotify", igskynet.self())
  end
 
  igskynet.start(function()
