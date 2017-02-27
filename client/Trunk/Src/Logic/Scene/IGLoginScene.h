@@ -20,9 +20,9 @@ public:
 
 private:
 	void onRequestRegisterAccount(const string& userName, const string& pwd, const string& captcha);
-	void onRegisterAccountNotify(int msgCode);
+	void onRegisterAccountNotify(int msgcode);
 	void onRequestCaptcha();
-	void onRequestCaptchaNotify(int msgCode, const string& imageString);
+	void onRequestCaptchaNotify(int msgcode, const string& imageString);
 
 	IGLoginUI* m_loginUI = nullptr;
 	IGLoginManager* m_loginManager = nullptr;

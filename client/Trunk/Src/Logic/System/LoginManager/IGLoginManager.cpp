@@ -64,7 +64,7 @@ void IGLoginManager::onRecvCaptcha(const void* data)
 {
 	IGCaptcha* realData = (IGCaptcha*)data;
 
-	m_eventListener.onRequestCaptchaNotify(realData->response.msgCode, realData->response.imageStream);
+	m_eventListener.onRequestCaptchaNotify(realData->response.msgcode, realData->response.imageStream);
 }
 
 void IGLoginManager::registerAccount(const string& userName, const string& pwd, const string& captcha)
@@ -84,13 +84,13 @@ void IGLoginManager::onRegisterAccount(const void* data)
 {
 	IGRegisterAccountNotify* info = (IGRegisterAccountNotify*)data;
 	
-	if (info->msgCode != 0)
+	if (info->msgcode != 0)
 	{
 		m_userName = "";
 		m_pwd = "";
 	}
 
-	m_eventListener.onRegisterAccountNotify(info->msgCode);
+	m_eventListener.onRegisterAccountNotify(info->msgcode);
 }
 
 void IGLoginManager::login()

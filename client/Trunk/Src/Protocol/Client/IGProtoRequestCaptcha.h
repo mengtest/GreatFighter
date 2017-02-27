@@ -10,7 +10,7 @@ struct IGCaptcha : public IGProtoMessage
 {
 	struct Ressponse
 	{
-		int msgCode = 0;
+		int msgcode = 0;
 		string imageStream;
 	} 
 	response;

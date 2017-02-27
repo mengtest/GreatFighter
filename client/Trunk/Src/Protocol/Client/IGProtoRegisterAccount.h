@@ -11,6 +11,12 @@ struct IGRegisterInfo : public IGProtoMessage
 	string userName;
 	string pwd;
 	string captcha;
+
+	struct Response
+	{
+		int msgcode = 0;
+	}
+	response;
 };
 
 

@@ -8,7 +8,7 @@
 
 struct IGRegisterAccountNotify
 {
-	int msgCode = 0;
+	int msgcode = 0;
 	string userName;
 	string pwd;
 };

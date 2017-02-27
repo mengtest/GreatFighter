@@ -64,9 +64,9 @@ void IGLoginScene::onRequestRegisterAccount(const string& userName, const string
 	m_loginManager->registerAccount(userName, pwd, captcha);
 }
 
-void IGLoginScene::onRegisterAccountNotify(int msgCode)
+void IGLoginScene::onRegisterAccountNotify(int msgcode)
 {
-	if (msgCode == 0)
+	if (msgcode == 0)
 	{
 		m_loginUI->switchTo(LSPanelType::LoginPanel);
 	}
@@ -81,9 +81,9 @@ void IGLoginScene::onRequestCaptcha()
 	m_loginManager->requestCaptcha();
 }
 
-void IGLoginScene::onRequestCaptchaNotify(int msgCode, const string& imageString)
+void IGLoginScene::onRequestCaptchaNotify(int msgcode, const string& imageString)
 {
-	if (msgCode == 0)
+	if (msgcode == 0)
 	{
 		m_loginUI->refreshCaptcha(imageString);
 	}

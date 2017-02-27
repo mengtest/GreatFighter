@@ -20,12 +20,12 @@ void IGProtoRegisterAccountNotify::init()
 void IGProtoRegisterAccountNotify::parse(const string& data)
 {
 	cJSON* root = cJSON_Parse(data.c_str());
-	cJSON* msgCodeObj = cJSON_GetObjectItem(root, "msgCode");
+	cJSON* msgCodeObj = cJSON_GetObjectItem(root, "msgcode");
 	cJSON* userNameObj = cJSON_GetObjectItem(root, "userName");
 	cJSON* pwdObj = cJSON_GetObjectItem(root, "pwd");
 
 	IGRegisterAccountNotify info;
-	info.msgCode = msgCodeObj->valueint;
+	info.msgcode = msgCodeObj->valueint;
 	info.userName = msgCodeObj->valuestring;
 	info.pwd = msgCodeObj->valuestring;
 
