@@ -26,6 +26,10 @@ function loginmgr:registerAuthInfo(playerUuid, authInfo)
     self.authInfo[playerUuid] = authInfo
 end
 
+function loginmgr:clearAuthInfo(playerUuid)
+    self.authInfo[playerUuid] = nil
+end
+
 function loginmgr:getAuthInfo(playerUuid)
     return self.authInfo[playerUuid]
 end
@@ -53,10 +57,12 @@ function loginmgr:dostop()
     igskynet.send("masterflow", "onLocalExitNotify", igskynet.self())
 end
 
-function loginmgr:dologin()
+function loginmgr:dologin(playerUuid, agentAddr)
+    self.onlinePlayers[playerUuid] = agentAddr
 end
 
-function loginmgr:dologout()
+function loginmgr:dologout(playerUuid)
+    self.onlinePlayers[playerUuid] = nil
 end
 
 igskynet.start(function()
