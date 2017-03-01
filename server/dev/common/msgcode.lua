@@ -17,5 +17,6 @@ msgcode.USER_NAME_EXISTED = LOGIN_START_IDX + 5     -- 用户名已经被注册
 msgcode.ACCOUNT_NOT_EXIST = LOGIN_START_IDX + 6     -- 用户不存在
 msgcode.PWD_INCORRECT = LOGIN_START_IDX + 7
 msgcode.CAPTCHA_EXPIRED = LOGIN_START_IDX + 8
+msgcode.LOGIN_SERVER_NOT_AUTH = LOGIN_START_IDX + 9 -- 未进行登录验证
 
 return msgcode

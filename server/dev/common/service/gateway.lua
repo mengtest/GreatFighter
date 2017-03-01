@@ -66,6 +66,10 @@
     log.info("gateway dostop")
  end
 
+ function CMD.kick(fd)
+    closeClient(fd)
+ end
+
  igskynet.start(function()
     igskynet.dispatch("lua", function(session, source, cmd, subcmd, ...)
         if cmd == "socket" then

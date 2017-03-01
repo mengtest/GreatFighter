@@ -22,16 +22,16 @@ function loginmgr:ctor()
     self.authInfo = {}
 end
 
-function loginmgr:registerAuthInfo(playerUuid, authInfo)
-    self.authInfo[playerUuid] = authInfo
+function loginmgr:registerAuthInfo(user, authInfo)
+    self.authInfo[user] = authInfo
 end
 
-function loginmgr:clearAuthInfo(playerUuid)
-    self.authInfo[playerUuid] = nil
+function loginmgr:clearAuthInfo(user)
+    self.authInfo[user] = nil
 end
 
-function loginmgr:getAuthInfo(playerUuid)
-    return self.authInfo[playerUuid]
+function loginmgr:getAuthInfo(user)
+    return self.authInfo[user]
 end
 
 function loginmgr:getOnlinePlayerCount()
@@ -51,7 +51,7 @@ end
 
 function loginmgr:dostop()
     for k, v in pairs(self.onlinePlayers) do 
-        igskynet.call(k, "kick")
+        igskynet.call(k, "dostop")
     end
 
     igskynet.send("masterflow", "onLocalExitNotify", igskynet.self())
