@@ -1,0 +1,15 @@
+#pragma once
+
+/////////////////////////////////////////////
+// desc:µÇÂ½Ð­Òé
+// author:wuyinjie
+// since:2017-03-3
+/////////////////////////////////////////////
+
+class IGProtoLogin
+{
+public:
+	IGProtoLogin();
+	~IGProtoLogin();
+};
+

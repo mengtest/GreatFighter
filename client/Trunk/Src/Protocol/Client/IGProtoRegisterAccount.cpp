@@ -38,10 +38,21 @@ std::string IGProtoRegisterAccount::pack(IGClientProtoType protoType, int sessio
 
 void IGProtoRegisterAccount::parse(const string& data)
 {
+	cJSON* root = cJSON_Parse(data.c_str());
 
+	string responseKey = string("response");
+	cJSON* responseObj = cJSON_GetObjectItem(root, responseKey.c_str());
+	cJSON* msgCodeObj = cJSON_GetObjectItem(responseObj, "msgcode");
+
+	IGRegisterInfo info;
+	info.response.msgcode = msgCodeObj->valueint;
+
+	m_callback((void*)&info);
+
+	cJSON_Delete(root);
 }
 
 void IGProtoRegisterAccount::registerCallback(const std::function<void(const void*)>& callback)
 {
-
+	m_callback = callback;
 }

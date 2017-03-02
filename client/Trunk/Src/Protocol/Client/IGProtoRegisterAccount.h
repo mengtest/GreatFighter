@@ -30,5 +30,8 @@ public:
 	virtual string pack(IGClientProtoType protoType, int sessionID, const void* data);
 	virtual void parse(const string& data);
 	virtual void registerCallback(const std::function<void(const void*)>& callback);
+
+private:
+	std::function<void(const void* data)> m_callback;
 };
 

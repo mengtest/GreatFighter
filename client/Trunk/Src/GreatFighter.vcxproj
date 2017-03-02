@@ -78,6 +78,8 @@
   <ItemGroup>
     <ClCompile Include="3rd\cJSON\cJSON.c" />
     <ClCompile Include="Core\AppDelegate.cpp" />
+    <ClCompile Include="Protocol\Client\IGProtoVerify.cpp" />
+    <ClCompile Include="Protocol\Client\IGProtoLogin.cpp" />
     <ClCompile Include="Protocol\Server\IGProtoRegisterAccountNotify.cpp" />
     <ClCompile Include="Protocol\Client\IGProtoRegisterAccount.cpp" />
     <ClCompile Include="Logic\Scene\IGLoginScene.cpp" />
@@ -93,6 +95,8 @@
     <ClInclude Include="Common\IGConst.h" />
     <ClInclude Include="Common\IGHeader.h" />
     <ClInclude Include="Core\AppDelegate.h" />
+    <ClInclude Include="Protocol\Client\IGProtoVerify.h" />
+    <ClInclude Include="Protocol\Client\IGProtoLogin.h" />
     <ClInclude Include="Logic\EventListener\IGLoginSceneEventListener.h" />
     <ClInclude Include="Protocol\Server\IGProtoRegisterAccountNotify.h" />
     <ClInclude Include="Protocol\Client\IGProtoRegisterAccount.h" />

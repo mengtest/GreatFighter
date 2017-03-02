@@ -39,12 +39,20 @@ void IGProtoRequestCaptcha::parse(const string& data)
 
 	string responseKey = string("response");
 	cJSON* responseObj = cJSON_GetObjectItem(root, responseKey.c_str());
-	cJSON* msgCodeObj = cJSON_GetObjectItem(root, "msgcode");
-	cJSON* imageStreamObj = cJSON_GetObjectItem(root, "imageStream");
+	cJSON* msgCodeObj = cJSON_GetObjectItem(responseObj, "msgcode");
+	cJSON* imageStreamObj = cJSON_GetObjectItem(responseObj, "imageStream");
 
 	IGCaptcha info;
 	info.response.msgcode = msgCodeObj->valueint;
-	info.response.imageStream = imageStreamObj->valuestring;
+
+	if (msgCodeObj == nullptr)
+	{
+		info.response.imageStream = "";
+	}
+	else
+	{
+		info.response.imageStream = imageStreamObj->valuestring;
+	}
 
 	m_callback((void*)&info);
 
