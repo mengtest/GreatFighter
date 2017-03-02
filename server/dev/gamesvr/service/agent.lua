@@ -16,6 +16,7 @@ local date = require "common.util.date"
 local protohelper = require "common.util.protohelper"
 local msgcode = require "common.msgcode"
 local crypt = require "crypt"
+local player = require "logic.agent.player"
 
 local agent = class(base)
 
@@ -37,12 +38,16 @@ function agent:verify(params)
     local serverSecret = crypt.base64decode(authInfo.secret)
 
     if clientSecret == serverSecret then
-        -- self.player = player.new()
         igskynet.send("loginmgr",  "dologin", authInfo.playerUuid, igskynet.self())
+        igskynet.send("loginmgr",  "clearAuthInfo", params.user)
+
+        self.player = player.new()
 
         return { msgcode = msgcode.SUCCESS }
     else
+        igskynet.send("loginmgr",  "clearAuthInfo", params.user)
         igtimer.timeout(10, function() self:onDelayExit() end)
+
         return { msgcode = msgcode.LOGIN_SERVER_NOT_AUTH }
     end
 end
@@ -113,6 +118,10 @@ end
 
 function agent:dostop()
     log.info("agent|dostop")
+
+    -- save data
+    igskynet.send("loginmgr", "dologout", self.playerUuid)
+
     igskynet.exit()
 end
 
@@ -136,6 +145,7 @@ igskynet.start(function()
     local agentObj == agent.new()
     igskynet.create(agentObj)
 
+    igtimer.init()
     igtimer.initFrame()
     igtimer.frame(5, function() agentObj:update() end)
 end)
