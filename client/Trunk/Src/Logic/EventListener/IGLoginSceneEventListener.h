@@ -9,4 +9,3 @@ struct IGLoginSceneEventListener
 	std::function<void()> requestCaptcha;
 	std::function<void(int, const string&)> onRequestCaptchaNotify;
 };
-
