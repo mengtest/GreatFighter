@@ -40,6 +40,7 @@ private:
 	void onRPBackButtonTouched(Ref* sender, ui::Widget::TouchEventType touchType);
 	void onRPConfirmButtonTouched(Ref* sender, ui::Widget::TouchEventType touchType);
 	void onRPCancelButtonTouched(Ref* sender, ui::Widget::TouchEventType touchType);
+	void onRPCaptchaImageTouched(Ref* sender, ui::Widget::TouchEventType touchType);
 	void clearRPInfo();
 	ui::TextField* m_rpUserNameTextFiled = nullptr;
 	ui::TextField* m_rpPwdTextField = nullptr;
@@ -52,6 +53,7 @@ private:
 	void onLPBackButtonTouched(Ref* sender, ui::Widget::TouchEventType touchType);
 	void onLPConfirmButtonTouched(Ref* sender, ui::Widget::TouchEventType touchType);
 	void onLPCancelButtonTouched(Ref* sender, ui::Widget::TouchEventType touchType);
+	void onLPCaptchaImageTouched(Ref* sender, ui::Widget::TouchEventType touchType);
 	void clearLPInfo();
 	ui::TextField* m_lpUserNameTextFiled = nullptr;
 	ui::TextField* m_lpPwdTextField = nullptr;

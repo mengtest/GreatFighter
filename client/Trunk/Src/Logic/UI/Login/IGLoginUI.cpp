@@ -72,21 +72,21 @@ void IGLoginUI::switchTo(LSPanelType panelType)
 		m_registerPanel->setVisible(false);
 		m_loginPanel->setVisible(false);
 	}
-		break;
+	break;
 	case LSPanelType::RegisterAccountPanel:
 	{
 		m_selectAccountPanel->setVisible(false);
 		m_registerPanel->setVisible(true);
 		m_loginPanel->setVisible(false);
 	}
-		break;
+	break;
 	case LSPanelType::LoginPanel:
 	{
 		m_selectAccountPanel->setVisible(false);
 		m_registerPanel->setVisible(false);
 		m_loginPanel->setVisible(true);
 	}
-		break;
+	break;
 	default:
 		break;
 	}
@@ -149,6 +149,8 @@ void IGLoginUI::registerRPEvents()
 
 	auto backButton = static_cast<ui::Button*>(m_registerPanel->getChildByName("BackButton"));
 	backButton->addTouchEventListener(CC_CALLBACK_2(IGLoginUI::onRPBackButtonTouched, this));
+
+	m_rpCaptcha->addTouchEventListener(CC_CALLBACK_2(IGLoginUI::onRPCaptchaImageTouched, this));
 }
 
 void IGLoginUI::onRPBackButtonTouched(Ref* sender, ui::Widget::TouchEventType touchType)
@@ -194,6 +196,14 @@ void IGLoginUI::onRPCancelButtonTouched(Ref* sender, ui::Widget::TouchEventType 
 	}
 }
 
+void IGLoginUI::onRPCaptchaImageTouched(Ref* sender, ui::Widget::TouchEventType touchType)
+{
+	if (touchType == ui::Widget::TouchEventType::ENDED)
+	{
+		m_eventListener.requestCaptcha();
+	}
+}
+
 void IGLoginUI::clearRPInfo()
 {
 	m_rpUserNameTextFiled->setText("");
@@ -213,6 +223,8 @@ void IGLoginUI::registerLPEvents()
 
 	auto backButton = static_cast<ui::Button*>(m_loginPanel->getChildByName("BackButton"));
 	backButton->addTouchEventListener(CC_CALLBACK_2(IGLoginUI::onLPBackButtonTouched, this));
+
+	m_lpCaptcha->addTouchEventListener(CC_CALLBACK_2(IGLoginUI::onLPCaptchaImageTouched, this));
 }
 
 void IGLoginUI::onLPBackButtonTouched(Ref* sender, ui::Widget::TouchEventType touchType)
@@ -249,6 +261,14 @@ void IGLoginUI::onLPCancelButtonTouched(Ref* sender, ui::Widget::TouchEventType 
 	if (touchType == ui::Widget::TouchEventType::ENDED)
 	{
 		clearLPInfo();
+	}
+}
+
+void IGLoginUI::onLPCaptchaImageTouched(Ref* sender, ui::Widget::TouchEventType touchType)
+{
+	if (touchType == ui::Widget::TouchEventType::ENDED)
+	{
+		m_eventListener.requestCaptcha();
 	}
 }
 

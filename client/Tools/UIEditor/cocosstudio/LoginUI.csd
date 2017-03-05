@@ -155,7 +155,7 @@
                 <PrePosition X="0.5650" Y="0.4063" />
                 <PreSize X="0.2344" Y="0.0500" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CaptchaImage" ActionTag="-1697785393" Tag="28" IconVisible="False" LeftMargin="810.7512" RightMargin="423.2488" TopMargin="403.0773" BottomMargin="270.9227" Scale9Width="46" Scale9Height="46" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="CaptchaImage" ActionTag="-1697785393" Tag="28" IconVisible="False" LeftMargin="810.7512" RightMargin="423.2488" TopMargin="403.0773" BottomMargin="270.9227" TouchEnable="True" Scale9Width="46" Scale9Height="46" ctype="ImageViewObjectData">
                 <Size X="46.0000" Y="46.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="833.7512" Y="293.9227" />
@@ -296,7 +296,7 @@
                 <PrePosition X="0.5650" Y="0.4854" />
                 <PreSize X="0.2344" Y="0.0500" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CaptchaImage" ActionTag="469325714" Tag="43" IconVisible="False" LeftMargin="810.7539" RightMargin="423.2461" TopMargin="346.0756" BottomMargin="327.9244" Scale9Width="46" Scale9Height="46" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="CaptchaImage" ActionTag="469325714" Tag="43" IconVisible="False" LeftMargin="810.7539" RightMargin="423.2461" TopMargin="346.0756" BottomMargin="327.9244" TouchEnable="True" Scale9Width="46" Scale9Height="46" ctype="ImageViewObjectData">
                 <Size X="46.0000" Y="46.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="833.7539" Y="350.9244" />
