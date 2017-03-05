@@ -22,7 +22,7 @@ struct IGLoginMessage : IGProtoMessage
 	response;
 };
 
-class IGProtoLogin
+class IGProtoLogin : public IIGProtoHelper
 {
 public:
 	IGProtoLogin();

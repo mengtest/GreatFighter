@@ -17,7 +17,7 @@ bool NetworkClient::init()
     return true;
 }
 
-void NetworkClient::start(
+bool NetworkClient::start(
     const string& serverIP, 
     int port, 
     const std::function<void(const list<string>&)>& recvFunction,
@@ -34,7 +34,7 @@ void NetworkClient::start(
     {
         m_errorFunction(NetworkError::CannotCreateSocket);
 
-        return;
+        return false;
     }
 #endif
 
@@ -42,7 +42,7 @@ void NetworkClient::start(
     if (m_socket == -1)
     {
         m_errorFunction(NetworkError::CannotCreateSocket);
-        return;
+        return false;
     }
 
     sockaddr_in serverAddress;
@@ -70,7 +70,7 @@ void NetworkClient::start(
 			break;
         }
 
-        return;
+        return false;
     }
 
 	m_isSendThreadRunning = true;
@@ -81,6 +81,8 @@ void NetworkClient::start(
 
     m_sendThread.detach();
     m_recvThread.detach();
+
+	return true;
 }
 
 void NetworkClient::stop()

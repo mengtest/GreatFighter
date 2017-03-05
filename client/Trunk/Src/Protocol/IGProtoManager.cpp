@@ -4,9 +4,8 @@
 #include "Protocol/IGProtoManager.h"
 #include "Protocol/Client/IGProtoRequestCaptcha.h"
 #include "Protocol/Client/IGProtoRegisterAccount.h"
+#include "Protocol/Client/IGProtoLogin.h"
 #include "Protocol/Server/IGProtoRegisterAccountNotify.h"
-
-IGProtoManager* s_protoManager = nullptr;
 
 IGProtoManager::IGProtoManager()
 {
@@ -19,28 +18,11 @@ IGProtoManager::~IGProtoManager()
 	uninit();
 }
 
-IGProtoManager* IGProtoManager::getInstance()
-{
-	if (s_protoManager == nullptr)
-	{
-		s_protoManager = new IGProtoManager();
-	}
-	
-	return s_protoManager;
-}
-
-void IGProtoManager::destroyInstance()
-{
-	if (s_protoManager != nullptr)
-	{
-		delete s_protoManager;
-		s_protoManager = nullptr;
-	}
-}
-
 bool IGProtoManager::init()
 {
 	m_network = new NetworkClient();
+	m_isConnect = false;
+
 	return true;
 }
 
@@ -52,6 +34,11 @@ void IGProtoManager::uninit()
 
 bool IGProtoManager::sendData(IGClientProtoType protoType, const void* data)
 {
+	if (!m_isConnect)
+	{
+		return false;
+	}
+
 	m_sessionID ++;
 
 	auto iter = m_clientProtos.find(protoType);
@@ -94,6 +81,11 @@ void IGProtoManager::registerClientProto(IGClientProtoType ptype, const std::fun
 	}
 		break;
 	case IGClientProtoType::Login:
+	{
+		auto helper = new IGProtoLogin();
+		helper->registerCallback(callback);
+		m_clientProtos[IGClientProtoType::Login] = helper;
+	}
 		break;
 	default:break;
 	}
@@ -162,9 +154,10 @@ void IGProtoManager::update()
 	}
 }
 
-void IGProtoManager::startNetwork(const string& ip, int port)
+bool IGProtoManager::startNetwork(const string& ip, int port)
 {
-	m_network->start(ip, port, std::bind(&IGProtoManager::onRecvMessage, this, std::placeholders::_1), std::bind(&IGProtoManager::onNetworkError, this, std::placeholders::_1));
+	m_isConnect = m_network->start(ip, port, std::bind(&IGProtoManager::onRecvMessage, this, std::placeholders::_1), std::bind(&IGProtoManager::onNetworkError, this, std::placeholders::_1));
+	return m_isConnect;
 }
 
 void IGProtoManager::stopNetwork()

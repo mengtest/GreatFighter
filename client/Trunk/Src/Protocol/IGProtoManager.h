@@ -13,9 +13,8 @@ class IIGProtoHelper;
 class IGProtoManager
 {
 public:
+	IGProtoManager();
 	~IGProtoManager();
-	static IGProtoManager* getInstance();
-	void destroyInstance();
 
 	bool init();
 	void uninit();
@@ -25,7 +24,7 @@ public:
 	void registerServerNotify(IGServerNotifyType stype, const std::function<void(const void*)>& callback);
 	void update();
 
-	void startNetwork(const string& ip, int port);
+	bool startNetwork(const string& ip, int port);
 	void stopNetwork();
 private:
 	void onRecvMessage(const list<string>& msgs);
@@ -36,14 +35,11 @@ private:
 	int m_sessionID = 0;
 	std::list<int> m_sessionList;
 
+	bool m_isConnect = false;
+
 	NetworkClient* m_network = nullptr;
 	std::map<IGClientProtoType, IIGProtoHelper*> m_clientProtos;
 	std::map<IGServerNotifyType, IIGProtoHelper*> m_serverNotify;
 	std::list<string> m_messageList;
-
-	IGProtoManager();
-	IGProtoManager(const IGProtoManager&);
-	IGProtoManager& operator() (const IGProtoManager&);
-	IGProtoManager& operator= (const IGProtoManager&);
 };
 

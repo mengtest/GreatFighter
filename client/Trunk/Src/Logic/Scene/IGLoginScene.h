@@ -16,13 +16,21 @@ public:
     virtual bool init();
 	virtual void onEnter();
 	virtual void onExit();
+	virtual void update(float delta);
     CREATE_FUNC(IGLoginScene);
 
 private:
-	void onRequestRegisterAccount(const string& userName, const string& pwd, const string& captcha);
+	void doRequestRegisterAccount(const string& userName, const string& pwd, const string& captcha);
+	void onRequestRegisterAccount(int msgcode);
 	void onRegisterAccountNotify(int msgcode);
-	void onRequestCaptcha();
+
+	void doRequestCaptcha();
 	void onRequestCaptchaNotify(int msgcode, const string& imageString);
+
+	void doRequestLogin(const string& userName, const string& pwd, const string& captcha);
+	void onRequestLogin(int msgcode, const string& user, const string& secret, const string& ip);
+
+	void onError(int msgcode);
 
 	IGLoginUI* m_loginUI = nullptr;
 	IGLoginManager* m_loginManager = nullptr;

@@ -43,7 +43,7 @@ public:
 	NetworkClient();
     ~NetworkClient();
 
-    void start(
+    bool start(
         const string& serverIP, 
         int port, 
         const std::function<void(const list<string>&)>& recvFunction,

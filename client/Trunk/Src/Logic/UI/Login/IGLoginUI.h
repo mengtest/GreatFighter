@@ -6,6 +6,8 @@
 
 #pragma once
 
+class IGTipsLayer;
+
 enum class LSPanelType
 {
 	SelectAccountPanel = 0,
@@ -26,6 +28,7 @@ public:
 	void registerEventListener(const IGLoginSceneEventListener& eventListener);
 	void switchTo(LSPanelType panelType);
 	void refreshCaptcha(const string& imageStream);
+	bool showTips(int msgcode);
 private:
 	// SAP->Select Account Panel
 	void registerSAPEvents();
@@ -41,7 +44,7 @@ private:
 	ui::TextField* m_rpUserNameTextFiled = nullptr;
 	ui::TextField* m_rpPwdTextField = nullptr;
 	ui::TextField* m_rpConfirmPwdTextField = nullptr;
-	ui::TextField* m_rpcaptchaTextField = nullptr;
+	ui::TextField* m_rpCapthaTextField = nullptr;
 	ImageView* m_rpCaptcha = nullptr;
 
 	// LP->Login Panel
@@ -52,12 +55,14 @@ private:
 	void clearLPInfo();
 	ui::TextField* m_lpUserNameTextFiled = nullptr;
 	ui::TextField* m_lpPwdTextField = nullptr;
-	ui::TextField* m_lpcaptchaTextField = nullptr;
+	ui::TextField* m_lpCaptchaTextField = nullptr;
 	ImageView* m_lpCaptcha = nullptr;
 
 	ui::Layout* m_selectAccountPanel = nullptr;
 	ui::Layout* m_registerPanel = nullptr;
 	ui::Layout* m_loginPanel = nullptr;
+
+	IGTipsLayer* m_tipsLayer = nullptr;
 
 	IGLoginSceneEventListener m_eventListener;
 };

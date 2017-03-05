@@ -7,6 +7,7 @@
 #include <string>
 #include <functional>
 #include <map>
+#include <assert.h>
 using namespace std;
 
 #include "cocos2d.h"

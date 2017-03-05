@@ -7,6 +7,7 @@
 #include "Protocol/Client/IGProtoRequestCaptcha.h"
 #include "Protocol/Client/IGProtoRegisterAccount.h"
 #include "Protocol/Server/IGProtoRegisterAccountNotify.h"
+#include "Protocol/Client/IGProtoLogin.h"
 
 
 IGLoginManager::IGLoginManager()
@@ -22,12 +23,13 @@ IGLoginManager::~IGLoginManager()
 
 bool IGLoginManager::init()
 {
-	m_protoManager = IGProtoManager::getInstance();
+	m_protoManager = new IGProtoManager();
 	return true;
 }
 
 void IGLoginManager::uninit()
 {
+	delete m_protoManager;
 	m_protoManager = nullptr;
 }
 
@@ -39,10 +41,10 @@ void IGLoginManager::onEnter(const IGLoginSceneEventListener& eventListener)
 	m_protoManager->registerClientProto(IGClientProtoType::RegisterAccount);
 	m_protoManager->registerClientProto(IGClientProtoType::Login, std::bind(&IGLoginManager::onLogin, this, std::placeholders::_1));
 
-	m_protoManager->registerServerNotify(IGServerNotifyType::RegisterAccount, std::bind(&IGLoginManager::onRegisterAccount, this, std::placeholders::_1));
+	m_protoManager->registerServerNotify(IGServerNotifyType::RegisterAccount, std::bind(&IGLoginManager::onRegisterAccountNotify, this, std::placeholders::_1));
 
-	// 暂时写死,以后要放在配置表中配置
-	m_protoManager->startNetwork("192.168.1.103", 8888);
+	std::thread connectThread = std::thread(&IGLoginManager::connectToServerThread, this);
+	connectThread.detach();
 }
 
 void IGLoginManager::onExit()
@@ -52,12 +54,18 @@ void IGLoginManager::onExit()
 
 void IGLoginManager::update(int interval)
 {
-
+	if (!m_tipsList.empty())
+	{
+		auto msgfunc = m_tipsList.front();
+		msgfunc();
+		m_tipsList.pop_front();
+	}
 }
 
-void IGLoginManager::requestCaptcha()
+bool IGLoginManager::doRequestCaptcha()
 {
-
+	IGCaptcha info;
+	return m_protoManager->sendData(IGClientProtoType::RequestCaptcha, (void*)&info);
 }
 
 void IGLoginManager::onRecvCaptcha(const void* data)
@@ -67,7 +75,7 @@ void IGLoginManager::onRecvCaptcha(const void* data)
 	m_eventListener.onRequestCaptchaNotify(realData->response.msgcode, realData->response.imageStream);
 }
 
-void IGLoginManager::registerAccount(const string& userName, const string& pwd, const string& captcha)
+bool IGLoginManager::doRegisterAccount(const string& userName, const string& pwd, const string& captcha)
 {
 	IGRegisterInfo info;
 	info.userName = userName;
@@ -77,10 +85,16 @@ void IGLoginManager::registerAccount(const string& userName, const string& pwd, 
 	m_userName = userName;
 	m_pwd = pwd;
 
-	m_protoManager->sendData(IGClientProtoType::RegisterAccount, (void*)&info);
+	return m_protoManager->sendData(IGClientProtoType::RegisterAccount, (void*)&info);
 }
 
 void IGLoginManager::onRegisterAccount(const void* data)
+{
+	IGRegisterInfo* realData = (IGRegisterInfo*)data;
+	m_eventListener.onRegisterAccount(realData->response.msgcode);
+}
+
+void IGLoginManager::onRegisterAccountNotify(const void* data)
 {
 	IGRegisterAccountNotify* info = (IGRegisterAccountNotify*)data;
 	
@@ -93,12 +107,36 @@ void IGLoginManager::onRegisterAccount(const void* data)
 	m_eventListener.onRegisterAccountNotify(info->msgcode);
 }
 
-void IGLoginManager::login()
+bool IGLoginManager::doLogin(const string& userName, const string& pwd, const string& captcha)
 {
+	IGLoginMessage info;
+	info.userName = userName;
+	info.pwd = pwd;
+	info.captcha = captcha;
 
+	return m_protoManager->sendData(IGClientProtoType::Login, (void*)&info);
 }
 
 void IGLoginManager::onLogin(const void* data)
 {
+	IGLoginMessage* realData = (IGLoginMessage*)data;
+	m_eventListener.onRequestLogin(realData->response.msgcode, realData->response.user, realData->response.secret, realData->response.ip);
+}
 
+void IGLoginManager::connectToServerThread()
+{
+	// 暂时写死,以后要放在配置表中配置
+	if (m_protoManager->startNetwork("192.168.1.103", 8888))
+	{
+		m_tipsList.push_back(std::bind(&IGLoginManager::onMsgTips, this, (int)IGMsgcode::Sucess));
+	}
+	else
+	{
+		m_tipsList.push_back(std::bind(&IGLoginManager::onMsgTips, this, (int)IGMsgcode::LostConnectToServer));
+	}
+}
+
+void IGLoginManager::onMsgTips(int msgcode)
+{
+	m_eventListener.onError(msgcode);
 }

@@ -46,6 +46,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     FileUtils::getInstance()->addSearchPath("Art/Effect");
 	FileUtils::getInstance()->addSearchPath("Art/Fonts");
 	FileUtils::getInstance()->addSearchPath("Art/UI");
+	FileUtils::getInstance()->addSearchPath("Config");
 
     // create a scene. it's an autorelease object
     auto scene = IGLoginScene::createScene();

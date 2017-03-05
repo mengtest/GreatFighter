@@ -1,5 +1,6 @@
 #include "Common/IGHeader.h"
 #include "Logic/EventListener/IGLoginSceneEventListener.h"
+#include "Logic/UI/IGTipsLayer.h"
 #include "IGLoginUI.h"
 
 
@@ -28,14 +29,17 @@ bool IGLoginUI::init()
 	m_rpUserNameTextFiled = static_cast<ui::TextField*>(m_registerPanel->getChildByName("UserNameTextField"));
 	m_rpPwdTextField = static_cast<ui::TextField*>(m_registerPanel->getChildByName("PwdTextField"));
 	m_rpConfirmPwdTextField = static_cast<ui::TextField*>(m_registerPanel->getChildByName("ConfirmPwdTextField"));
-	m_rpcaptchaTextField = static_cast<ui::TextField*>(m_registerPanel->getChildByName("CaptchaTextField"));
+	m_rpCapthaTextField = static_cast<ui::TextField*>(m_registerPanel->getChildByName("CaptchaTextField"));
 	m_rpCaptcha = static_cast<ui::ImageView*>(m_registerPanel->getChildByName("CaptchaImage"));
 
 	m_loginPanel = static_cast<ui::Layout*>(rootNode->getChildByName("LoginPanel"));
 	m_lpUserNameTextFiled = static_cast<ui::TextField*>(m_loginPanel->getChildByName("UserNameTextField"));
 	m_lpPwdTextField = static_cast<ui::TextField*>(m_loginPanel->getChildByName("PwdTextField"));
-	m_lpcaptchaTextField = static_cast<ui::TextField*>(m_loginPanel->getChildByName("CaptchaTextField"));
+	m_lpCaptchaTextField = static_cast<ui::TextField*>(m_loginPanel->getChildByName("CaptchaTextField"));
 	m_lpCaptcha = static_cast<ui::ImageView*>(m_loginPanel->getChildByName("CaptchaImage"));
+
+	m_tipsLayer = IGTipsLayer::create();
+	addChild(m_tipsLayer);
 
 	return true;
 }
@@ -167,18 +171,18 @@ void IGLoginUI::onRPConfirmButtonTouched(Ref* sender, ui::Widget::TouchEventType
 		if (m_rpUserNameTextFiled->getString().empty() ||
 			m_rpPwdTextField->getString().empty() ||
 			m_rpConfirmPwdTextField->getString().empty() ||
-			m_rpcaptchaTextField->getString().empty())
+			m_rpCapthaTextField->getString().empty())
 		{
-			CCLOG("%s", "----------------信息不完整");
+			showTips((int)IGMsgcode::RegisterInfoIncomplete);
 			return;
 		}
 		else if (m_rpPwdTextField->getString() != m_rpConfirmPwdTextField->getString())
 		{
-			CCLOG("%s", "----------------密码和验证密码不正确");
+			showTips((int)IGMsgcode::RegisterPwdNotMatch);
 			return;
 		}
 
-
+		m_eventListener.requestRegisterAccount(m_rpUserNameTextFiled->getString(), m_rpPwdTextField->getString(), m_rpCapthaTextField->getString());
 	}
 }
 
@@ -195,7 +199,7 @@ void IGLoginUI::clearRPInfo()
 	m_rpUserNameTextFiled->setText("");
 	m_rpPwdTextField->setText("");
 	m_rpConfirmPwdTextField->setText("");
-	m_rpcaptchaTextField->setText("");
+	m_rpCapthaTextField->setText("");
 }
 
 
@@ -228,7 +232,15 @@ void IGLoginUI::onLPConfirmButtonTouched(Ref* sender, ui::Widget::TouchEventType
 {
 	if (touchType == ui::Widget::TouchEventType::ENDED)
 	{
+		if (m_lpUserNameTextFiled->getString().empty() ||
+			m_lpPwdTextField->getString().empty() ||
+			m_lpCaptchaTextField->getString().empty())
+		{
+			showTips((int)IGMsgcode::LoginInfoIncomplete);
+			return;
+		}
 
+		m_eventListener.requestLogin(m_lpUserNameTextFiled->getString(), m_lpPwdTextField->getString(), m_lpCaptchaTextField->getString());
 	}
 }
 
@@ -244,5 +256,10 @@ void IGLoginUI::clearLPInfo()
 {
 	m_lpUserNameTextFiled->setText("");
 	m_lpPwdTextField->setText("");
-	m_lpcaptchaTextField->setText("");
+	m_lpCaptchaTextField->setText("");
+}
+
+bool IGLoginUI::showTips(int msgcode)
+{
+	return m_tipsLayer->showTips(msgcode);
 }
