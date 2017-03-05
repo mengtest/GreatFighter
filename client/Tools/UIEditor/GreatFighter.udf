@@ -7,15 +7,6 @@
         <LastRunType Value="Windows" />
       </Value>
     </Item>
-    <Item Key="TabsParamsKey">
-      <Value ctype="TabsInfo">
-        <OpenedDocuments>
-          <FilePathData Path="LoginUI.csd" />
-          <FilePathData Path="MainUI.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="LoginUI.csd" />
-      </Value>
-    </Item>
     <Item Key="PackageParamsKey">
       <Value ctype="PackageParams">
         <LuaIsEncrypt Value="False" />
