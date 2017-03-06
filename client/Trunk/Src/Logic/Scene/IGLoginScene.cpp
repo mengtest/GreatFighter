@@ -1,10 +1,16 @@
 #include "Common/IGHeader.h"
+#include "Common/IGConst.h"
+
 #include "Logic/EventListener/IGLoginSceneEventListener.h"
 #include "Logic/UI/IGTipsLayer.h"
 #include "Logic/UI/Login/IGLoginUI.h"
 #include "Logic/System/LoginManager/IGLoginManager.h"
 #include "IGLoginScene.h"
-#include "Common/IGConst.h"
+
+#include "Logic/EventListener/IGMainSceneEventListener.h"
+#include "Logic/System/Player/IGPlayer.h"
+#include "Logic/UI/Main/IGMainUI.h"
+#include "IGMainScene.h"
 
 using namespace cocostudio::timeline;
 
@@ -53,7 +59,7 @@ void IGLoginScene::onEnter()
 	m_eventListener.onRequestCaptchaNotify = std::bind(&IGLoginScene::onRequestCaptchaNotify, this, std::placeholders::_1, std::placeholders::_2);
 
 	m_eventListener.requestLogin = std::bind(&IGLoginScene::doRequestLogin, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
-	m_eventListener.onRequestLogin = std::bind(&IGLoginScene::onRequestLogin, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+	m_eventListener.onRequestLogin = std::bind(&IGLoginScene::onRequestLogin, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
 
 	m_eventListener.onError = std::bind(&IGLoginScene::onError, this, std::placeholders::_1);
 
@@ -130,11 +136,14 @@ void IGLoginScene::doRequestLogin(const string& userName, const string& pwd, con
 	}
 }
 
-void IGLoginScene::onRequestLogin(int msgcode, const string& user, const string& secret, const string& ip)
+void IGLoginScene::onRequestLogin(int msgcode, const string& user, const string& secret, const string& ip, int port)
 {
 	if (msgcode == 0)
 	{
+		auto mainScene = static_cast<IGMainScene*>(IGMainScene::createScene());
+		mainScene->assignServerInfo(user, secret, ip, port);
 
+		Director::getInstance()->replaceScene(mainScene);
 	}
 	else
 	{

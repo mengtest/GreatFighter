@@ -78,6 +78,9 @@
   <ItemGroup>
     <ClCompile Include="3rd\cJSON\cJSON.c" />
     <ClCompile Include="Core\AppDelegate.cpp" />
+    <ClCompile Include="Logic\System\Player\IGPlayer.cpp" />
+    <ClCompile Include="Logic\UI\Main\IGMainUI.cpp" />
+    <ClCompile Include="Logic\Scene\IGMainScene.cpp" />
     <ClCompile Include="Logic\UI\IGTipsLayer.cpp" />
     <ClCompile Include="Protocol\Client\IGProtoVerify.cpp" />
     <ClCompile Include="Protocol\Client\IGProtoLogin.cpp" />
@@ -96,6 +99,10 @@
     <ClInclude Include="Common\IGConst.h" />
     <ClInclude Include="Common\IGHeader.h" />
     <ClInclude Include="Core\AppDelegate.h" />
+    <ClInclude Include="Logic\EventListener\IGMainSceneEventListener.h" />
+    <ClInclude Include="Logic\System\Player\IGPlayer.h" />
+    <ClInclude Include="Logic\UI\Main\IGMainUI.h" />
+    <ClInclude Include="Logic\Scene\IGMainScene.h" />
     <ClInclude Include="Logic\UI\IGTipsLayer.h" />
     <ClInclude Include="Protocol\Client\IGProtoVerify.h" />
     <ClInclude Include="Protocol\Client\IGProtoLogin.h" />

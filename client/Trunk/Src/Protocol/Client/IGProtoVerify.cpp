@@ -25,7 +25,7 @@ std::string IGProtoVerify::pack(IGClientProtoType protoType, int sessionID, cons
 	cJSON_AddNumberToObject(root, "protoType", (int)protoType);
 	cJSON_AddNumberToObject(root, "sessionID", sessionID);
 	cJSON_AddStringToObject(root, "user", realData->user.c_str());
-	cJSON_AddStringToObject(root, "verify", realData->verify.c_str());
+	cJSON_AddStringToObject(root, "verify", realData->secret.c_str());
 	cJSON_AddStringToObject(root, "response", "");
 
 	char* out = cJSON_Print(root);

@@ -28,7 +28,7 @@ private:
 	void onRequestCaptchaNotify(int msgcode, const string& imageString);
 
 	void doRequestLogin(const string& userName, const string& pwd, const string& captcha);
-	void onRequestLogin(int msgcode, const string& user, const string& secret, const string& ip);
+	void onRequestLogin(int msgcode, const string& user, const string& secret, const string& ip, int port);
 
 	void onError(int msgcode);
 

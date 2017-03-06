@@ -9,7 +9,7 @@
 struct IGVerifyMessage : IGProtoMessage
 {
 	string user;
-	string verify;
+	string secret;
 
 	struct Response
 	{

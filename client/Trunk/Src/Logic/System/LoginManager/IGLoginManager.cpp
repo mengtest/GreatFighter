@@ -120,7 +120,7 @@ bool IGLoginManager::doLogin(const string& userName, const string& pwd, const st
 void IGLoginManager::onLogin(const void* data)
 {
 	IGLoginMessage* realData = (IGLoginMessage*)data;
-	m_eventListener.onRequestLogin(realData->response.msgcode, realData->response.user, realData->response.secret, realData->response.ip);
+	m_eventListener.onRequestLogin(realData->response.msgcode, realData->response.user, realData->response.secret, realData->response.ip, realData->response.port);
 }
 
 void IGLoginManager::connectToServerThread()
