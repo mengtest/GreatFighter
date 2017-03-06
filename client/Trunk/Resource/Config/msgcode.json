@@ -44,7 +44,8 @@
     {
       "code" : 111,
       "msg" : "网络连接中...",
-      "duration" : 0
+      "duration" : 0,
+      "effectType" : 2,
     },
     {
       "code" : 112,
@@ -59,5 +60,6 @@
       "msg" : "注册密码和确认密码不匹配"
     }
   ],
-  "defaultDuration" : 3
+  "defaultDuration" : 3,
+  "defaultEffectType" : 1
 }
