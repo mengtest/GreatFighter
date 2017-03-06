@@ -23,7 +23,13 @@ end
 
 function redismgr:dostart()
     for k, v in pairs(dbconfig) do 
-        self.dbObjs[k] = reidslib.connect(v)
+        if k == const.PLAYER_DB then
+            for idx, cfg in ipairs(v) do 
+                self.dbObjs[k .. idx] = reidslib.connect(cfg)
+            end
+        else
+            self.dbObjs[k] = reidslib.connect(v)
+        end
     end
 end
 
