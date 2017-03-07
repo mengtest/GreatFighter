@@ -6,6 +6,7 @@
 
  local igskynet = require "common.core.igskynet"
  local log = require "common.core.log"
+ local gatewayconf = require "res.config.gateway"
 
  local SOCKET = {}
  local CMD = {}
@@ -54,10 +55,11 @@
 
     assert(gate)
 
+    local gconfig = gatewayconf[igskynet.getenv("gateway_conf")]
     local config = {}
-    config.address = igskynet.getenv("gateway_ip") 
-    config.port = igskynet.getenv("gateway_port")
-    config.max_client = igskynet.getenv("max_client")
+    config.address =  gconfig.ip
+    config.port = gconfig.port
+    config.max_client = gconfig.maxClient
     config.nodelay = true
     igskynet.originCall(gate, "lua", "open", config)
  end
