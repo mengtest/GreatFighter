@@ -2,7 +2,7 @@
 -- Modifications copyright mrDoctorWho <mrdoctorwho@gmail.com>
 -- Published under the MIT license
 
-module("captcha", package.seeall)
+-- module("captcha", package.seeall)
 
 local gd = require 'gd'
 

@@ -9,8 +9,8 @@ lualoader = root.."../skynet/lualib/loader.lua"
 
 cpath = root.."../skynet/cservice/?.so;"..lroot.."/../clib/loggerx/?.so;"
 luaservice = root.."../skynet/service/?.lua;"..lroot.."/loginsvr/service/?.lua;"..lroot.."/common/service/?.lua;"
-lua_cpath = root.."../skynet/luaclib/?.so;"..lroot.."/../clib/cjson/?.so;"
-lua_path = root.."../skynet/lualib/?.lua;../skynet/lualib/?/init.lua;"..lroot.."/?.lua;"..root.."../db/?.lua;"..lroot.."../lualib/?.lua;"
+lua_cpath = root.."../skynet/luaclib/?.so;"..lroot.."/../clib/cjson/?.so;"..lroot.."/../clib/lua-gd/?.so;"
+lua_path = root.."../skynet/lualib/?.lua;../skynet/lualib/?/init.lua;"..lroot.."/?.lua;"..root.."../db/?.lua;"..lroot.."/../lualib/?.lua;"
 
 logger = root.."../log/loginsvr/loginsvr"
 logservice = "loggerx"
