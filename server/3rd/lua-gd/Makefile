@@ -1,5 +1,6 @@
+
 # luagd -- gd bindings for the Lua Programming Language.
-# (c) 2004-06 Alexandre Erwin Ittner <aittner@netuno.com.br>
+# (c) 2004-06 Alexandre Erwin Ittner <ait...@netuno.com.br>
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -34,11 +35,13 @@ CC=gcc
 
 # Name of .pc file. "lua5.1" on Debian/Ubuntu
 LUAPKG=lua5.1
-OUTFILE=gd.so
-CFLAGS=`gdlib-config --cflags` `pkg-config $(LUAPKG) --cflags` -O3 -Wall
+OUTFILE=../../clib/lua-gd/gd.so
+CFLAGS=`gdlib-config --cflags` `pkg-config $(LUAPKG) --cflags` -O2 -Wall -fPIC
 GDFEATURES=`gdlib-config --features |sed -e "s/GD_/-DGD_/g"`
-LFLAGS=-shared `gdlib-config --ldflags` `gdlib-config --libs` \
-    `pkg-config $(LUAPKG) --libs` -lgd
+#LFLAGS=-shared `gdlib-config --ldflags` `gdlib-config --libs` \
+#    `pkg-config $(LUAPKG) --libs` -lgd
+LFLAGS=-shared -lgd -llua5.1
+
 INSTALL_PATH=`pkg-config $(LUAPKG) --variable=INSTALL_CMOD`
 
 
@@ -67,7 +70,9 @@ INSTALL_PATH=`pkg-config $(LUAPKG) --variable=INSTALL_CMOD`
 all: $(OUTFILE)
 
 $(OUTFILE): luagd.c
-	$(CC) -o $(OUTFILE) $(GDFEATURES) $(CFLAGS) $(LFLAGS) luagd.c
+#	$(CC) -o $(OUTFILE) $(GDFEATURES) $(CFLAGS) $(LFLAGS) luagd.c
+	$(CC) $(GDFEATURES) $(CFLAGS) -c luagd.c -o gd.o
+	$(CC) -o $(OUTFILE) gd.o $(LFLAGS) 
 	lua test_features.lua
 
 install: $(OUTFILE)
