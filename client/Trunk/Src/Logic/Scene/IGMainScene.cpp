@@ -17,11 +17,13 @@ IGMainScene::~IGMainScene()
 {
 }
 
-cocos2d::Scene* IGMainScene::createScene()
+cocos2d::Scene* IGMainScene::createScene(const string& user, const string& secret, const string& ip, int port)
 {
 	auto scene = Scene::create();
 	auto layer = IGMainScene::create();
 	scene->addChild(layer);
+
+	layer->assignServerInfo(user, secret, ip, port);
 
 	return scene;
 }

@@ -16,9 +16,9 @@ struct IGLoginMessage : IGProtoMessage
 	{
 		int msgcode = 0;
 		string ip;
+		int port = 0;
 		string user;
 		string secret;
-		int port = 0;
 	}
 	response;
 };

@@ -6,7 +6,7 @@
       <ObjectData Name="LoginUI" ctype="GameLayerObjectData">
         <Size X="1280.0000" Y="720.0000" />
         <Children>
-          <AbstractNodeData Name="SelectAccountPanel" Visible="False" ActionTag="-985765140" Tag="5" IconVisible="False" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+          <AbstractNodeData Name="SelectAccountPanel" ActionTag="-985765140" Tag="5" IconVisible="False" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="1280.0000" Y="720.0000" />
             <Children>
               <AbstractNodeData Name="Background" ActionTag="-1904138012" Tag="4" IconVisible="False" LeftEage="475" RightEage="475" TopEage="337" BottomEage="337" Scale9OriginX="475" Scale9OriginY="337" Scale9Width="490" Scale9Height="350" ctype="ImageViewObjectData">
@@ -61,7 +61,7 @@
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
           </AbstractNodeData>
-          <AbstractNodeData Name="RegisterPanel" ActionTag="1979688462" Tag="6" IconVisible="False" LeftMargin="-2.6265" RightMargin="2.6265" TopMargin="4.2530" BottomMargin="-4.2530" TouchEnable="True" ClipAble="False" BackColorAlpha="0" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+          <AbstractNodeData Name="RegisterPanel" Visible="False" ActionTag="1979688462" Tag="6" IconVisible="False" LeftMargin="-2.6265" RightMargin="2.6265" TopMargin="4.2530" BottomMargin="-4.2530" TouchEnable="True" ClipAble="False" BackColorAlpha="0" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="1280.0000" Y="720.0000" />
             <Children>
               <AbstractNodeData Name="TitleText" ActionTag="-160414560" Tag="19" IconVisible="False" LeftMargin="490.6925" RightMargin="501.3075" TopMargin="73.0183" BottomMargin="574.9817" FontSize="72" LabelText="注册界面" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
@@ -135,7 +135,7 @@
                 <PrePosition X="0.5656" Y="0.4883" />
                 <PreSize X="0.2344" Y="0.0500" />
               </AbstractNodeData>
-              <AbstractNodeData Name="VerifyCodeText" ActionTag="-2006772026" Tag="26" IconVisible="False" LeftMargin="429.8337" RightMargin="724.1663" TopMargin="409.7333" BottomMargin="238.2667" FontSize="36" LabelText="验证码:&#xA;" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="VerifyCodeText" ActionTag="-2006772026" VisibleForFrame="False" Tag="26" IconVisible="False" LeftMargin="429.8337" RightMargin="724.1663" TopMargin="409.7333" BottomMargin="238.2667" FontSize="36" LabelText="验证码:&#xA;" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                 <Size X="126.0000" Y="72.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="492.8337" Y="274.2667" />
@@ -146,7 +146,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CaptchaTextField" ActionTag="-1444035534" Tag="27" IconVisible="False" LeftMargin="573.1716" RightMargin="406.8284" TopMargin="409.4810" BottomMargin="274.5190" TouchEnable="True" FontSize="36" IsCustomSize="True" LabelText="" PlaceHolderText="请输入验证码" MaxLengthText="10" ctype="TextFieldObjectData">
+              <AbstractNodeData Name="CaptchaTextField" ActionTag="-1444035534" VisibleForFrame="False" Tag="27" IconVisible="False" LeftMargin="573.1716" RightMargin="406.8284" TopMargin="409.4810" BottomMargin="274.5190" TouchEnable="True" FontSize="36" IsCustomSize="True" LabelText="" PlaceHolderText="请输入验证码" MaxLengthText="10" ctype="TextFieldObjectData">
                 <Size X="300.0000" Y="36.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="723.1716" Y="292.5190" />
@@ -155,7 +155,7 @@
                 <PrePosition X="0.5650" Y="0.4063" />
                 <PreSize X="0.2344" Y="0.0500" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CaptchaImage" ActionTag="-1697785393" Tag="28" IconVisible="False" LeftMargin="810.7512" RightMargin="423.2488" TopMargin="403.0773" BottomMargin="270.9227" TouchEnable="True" Scale9Width="46" Scale9Height="46" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="CaptchaImage" ActionTag="-1697785393" VisibleForFrame="False" Tag="28" IconVisible="False" LeftMargin="810.7512" RightMargin="423.2488" TopMargin="403.0773" BottomMargin="270.9227" TouchEnable="True" Scale9Width="46" Scale9Height="46" ctype="ImageViewObjectData">
                 <Size X="46.0000" Y="46.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="833.7512" Y="293.9227" />
@@ -276,7 +276,7 @@
                 <PrePosition X="0.5641" Y="0.5790" />
                 <PreSize X="0.2344" Y="0.0500" />
               </AbstractNodeData>
-              <AbstractNodeData Name="VerifyCodeText" ActionTag="753499487" Tag="41" IconVisible="False" LeftMargin="429.8338" RightMargin="724.1662" TopMargin="352.7308" BottomMargin="295.2692" FontSize="36" LabelText="验证码:&#xA;" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="VerifyCodeText" ActionTag="753499487" VisibleForFrame="False" Tag="41" IconVisible="False" LeftMargin="429.8338" RightMargin="724.1662" TopMargin="352.7308" BottomMargin="295.2692" FontSize="36" LabelText="验证码:&#xA;" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                 <Size X="126.0000" Y="72.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="492.8338" Y="331.2692" />
@@ -287,7 +287,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CaptchaTextField" ActionTag="-544349995" Tag="42" IconVisible="False" LeftMargin="573.1718" RightMargin="406.8282" TopMargin="352.4785" BottomMargin="331.5215" TouchEnable="True" FontSize="36" IsCustomSize="True" LabelText="" PlaceHolderText="请输入验证码" MaxLengthText="10" ctype="TextFieldObjectData">
+              <AbstractNodeData Name="CaptchaTextField" ActionTag="-544349995" VisibleForFrame="False" Tag="42" IconVisible="False" LeftMargin="573.1718" RightMargin="406.8282" TopMargin="352.4785" BottomMargin="331.5215" TouchEnable="True" FontSize="36" IsCustomSize="True" LabelText="" PlaceHolderText="请输入验证码" MaxLengthText="10" ctype="TextFieldObjectData">
                 <Size X="300.0000" Y="36.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="723.1718" Y="349.5215" />
@@ -296,7 +296,7 @@
                 <PrePosition X="0.5650" Y="0.4854" />
                 <PreSize X="0.2344" Y="0.0500" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CaptchaImage" ActionTag="469325714" Tag="43" IconVisible="False" LeftMargin="810.7539" RightMargin="423.2461" TopMargin="346.0756" BottomMargin="327.9244" TouchEnable="True" Scale9Width="46" Scale9Height="46" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="CaptchaImage" ActionTag="469325714" VisibleForFrame="False" Tag="43" IconVisible="False" LeftMargin="810.7539" RightMargin="423.2461" TopMargin="346.0756" BottomMargin="327.9244" TouchEnable="True" Scale9Width="46" Scale9Height="46" ctype="ImageViewObjectData">
                 <Size X="46.0000" Y="46.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="833.7539" Y="350.9244" />

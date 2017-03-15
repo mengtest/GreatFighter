@@ -90,7 +90,7 @@ void IGPlayer::connectThread()
 {
 	if (m_protoManager->startNetwork(m_ip, m_port))
 	{
-		m_workThreadEvents.push_back(std::bind(&IGPlayer::onTips, this, (int)IGMsgcode::ConnectServerSuccess));
+		m_workThreadEvents.push_back(std::bind(&IGPlayer::onTips, this, (int)IGMsgcode::ConnectGameServerSuccess));
 		m_workThreadEvents.push_back(std::bind(&IGPlayer::doVerify, this));
 	}
 	else

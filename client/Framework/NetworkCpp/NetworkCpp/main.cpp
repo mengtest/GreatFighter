@@ -4,7 +4,7 @@
 
 void networkError(NetworkError error)
 {
-    cout << "error" << endl;
+    cout << "error£º" << (int)error << endl;
 }
 
 void onRecv(const list<string>& recvQueue)
@@ -32,7 +32,7 @@ void onRecv(const list<string>& recvQueue)
 void main()
 {
     auto network = NetworkClient::getInstance();
-    network->start("192.168.1.103", 8888, std::bind(onRecv, std::placeholders::_1), std::bind(networkError, std::placeholders::_1));
+    network->start("192.168.0.104", 8888, std::bind(onRecv, std::placeholders::_1), std::bind(networkError, std::placeholders::_1));
 
 	cJSON* root = cJSON_CreateObject();
 	cJSON_AddItemToObject(root, "typeName", cJSON_CreateString("helloWorld"));

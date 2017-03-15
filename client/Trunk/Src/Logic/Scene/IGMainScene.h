@@ -12,7 +12,7 @@ public:
 	IGMainScene();
 	~IGMainScene();
 
-	static cocos2d::Scene* createScene();
+	static cocos2d::Scene* createScene(const string& user, const string& secret, const string& ip, int port);
 
 	virtual bool init();
 	virtual void onEnter();

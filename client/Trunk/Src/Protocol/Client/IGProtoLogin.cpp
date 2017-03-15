@@ -46,17 +46,36 @@ void IGProtoLogin::parse(const string& data)
 	cJSON* responseObj = cJSON_GetObjectItem(root, "response");
 	cJSON* msgcodeObj = cJSON_GetObjectItem(responseObj, "msgcode");
 	cJSON* ipObj = cJSON_GetObjectItem(responseObj, "ip");
+	cJSON* portObj = cJSON_GetObjectItem(responseObj, "port");
 	cJSON* userObj = cJSON_GetObjectItem(responseObj, "user");
 	cJSON* secretObj = cJSON_GetObjectItem(responseObj, "secret");
 
 	IGLoginMessage info;
+	if (msgcodeObj == nullptr)
+	{
+		info.response.msgcode = 0;
+	}
+	else
+	{
+		info.response.msgcode = msgcodeObj->valueint;
+	}
+
 	if (ipObj == nullptr)
 	{
 		info.response.ip = "";
 	}
 	else
 	{
-		info.response.ip = ipObj->valuestring;
+		info.response.ip = string(ipObj->valuestring);
+	}
+
+	if (portObj == nullptr)
+	{
+		info.response.port = 0;
+	}
+	else
+	{
+		info.response.port = portObj->valueint;
 	}
 
 	if (userObj == nullptr)
@@ -65,7 +84,7 @@ void IGProtoLogin::parse(const string& data)
 	}
 	else
 	{
-		info.response.user = userObj->valuestring;
+		info.response.user = string(userObj->valuestring);
 	}
 
 	if (secretObj == nullptr)
@@ -74,7 +93,7 @@ void IGProtoLogin::parse(const string& data)
 	}
 	else
 	{
-		info.response.secret = secretObj->valuestring;
+		info.response.secret = string(secretObj->valuestring);
 	}
 
 	m_callback((void*)&info);

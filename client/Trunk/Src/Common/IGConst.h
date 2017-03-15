@@ -26,6 +26,7 @@ enum class IGMsgcode
 	RegisterInfoIncomplete = 112,
 	LoginInfoIncomplete = 113,
 	RegisterPwdNotMatch = 114,  // 注册密码和确认密码不匹配
-	ConnectServerSuccess = 115, // 成功连接游戏服务器
+	ConnectGameServerSuccess = 115, // 成功连接游戏服务器
 	ConnectServerFailure = 116,
+	ConnectLoginServerSucess = 117,
 };

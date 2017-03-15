@@ -53,6 +53,8 @@ bool NetworkClient::start(
     int connectResult = connect(m_socket, (sockaddr*)&serverAddress, sizeof(serverAddress));
     if (connectResult == -1)
     {
+		string errorString = string(strerror(errno));
+
         switch (errno)
         {
         case ETIMEDOUT:

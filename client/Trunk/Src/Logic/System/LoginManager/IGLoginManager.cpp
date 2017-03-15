@@ -29,6 +29,8 @@ bool IGLoginManager::init()
 
 void IGLoginManager::uninit()
 {
+	m_protoManager->stopNetwork();
+
 	delete m_protoManager;
 	m_protoManager = nullptr;
 }
@@ -38,7 +40,7 @@ void IGLoginManager::onEnter(const IGLoginSceneEventListener& eventListener)
 	m_eventListener = eventListener;
 
 	m_protoManager->registerClientProto(IGClientProtoType::RequestCaptcha, std::bind(&IGLoginManager::onRecvCaptcha, this, std::placeholders::_1));
-	m_protoManager->registerClientProto(IGClientProtoType::RegisterAccount);
+	m_protoManager->registerClientProto(IGClientProtoType::RegisterAccount, std::bind(&IGLoginManager::onRegisterAccount, this, std::placeholders::_1));
 	m_protoManager->registerClientProto(IGClientProtoType::Login, std::bind(&IGLoginManager::onLogin, this, std::placeholders::_1));
 
 	m_protoManager->registerServerNotify(IGServerNotifyType::RegisterAccount, std::bind(&IGLoginManager::onRegisterAccountNotify, this, std::placeholders::_1));
@@ -60,6 +62,8 @@ void IGLoginManager::update(int interval)
 		msgfunc();
 		m_tipsList.pop_front();
 	}
+
+	m_protoManager->update();
 }
 
 bool IGLoginManager::doRequestCaptcha()
@@ -126,9 +130,9 @@ void IGLoginManager::onLogin(const void* data)
 void IGLoginManager::connectToServerThread()
 {
 	// 暂时写死,以后要放在配置表中配置
-	if (m_protoManager->startNetwork("192.168.1.103", 8888))
+	if (m_protoManager->startNetwork("192.168.0.104", 8888))
 	{
-		m_tipsList.push_back(std::bind(&IGLoginManager::onMsgTips, this, (int)IGMsgcode::Sucess));
+		m_tipsList.push_back(std::bind(&IGLoginManager::onMsgTips, this, (int)IGMsgcode::ConnectLoginServerSucess));
 	}
 	else
 	{

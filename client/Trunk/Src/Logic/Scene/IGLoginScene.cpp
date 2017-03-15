@@ -102,10 +102,8 @@ void IGLoginScene::onRegisterAccountNotify(int msgcode)
 	{
 		m_loginUI->switchTo(LSPanelType::LoginPanel);
 	}
-	else
-	{
-		m_loginUI->showTips(msgcode);
-	}
+
+	m_loginUI->showTips(msgcode);
 }
 
 void IGLoginScene::doRequestCaptcha()
@@ -122,10 +120,8 @@ void IGLoginScene::onRequestCaptchaNotify(int msgcode, const string& imageString
 	{
 		m_loginUI->refreshCaptcha(imageString);
 	}
-	else
-	{
-		m_loginUI->showTips(msgcode);
-	}
+
+	m_loginUI->showTips(msgcode);
 }
 
 void IGLoginScene::doRequestLogin(const string& userName, const string& pwd, const string& captcha)
@@ -140,15 +136,11 @@ void IGLoginScene::onRequestLogin(int msgcode, const string& user, const string&
 {
 	if (msgcode == 0)
 	{
-		auto mainScene = static_cast<IGMainScene*>(IGMainScene::createScene());
-		mainScene->assignServerInfo(user, secret, ip, port);
-
+		auto mainScene = IGMainScene::createScene(user, secret, ip, port);
 		Director::getInstance()->replaceScene(mainScene);
 	}
-	else
-	{
-		m_loginUI->showTips(msgcode);
-	}
+
+	m_loginUI->showTips(msgcode);
 }
 
 void IGLoginScene::onError(int msgcode)

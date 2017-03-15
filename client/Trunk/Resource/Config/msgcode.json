@@ -1,6 +1,10 @@
 {
   "msgcodeArray":[
     {
+      "code" : 0,
+      "msg" : ""
+    },
+    {
       "code" : 101,
       "msg" : "用户名不合法"
     },
@@ -61,13 +65,18 @@
     },
     {
       "code" : 115,
-      "msg" : "成功连接服务器，现在进行账号验证..."
+      "msg" : "成功连接服务器，现在进行账号验证...",
+      "duration" : 3
     },
     {
       "code" : 116,
       "msg" : "无法连接服务器，请检查网络..."
+    },
+    {
+      "code" : 117,
+      "msg" : "成功连接登陆服"
     }
   ],
-  "defaultDuration" : 3,
+  "defaultDuration" : 1,
   "defaultEffectType" : 1
 }

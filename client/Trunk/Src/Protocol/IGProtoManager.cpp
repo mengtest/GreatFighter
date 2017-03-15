@@ -6,6 +6,7 @@
 #include "Protocol/Client/IGProtoRegisterAccount.h"
 #include "Protocol/Client/IGProtoLogin.h"
 #include "Protocol/Server/IGProtoRegisterAccountNotify.h"
+#include "Protocol/Client/IGProtoVerify.h"
 
 IGProtoManager::IGProtoManager()
 {
@@ -42,6 +43,8 @@ bool IGProtoManager::sendData(IGClientProtoType protoType, const void* data)
 	m_sessionID ++;
 
 	auto iter = m_clientProtos.find(protoType);
+	assert(iter != m_clientProtos.end());
+
 	IIGProtoHelper* helper = iter->second;
 	string msg = helper->pack(protoType, m_sessionID, data);
 
@@ -85,6 +88,12 @@ void IGProtoManager::registerClientProto(IGClientProtoType ptype, const std::fun
 		auto helper = new IGProtoLogin();
 		helper->registerCallback(callback);
 		m_clientProtos[IGClientProtoType::Login] = helper;
+	}
+	case IGClientProtoType::Verify:
+	{
+		auto helper = new IGProtoVerify();
+		helper->registerCallback(callback);
+		m_clientProtos[IGClientProtoType::Verify] = helper;
 	}
 		break;
 	default:break;

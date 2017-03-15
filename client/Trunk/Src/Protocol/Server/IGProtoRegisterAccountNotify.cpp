@@ -26,8 +26,8 @@ void IGProtoRegisterAccountNotify::parse(const string& data)
 
 	IGRegisterAccountNotify info;
 	info.msgcode = msgCodeObj->valueint;
-	info.userName = msgCodeObj->valuestring;
-	info.pwd = msgCodeObj->valuestring;
+	info.userName = userNameObj->valuestring;
+	info.pwd = pwdObj->valuestring;
 
 	m_callback((void*)&info);
 

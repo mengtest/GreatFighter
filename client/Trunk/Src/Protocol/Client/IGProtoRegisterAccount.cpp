@@ -26,6 +26,7 @@ std::string IGProtoRegisterAccount::pack(IGClientProtoType protoType, int sessio
 	cJSON_AddItemToObject(root, "userName", cJSON_CreateString(realData->userName.c_str()));
 	cJSON_AddItemToObject(root, "pwd", cJSON_CreateString(realData->pwd.c_str()));
 	cJSON_AddItemToObject(root, "captcha", cJSON_CreateString(realData->captcha.c_str()));
+	cJSON_AddItemToObject(root, "response", cJSON_CreateString(""));
 	char* out = cJSON_Print(root);
 
 	string serializeStream(out);

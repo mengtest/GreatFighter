@@ -123,7 +123,7 @@ void IGLoginUI::onSAPRegisterButtonTouched(Ref* sender, ui::Widget::TouchEventTy
 		m_loginPanel->setVisible(false);
 
 		m_registerPanel->setVisible(true);
-		m_eventListener.requestCaptcha();
+		// m_eventListener.requestCaptcha();
 	}
 }
 
@@ -135,7 +135,7 @@ void IGLoginUI::onSAPLoginButtonTouched(Ref* sender, ui::Widget::TouchEventType 
 		m_registerPanel->setVisible(false);
 
 		m_loginPanel->setVisible(true);
-		m_eventListener.requestCaptcha();
+		// m_eventListener.requestCaptcha();
 	}
 }
 
@@ -172,8 +172,8 @@ void IGLoginUI::onRPConfirmButtonTouched(Ref* sender, ui::Widget::TouchEventType
 	{
 		if (m_rpUserNameTextFiled->getString().empty() ||
 			m_rpPwdTextField->getString().empty() ||
-			m_rpConfirmPwdTextField->getString().empty() ||
-			m_rpCapthaTextField->getString().empty())
+			m_rpConfirmPwdTextField->getString().empty()/* ||
+			m_rpCapthaTextField->getString().empty()*/)
 		{
 			showTips((int)IGMsgcode::RegisterInfoIncomplete);
 			return;
@@ -200,7 +200,7 @@ void IGLoginUI::onRPCaptchaImageTouched(Ref* sender, ui::Widget::TouchEventType 
 {
 	if (touchType == ui::Widget::TouchEventType::ENDED)
 	{
-		m_eventListener.requestCaptcha();
+		// m_eventListener.requestCaptcha();
 	}
 }
 
@@ -245,8 +245,8 @@ void IGLoginUI::onLPConfirmButtonTouched(Ref* sender, ui::Widget::TouchEventType
 	if (touchType == ui::Widget::TouchEventType::ENDED)
 	{
 		if (m_lpUserNameTextFiled->getString().empty() ||
-			m_lpPwdTextField->getString().empty() ||
-			m_lpCaptchaTextField->getString().empty())
+			m_lpPwdTextField->getString().empty() /*||
+			m_lpCaptchaTextField->getString().empty()*/)
 		{
 			showTips((int)IGMsgcode::LoginInfoIncomplete);
 			return;
@@ -268,7 +268,7 @@ void IGLoginUI::onLPCaptchaImageTouched(Ref* sender, ui::Widget::TouchEventType 
 {
 	if (touchType == ui::Widget::TouchEventType::ENDED)
 	{
-		m_eventListener.requestCaptcha();
+		// m_eventListener.requestCaptcha();
 	}
 }
 
