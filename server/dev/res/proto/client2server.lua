@@ -9,5 +9,6 @@ local client2server = {}
 client2server[1] = "requestCaptcha"
 client2server[2] = "registerAccount"
 client2server[3] = "tryLogin"
+client2server[4] = "verify"
 
 return client2server

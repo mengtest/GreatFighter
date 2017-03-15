@@ -41,13 +41,6 @@ function build() {
 	echo "start build redis..."
 	cd $parentPath/3rd/redis-3.2.8
 	make
-
-	# 编译lua-gd
-	echo "===================="
-	echo "start install lua-gd"
-	cd $parentPath/3rd/lua-gd
-	sudo apt-get install lua5.1-dev lualib5.1-dev libgd2-dev
-	make
 }
 
 function clean() {
@@ -82,12 +75,6 @@ function clean() {
 	make clean
 	cd $parentPath/3rd
 	rm -rf redis-3.2.8
-
-	# 清理lua-gd
-	echo "====================="
-	echo "start clean lua-gd..."
-	cd $parentPath/3rd/lua-gd
-	make clean
 }
 
 if [[ "$1" == "all" ]]; then

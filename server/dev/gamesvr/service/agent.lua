@@ -18,6 +18,8 @@ local msgcode = require "common.msgcode"
 local crypt = require "crypt"
 local player = require "logic.agent.player"
 
+local agentObj = nil
+
 local agent = class(base)
 
 function agent:ctor()
@@ -142,7 +144,7 @@ igskynet.register_protocol {
 }
 
 igskynet.start(function()
-    local agentObj == agent.new()
+    agentObj = agent.new()
     igskynet.create(agentObj)
 
     igtimer.init()

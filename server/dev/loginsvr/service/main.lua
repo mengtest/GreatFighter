@@ -19,6 +19,9 @@
     local redisMgrAddr = igskynet.uniqueservice("redismgr")
     igskynet.send(flowAddr, "registerLocal", redisMgrAddr)
 
+    local registerAddr = igskynet.uniqueservice("register")
+    igskynet.send(flowAddr, "registerLocal", registerAddr)
+
     local gateway = igskynet.uniqueservice("gateway")
     igskynet.send(flowAddr, "registerLocal", gateway)
 

@@ -21,7 +21,7 @@ function redismgr:ctor()
     self.dbObjs = {}
 end
 
-function redismgr:dostart()
+function redismgr:establishConnect()
     for k, v in pairs(dbconfig) do 
         if k == const.PLAYER_DB then
             for idx, cfg in ipairs(v) do 
@@ -31,6 +31,9 @@ function redismgr:dostart()
             self.dbObjs[k] = reidslib.connect(v)
         end
     end
+end
+
+function redismgr:dostart()
 end
 
 function redismgr:dostop()
@@ -63,9 +66,14 @@ function redismgr:query(dbName, key)
     if not obj then
         log.info("redismgr|query|can not find db obj by name(%s)", dbName)
         return nil
-    end    
+    end
 
-    return cjson.decode(obj:get(key))
+    local jsonString = obj:get(key)
+    if jsonString then
+        return cjson.decode(jsonString)
+    else
+        return nil
+    end
 end
 
 function redismgr:modify(dbName, key, value)
@@ -82,4 +90,6 @@ end
 igskynet.start(function()
     local redisObj = redismgr.new()
     igskynet.create(redisObj)
+
+    redisObj:establishConnect()
 end)

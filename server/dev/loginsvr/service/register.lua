@@ -17,14 +17,14 @@ local dbconfig = require "dbconfig"
 local register = class(base)
 
 function register:ctor()
-    self.playerUuid = igskynet.call("redismgr", "query", const.LOGIN_DB_SERVER, "playerUuid") or 10000
+    self.playerUuid = igskynet.call(".redismgr", "query", const.LOGIN_DB_SERVER, "playerUuid") or 10000
 
     self.accountQueue = {}
     igskynet.name(".register", igskynet.self())
 end
 
 function register:save()
-    igskynet.send("redismgr", "modify", const.LOGIN_DB_SERVER, self.playerUuid)
+    igskynet.send(".redismgr", "modify", const.LOGIN_DB_SERVER, self.playerUuid)
 end
 
 function register:getDataBaseIndex(playerUuid)
@@ -38,9 +38,9 @@ function register:update()
     local queueLength = #self.accountQueue
     for i = 1, queueLength do 
         local info = table.remove(self.accountQueue, 1)
-        local userInfo = igskynet.call("redismgr", "query", const.LOGIN_DB_ACCOUNT, info.userName)
+        local userInfo = igskynet.call(".redismgr", "query", const.LOGIN_DB_ACCOUNT, info.userName)
         if userInfo then
-            igskynet.send(info.agentAddr, "onRegisterNotify", const.REGISTER_NOTIFY_USER_EXIST)
+            igskynet.send(info.agentAddr, "onRegisterNotify", const.REGISTER_NOTIFY_USER_EXIST, { userName = userInfo.userName, pwd = userInfo.pwd })
         else
             self.playerUuid = self.playerUuid + 1
 
@@ -50,7 +50,8 @@ function register:update()
             playerData.pwd = info.pwd
             playerData.dbIdx = self:getDataBaseIndex(self.playerUuid)
 
-            igskynet.send("redismgr", "add", const.LOGIN_DB_ACCOUNT, playerData.userName, playerData)
+            igskynet.send(".redismgr", "modify", const.LOGIN_DB_SERVER, self.playerUuid)
+            igskynet.send(".redismgr", "add", const.LOGIN_DB_ACCOUNT, playerData.userName, playerData)
             igskynet.send(info.agentAddr, "onRegisterNotify", const.REGISTER_NOTIFY_SUCCESS, { userName = playerData.userName, pwd = playerData.pwd })
         end
     end

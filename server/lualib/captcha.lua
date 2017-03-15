@@ -4,17 +4,9 @@
 
 -- module("captcha", package.seeall)
 
-local gd = require 'gd'
+local gd = require "gd"
 
 local mt = { __index = {} }
-
-
-function new()
-	local cap = {}
-	local f = setmetatable({ cap = cap}, mt)
-	return f
-end
-
 
 local function urandom()
 	local seed = 1
@@ -59,6 +51,11 @@ local function scribble(w,h)
 	return x1, x2
 end
 
+function mt.new()
+	local cap = {}
+	local f = setmetatable({ cap = cap}, mt)
+	return f
+end
 
 function mt.__index:string(s)
 	self.cap.string = s
@@ -187,3 +184,5 @@ function mt.__index:write(outfile, quality)
 	-- Compatibility
 	return self:getStr()
 end
+
+return mt

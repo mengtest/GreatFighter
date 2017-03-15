@@ -12,6 +12,7 @@ local log = require "common.core.log"
 local socket = require "socket"
 local const = require "common.const"
 local json = require "cjson"
+local gatewayconf = require "res.config.gateway"
 
 local loginmgr = class(base)
 
@@ -44,6 +45,7 @@ end
 
 -- 根据负载均衡的算法，选出最佳登陆节点
 function loginmgr:getBestLoginNode()
+    return gatewayconf.gamesvr1 -- TODO 暂时只登陆一个节点
 end
 
 function loginmgr:dostart()

@@ -10,7 +10,7 @@ lualoader = root.."../skynet/lualib/loader.lua"
 cpath = root.."../skynet/cservice/?.so;"..lroot.."/../clib/loggerx/?.so;"
 luaservice = root.."../skynet/service/?.lua;"..lroot.."/gamesvr/service/?.lua;"..lroot.."/common/service/?.lua;"
 lua_cpath = root.."../skynet/luaclib/?.so;"..lroot.."/../clib/cjson/?.so;"
-lua_path = root.."../skynet/lualib/?.lua;../skynet/lualib/?/init.lua;"..lroot.."/?.lua;"..root.."../db/?.lua;"..lroot.."../lualib/?.lua;"
+lua_path = root.."../skynet/lualib/?.lua;../skynet/lualib/?/init.lua;"..lroot.."/?.lua;"..root.."../db/?.lua;"..lroot.."../lualib/?.lua;"..lroot.."/gamesvr/?.lua;"
 
 logger = root.."../log/gamesvr/gamesvr"
 logservice = "loggerx"
@@ -19,4 +19,4 @@ cluster = lroot.."/res/config/clustername.lua"
 
 node_idx = 1
 debug_console_port = 20002
-gateway_conf = "gamesvr"
+gateway_conf = "gamesvr1"

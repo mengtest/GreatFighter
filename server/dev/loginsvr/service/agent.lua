@@ -12,11 +12,11 @@ local log = require "common.core.log"
 local socket = require "socket"
 local const = require "common.const"
 local json = require "cjson"
-local captcha = require "captcha"
 local date = require "common.util.date"
 local protohelper = require "common.util.protohelper"
 local msgcode = require "common.msgcode"
 local crypt = require "crypt"
+local cluster = require "cluster"
 
 local CAPTCHA_CREATE_INTERVAL = 30
 local CAPTCHA_NUM_LEN = 6
@@ -34,6 +34,10 @@ function agent:ctor()
     self.captchaValidTime = 0
 
     math.randomseed(date.now())
+end
+
+function agent:getFd()
+    return self.fd
 end
 
 function agent:dostart(config)
@@ -58,6 +62,7 @@ end
 function agent:onRecv(params)
     local protoType = assert(params.protoType)
     local request = self[protohelper.parse(protoType)]
+
     if request then
         local ret = request(self, params)
         if params.response then
@@ -104,37 +109,13 @@ function agent:onLoginNotify()
 end
 
 ------------client request-----------------
-function agent:requestCaptcha()
-    if date.now() < self.captchaValidTime then
-        return { msgcode = msgcode.IN_CAPTCHA_CD }
-    end
-
-    local captchaStr = ""
-    for i = 1, CAPTCHA_NUM_LEN do 
-        captchaStr = captchaStr .. math.random(0, 9)
-    end
-    self.captchaNumber = tonumber(captchaStr)
-
-    local filename = string.format("captcha_%d.jpg", igskynet.self())
-    local cap = captcha.new()
-
-    cap:font("../dev/res/font/Vera.ttf")
-    cap:string(captchaStr)
-    cap:bgcolor(61, 174, 233)
-    cap:fgcolor(49, 54, 59)
-    cap:line(true)
-
-    cap:generate()
-    cap:write(filename, 70);
-
-    self.captchaValidTime = date.now() + CAPTCHA_CREATE_INTERVAL
-
-    return { msgcode = msgcode.SUCCESS, imageStream = cap:jpegStr(70) }
-end
-
 local function isUserNameLegal(userName)
     -- TODO
     return true
+end
+
+function agent:requestCaptcha()
+    -- TODO
 end
 
 function agent:registerAccount(params)
@@ -142,15 +123,15 @@ function agent:registerAccount(params)
         return { msgcode = msgcode.USER_NAME_ILLEGAL }
     end
 
-    if date.now() > self.captchaValidTime then
-        return { msgcode = msgcode.CAPTCHA_EXPIRED }
-    end
+    -- if date.now() > self.captchaValidTime then
+    --     return { msgcode = msgcode.CAPTCHA_EXPIRED }
+    -- end
 
-    if self.captchaNumber ~= tonumber(params.captcha) then
-        return { msgcode = msgcode.CAPTCHA_INCORRECT }
-    end
+    -- if self.captchaNumber ~= tonumber(params.captcha) then
+    --     return { msgcode = msgcode.CAPTCHA_INCORRECT }
+    -- end
 
-    igskynet.send("register", "insertRegisterQueue", params.userName, params.pwd, igskynet.self())
+    igskynet.send(".register", "insertRegisterQueue", params.userName, params.pwd, igskynet.self())
 
     return { msgcode = msgcode.WAITTING_FOR_REGISTER }
 end
@@ -167,15 +148,15 @@ function agent:tryLogin(params)
         return { msgcode = msgcode.PWD_INCORRECT }
     end
 
-    if date.now() > self.captchaValidTime then
-        return { msgcode = msgcode.CAPTCHA_EXPIRED }
-    end
+    -- if date.now() > self.captchaValidTime then
+    --     return { msgcode = msgcode.CAPTCHA_EXPIRED }
+    -- end
 
-    if self.captchaNumber ~= tonumber(params.captcha) then
-        return { msgcode = msgcode.CAPTCHA_INCORRECT }
-    end
-
-    local dbInfo = igskynet.call("redismgr", "query", const.LOGIN_DB_ACCOUNT, userName)
+    -- if self.captchaNumber ~= tonumber(params.captcha) then
+    --     return { msgcode = msgcode.CAPTCHA_INCORRECT }
+    -- end
+    
+    local dbInfo = igskynet.call(".redismgr", "query", const.LOGIN_DB_ACCOUNT, userName)
     if not dbInfo then
         return { msgcode = msgcode.ACCOUNT_NOT_EXIST }
     end
@@ -186,15 +167,17 @@ function agent:tryLogin(params)
 
     local user = userName .. "@" .. date.now()
     local secret = crypt.base64encode(pwd .. "@" .. date.now()) -- TODO 以后要用真正的secret生成算法，暂时写死
-    local loginNode = igskynet.call("loginmgr", "getBestLoginNode")
+
+    local proxy = cluster.proxy("gamecenter", "loginmgr")
+    local loginNode = igskynet.call(proxy, "getBestLoginNode")
 
     local authInfo = {}
     authInfo.user = user
     authInfo.secret = secret
     authInfo.dbInfo = dbInfo
-    igskynet.send("loginmgr", "registerAuthInfo", dbInfo.playerUuid, authInfo)
+    igskynet.send(proxy, "registerAuthInfo", dbInfo.playerUuid, authInfo)
 
-    return { msgcode = msgcode.SUCCESS, user = user, secret = secret, loginNode = loginNode }
+    return { msgcode = msgcode.SUCCESS, user = user, secret = secret, ip = loginNode.ip, port = loginNode.port }
 end
 
 igskynet.register_protocol {
@@ -208,13 +191,14 @@ igskynet.register_protocol {
         if ret then
             local msg = json.encode(ret)
             local package = string.pack(">s4", msg)
-            socket.write(self.fd, package)
+            socket.write(agentObj:getFd(), package)
         end
     end
 }
 
 igskynet.start(function()
     agentObj = agent.new()
+
     igskynet.create(agentObj)
 
     igtimer.init()

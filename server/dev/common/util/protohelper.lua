@@ -4,8 +4,8 @@
     since: 2017-2-14
 "]]
 
-local client2server = require "res.client2server"
-local server2client = require "res.server2client"
+local client2server = require "res.proto.client2server"
+local server2client = require "res.proto.server2client"
 
 local protohelper = {}
 
