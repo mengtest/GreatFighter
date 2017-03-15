@@ -188,7 +188,10 @@ void IGProtoManager::onRecvMessage(const list<string>& msgs)
 
 void IGProtoManager::onNetworkError(NetworkError error)
 {
-
+	if (error == NetworkError::LostConnection)
+	{
+		m_isConnect = false;
+	}
 }
 
 bool IGProtoManager::canFindSessionID(int sessionID)
