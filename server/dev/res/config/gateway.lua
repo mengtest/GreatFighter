@@ -7,15 +7,15 @@
 local gateway = {}
 
 gateway.loginsvr = {
-	ip = "192.168.225.131",
+	ip = "192.168.0.104",
 	port = 8888,
 	maxClient = 1024,
 }
 
-gateway.gamesvr = {
-	ip = "192.168.225.131",
-	port = 8889,
-	maxClient = 1024,
+gateway.gamesvr1 = {
+    ip = "192.168.0.104",
+    port = 8889,
+    maxClient = 1024,
 }
 
 return gateway
