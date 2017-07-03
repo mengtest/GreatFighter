@@ -1,10 +1,9 @@
 #include "NetworkClient.h"
 #include <iostream>
 
-static NetworkClient* s_networkClient = nullptr;
-
 NetworkClient::NetworkClient()
 {
+	init();
 }
 
 
@@ -13,23 +12,12 @@ NetworkClient::~NetworkClient()
 	stop();
 }
 
-NetworkClient* NetworkClient::getInstance()
-{
-    if (s_networkClient == nullptr)
-    {
-        s_networkClient = new NetworkClient();
-        s_networkClient->init();
-    }
-
-    return s_networkClient;
-}
-
 bool NetworkClient::init()
 {
     return true;
 }
 
-void NetworkClient::start(
+bool NetworkClient::start(
     const string& serverIP, 
     int port, 
     const std::function<void(const list<string>&)>& recvFunction,
@@ -46,7 +34,7 @@ void NetworkClient::start(
     {
         m_errorFunction(NetworkError::CannotCreateSocket);
 
-        return;
+        return false;
     }
 #endif
 
@@ -54,7 +42,7 @@ void NetworkClient::start(
     if (m_socket == -1)
     {
         m_errorFunction(NetworkError::CannotCreateSocket);
-        return;
+        return false;
     }
 
     sockaddr_in serverAddress;
@@ -65,6 +53,8 @@ void NetworkClient::start(
     int connectResult = connect(m_socket, (sockaddr*)&serverAddress, sizeof(serverAddress));
     if (connectResult == -1)
     {
+		string errorString = string(strerror(errno));
+
         switch (errno)
         {
         case ETIMEDOUT:
@@ -82,7 +72,7 @@ void NetworkClient::start(
 			break;
         }
 
-        return;
+        return false;
     }
 
 	m_isSendThreadRunning = true;
@@ -93,6 +83,8 @@ void NetworkClient::start(
 
     m_sendThread.detach();
     m_recvThread.detach();
+
+	return true;
 }
 
 void NetworkClient::stop()
